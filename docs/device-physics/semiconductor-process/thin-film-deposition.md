@@ -1,312 +1,253 @@
 ---
-description: 반도체 박막 증착의 공급·표면 반응 원리와 주요 증착법, 에피택시의 결정학적 관계 및 두께·피복성 평가를 설명한다.
+description: 박막의 핵생성과 성장 형태를 살펴보고, 반도체 증착 공정에서 물질 수송과 표면 반응이 성장률과 단차 피복성에 미치는 영향을 설명한다.
 ---
 
 # 박막 증착 (Thin-film deposition)
 
-박막 증착은 기판 위에 원하는 재료층을 형성하는 공정이다. 반도체 공정에서는 금속 배선, 절연막, 반도체층 등을 증착하며, 같은 재료라도 두께·조성·결정 구조·불순물과 피복 상태에 따라 공정의 결과가 달라진다. 따라서 증착법을 선택할 때는 성장 속도뿐 아니라 **어떤 물질을 어떻게 공급하고, 표면에서 어떤 과정을 거쳐 막으로 만드는지**를 함께 살펴야 한다.[1,2]
+반도체 소자에서 금속 배선, 배선 사이의 절연막, 기판 위에 성장시킨 반도체층은 쓰임새가 다르다. 금속 배선은 단차를 지날 때에도 끊김 없이 이어져야 하고, 깊은 구멍의 내벽에 절연막을 입힐 때는 입구에서 바닥까지 필요한 두께를 확보해야 한다. 결정 기판 위에 반도체층을 성장시킨다면 박막의 결정 방향과 격자 변형도 중요하다. 따라서 목표 두께가 같아도 공정을 선택하는 기준은 달라진다.[1,2,3]
 
-이 문서는 physical vapor deposition (PVD), chemical vapor deposition (CVD), atomic layer deposition (ALD)의 공급·반응 원리를 설명하고, CVD의 한 종류인 metal–organic chemical vapor deposition (MOCVD)와 에피택셜 성장을 연결한다. 전기화학 증착과 용액 기반 코팅의 상세 공정은 범위에 포함하지 않는다.
+## 1. 물질 공급과 박막의 초기 성장
 
-## 1. 성장 과정과 박막 평가의 기준
+### (1) 공급원에서 기판 표면까지
 
-### (1) 공급 방식과 결정학적 관계
+반도체 공정에서 널리 쓰는 세 증착법은 물질을 공급하는 방식과 막을 형성하는 과정에서 차이가 난다.[1,4,5,6,7]
 
-PVD는 고체 또는 액체인 응축상 공급원에서 물질을 물리적으로 방출하여 기판에 도달시키는 방법이다. 대표적으로 evaporation과 sputtering이 있다. Evaporation에서는 가열 중 공급원이 녹을 수 있으므로 PVD 전체를 ‘고체 공급원을 사용하는 공정’으로 한정하지 않는다.[3,4]
+| 증착법 | 기판에 막이 쌓이는 과정 |
+| --- | --- |
+| 물리 기상 증착 <br> Physical vapor deposition (PVD) | 고체나 액체 공급원에서 원자나 분자를 물리적으로 방출하면, 그중 기판에 도달한 입자가 표면에 쌓인다.[4,5] |
+| 화학 기상 증착 <br> Chemical vapor deposition (CVD) | 막을 구성할 원소를 담은 기체 분자, 즉 **전구체**를 공급한다. 전구체가 화학반응을 거쳐 고체막을 형성한다.[1,8] |
+| 원자층 증착 <br> Atomic layer deposition (ALD) | 같은 표면을 서로 다른 반응물에 차례로 노출한다. 각 단계에서 반응할 수 있는 자리가 소모되면 해당 반응이 포화된다.[6,7] |
 
-CVD에서는 기체 전구체를 수송하고 화학반응으로 고체 막을 만든다. ALD는 기판의 각 위치가 반응물에 순차적으로 노출되도록 하고, 각 단계의 표면 반응이 포화되는 성질을 이용한다. 반응물을 시간적으로 나누는 temporal ALD뿐 아니라 공간적으로 분리하는 spatial ALD도 있으므로, 반응기 전체에서 가스를 연속 공급하는지 여부만으로 CVD와 ALD를 구분할 수 없다.[1,5,6]
+기판에 도달한 원자나 분자는 표면에 흡착한 뒤 이동하거나 다시 기체로 탈착할 수 있다. 결정 표면에서 이동하던 원자는 기존 결정층의 가장자리에 붙을 수도 있고, 다른 원자들과 모여 새 결정이 자랄 **핵**을 형성할 수도 있다. 기판 온도를 바꾸면 표면 확산과 탈착 속도가 달라진다. 같은 양의 원자를 공급해도 막에 남는 양과 핵이 자라는 모양이 달라질 수 있는 이유이다.[3,4,9]
 
-**Epitaxy는 증착 장비의 종류가 아니라 박막과 기판 사이의 결정학적 방향 관계를 나타낸다.** 같은 물질의 단결정 위에 성장하면 homoepitaxy, 다른 물질의 결정 위에 성장하면 heteroepitaxy로 구분한다.[2,7] 에피택셜 층은 CVD 계열이나 molecular beam epitaxy (MBE) 등 서로 다른 공급 방식으로 성장시킬 수 있다.[8,9]
+### (2) 층상 성장과 섬 성장
 
-아래 표는 서로 다른 분류 기준을 구별한다. 뒤의 공정 비교에서도 공급 방식과 결정 구조를 따로 판단해야 한다.
+결정 기판 위의 초기 성장은 **기판이 드러난 채 섬이 먼저 자라는지, 기판을 덮는 층이 먼저 생기는지**로 구분할 수 있다. 평평한 기판의 단위 면적을 박막으로 덮으면 원래 있던 기판 표면은 사라지고, 그 자리에 기판과 막 사이의 계면 및 막의 윗면이 생긴다. 새 계면과 윗면을 만드는 데 드는 자유에너지의 합이 원래 기판 표면의 자유에너지보다 작으면, 변형 에너지를 무시할 수 있는 조건에서 막이 기판 위에 퍼지는 편이 유리하다.[9,10]
 
-| 구분 | 분류 기준 | 이 문서의 대표 사례 |
-| --- | --- | --- |
-| PVD | 응축상 공급원의 물리적 방출 | 가열에 의한 evaporation, 이온 충돌에 의한 sputtering[3,4,10,11] |
-| CVD | 기체 전구체의 화학반응 | 열적 CVD, 플라즈마를 이용하는 CVD[1,12] |
-| ALD | 분리된 순차 표면 반응의 포화 | Temporal ALD, spatial ALD[5,6,13] |
-| Epitaxy | 기판과 성장 결정의 방향 관계 | Si 위의 Si, 화합물 반도체의 이종 에피택셜 층[2,8,9] |
+| 성장 형태 | 증착 초기의 모습 |
+| --- | --- |
+| 층상 성장(Frank–van der Merwe) | 이상적인 경우에는 한 층이 옆으로 자라 기판을 덮은 뒤 다음 층이 자란다. |
+| 섬 성장(Volmer–Weber) | 기판을 완전히 덮기 전에 서로 떨어진 3차원 섬이 자란다. 섬 사이에는 기판이 드러난다. |
+| 층상 성장 후 섬 성장(Stranski–Krastanov) | 먼저 얇은 **젖음층**이 기판을 덮고, 그 층 위에 3차원 섬이 생긴다. |
 
-### (2) 표면에서의 흡착과 성장
+세 형태는 성장 순서를 나타낸다. 예를 들어 격자 주기가 다른 두 결정에서는 기판에 맞추어 자란 젖음층이 두꺼워질수록 탄성 변형 에너지가 커져 섬 형성이 유리해질 수 있다. 실제 증착에서는 원자의 도달 속도와 표면에서의 이동 속도도 형상에 영향을 준다. 떨어진 섬이 자라는 단계라면 증착량을 면적당 평균 두께로 환산해도 그 두께의 막이 기판 전체를 덮었다고 해석할 수 없다.[9,10]
 
-표면에 도달한 원자나 분자가 모두 박막에 남는 것은 아니다. 입자는 흡착한 뒤 표면을 이동하거나, 다른 종과 반응하여 결정에 편입되거나, 다시 탈착할 수 있다. 따라서 공급원의 방출량과 최종 막의 성장량을 동일시해서는 안 된다. 기판 온도와 표면 상태는 이러한 과정의 상대적인 속도에 영향을 준다.[3,8]
+### (3) 성장률, 두께 균일도와 단차 피복성
 
-예를 들어 기판 온도를 조절하면 흡착종의 표면 이동과 탈착 조건이 함께 달라진다. 표면에서 충분히 이동하여 결합할 수 있는 조건과 표면에 머물지 못하는 조건은 구별해야 한다. 따라서 공급량을 일정하게 유지해도 기판의 조건이 달라지면 같은 성장 결과를 기대할 수 없다.[3,8]
-
-후속 절의 단순 CVD 모델은 이 복잡한 표면 과정을 하나의 유효 반응 계수로 묶는다. ALD에서는 표면의 반응 가능한 자리가 소모되면 같은 반응물을 더 공급해도 추가 반응이 제한된다. 따라서 CVD의 연속 성장률과 ALD의 사이클당 성장량은 서로 다른 방식으로 해석해야 한다.[1,13,14]
-
-### (3) 두께, 균일도와 단차 피복성
-
-막 두께를 $d$, 공정 시간을 $\tau$로 나타내면, 두 시점 사이의 평균 증착률 $\overline{R}_\mathrm{dep}$은 다음과 같이 정의할 수 있다. 두께를 nm, 시간을 s로 입력하면 결과는 nm/s이다. 이는 측정 구간의 평균이며, 성장 전 과정에서 속도가 일정하다는 가정은 포함하지 않는다.[1,13]
+막 두께를 $d$, 증착 시간을 $\tau$라 하면 두 시점 사이의 **평균 증착률**은 다음과 같다. 두께를 nm, 시간을 s로 대입하면 단위는 nm/s이다. 구간 안에서 성장률이 달라져도 이 평균값을 구할 수 있다.[1,7]
 
 $$
 \overline{R}_\mathrm{dep}
 =\frac{d(\tau_2)-d(\tau_1)}{\tau_2-\tau_1}.
 $$
 
-웨이퍼 내 uniformity는 서로 다른 평탄한 위치에서 두께가 얼마나 일정한지를 뜻한다. 반면 conformality는 단차를 따라 윗면·측벽·바닥에도 유사한 두께가 형성되는지를 나타낸다. 평탄한 웨이퍼에서 두께가 균일하더라도 깊은 홀의 내부는 제대로 덮이지 않을 수 있다.[1,5]
-
-이 문서에서는 step coverage (SC), 즉 단차 피복성을 비교하기 위해 윗면 두께 $d_\mathrm{top}$을 기준으로 측벽과 바닥의 두께를 각각 정규화한다. 구조의 깊이 $h$와 입구 폭 $w$로 aspect ratio (AR)를 정의한다. 모든 길이를 같은 단위로 넣으면 아래 값들은 무차원이다. 두께는 각 위치의 표면에 수직인 방향으로 측정한다.[1,5]
-
-$$
-\begin{aligned}
-SC_\mathrm{side}&=\frac{d_\mathrm{side}}{d_\mathrm{top}},\qquad
-SC_\mathrm{bottom}=\frac{d_\mathrm{bottom}}{d_\mathrm{top}},\\
-AR&=\frac{h}{w}.
-\end{aligned}
-$$
-
-두 피복 비율이 1에 가까우면 선택한 측정 위치의 두께가 윗면과 비슷하다는 뜻이다. 그러나 한 위치의 비율만으로 전체 측벽을 대표할 수는 없다. 따라서 피복 비율을 보고할 때에는 측정 위치를 함께 제시한다.[1,5]
+**웨이퍼 내 두께 균일도**를 평가할 때는 중심과 가장자리 등 여러 위치의 평탄부에서 두께를 비교한다. 단차의 피복 정도를 수치로 나타내는 step coverage (SC)는 한 구조의 윗면을 기준으로 측벽이나 바닥에 얼마나 두껍게 막이 쌓였는지를 나타낸다. 표면의 굴곡을 따라 두께가 얼마나 일정한지를 나타내는 성질을 등각성(conformality)이라 한다. 이를 평가할 때는 한 지점의 두께 비와 함께 깊이에 따른 두께 분포를 살핀다.[1,6]
 
 !!! info "[Measurement]"
-    공정 시간을 달리한 시편에서 두께를 측정하고 위의 차분식으로 평균 증착률을 구한다. 웨이퍼의 위치별 두께 분포와 구조 내부의 단면 두께는 별도로 기록한다. 단면의 윗면·측벽·바닥 두께로 피복 비율을 계산할 때에는 측벽 측정 깊이와 구조의 폭·깊이도 함께 보고한다. 단면 관찰과 두께 분포의 예시는 Cremers 등의 원문 §III에서 확인할 수 있다.[1,5]
+    단면에서 윗면 두께 $d_\mathrm{top}$, 측벽 두께 $d_\mathrm{side}$, 바닥 두께 $d_\mathrm{bottom}$을 각각 **그 면에 수직인 방향**으로 측정한다. 여기서는 증착 전 구조의 깊이 $h$와 입구 폭 $w$로 종횡비 $h/w$를 정한다. 종횡비의 영문 표기는 aspect ratio (AR)이다. 길이 단위를 통일하면 아래의 세 비율은 모두 무차원이다.[1,6]
 
-## 2. PVD: 물리적 방출과 기하학적 수송
+    $$
+    SC_\mathrm{side}=\frac{d_\mathrm{side}}{d_\mathrm{top}},\qquad
+    SC_\mathrm{bottom}=\frac{d_\mathrm{bottom}}{d_\mathrm{top}},\qquad
+    AR=\frac{h}{w}.
+    $$
 
-### (1) Evaporation
+    예를 들어 깊이 1 µm, 폭 100 nm인 트렌치의 윗면, 깊이 절반의 측벽, 바닥 중앙에서 막 두께가 각각 10, 9, 4 nm라고 가정하자. 종횡비는 10이고 측벽 피복률은 90%, 바닥 피복률은 40%이다. ‘측벽 피복률 90%’만 기록하면 가장 얇게 측정된 바닥의 상태를 놓친다.[1,6]
 
-Evaporation은 공급원을 가열하여 기화시킨 뒤 기판에 응축시키는 방법이다. 저항 가열은 보트나 필라멘트 등을 사용하고, electron-beam evaporation은 전자빔으로 공급원을 국소적으로 가열한다. 전자빔 가열에서는 도가니 전체의 온도를 올리는 방식과 다른 열적 조건으로 공급원을 증발시킬 수 있다.[3,4]
+## 2. 물리 기상 증착
+
+### (1) 진공 증발 증착과 입사 방향
+
+진공 증발 증착(evaporation)에서는 증착할 물질을 가열해 기화시키고 기판 위에 응축시킨다. 저항 가열 방식은 전류로 가열한 보트나 필라멘트에서 열을 전달하고, 전자빔 방식은 전자빔을 증발원에 집중시켜 재료를 국소적으로 가열한다.[4,5]
 
 <figure markdown="span">
   ![진공 챔버에서 증발원을 가열하고 방출된 물질이 위쪽 기판으로 이동하는 증착 장치](images/evaporation-chamber.jpg)
-  <figcaption markdown="1">그림 1. Evaporation 장치의 예. 증발원에서 나온 물질이 기판으로 향한다. 그림은 레이저 또는 전자빔 가열의 예이며, 모든 장비가 같은 구성을 갖는 것은 아니다.[3,4] 출처: Dipl-ing-metaller, “PVD-CVD,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:PVD-CVD.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). 파일 수정 없음.[19]</figcaption>
+  <figcaption markdown="1">그림 1. 진공 증발 증착 장치의 예. 아래쪽에서 증발원을 가열하면 방출된 물질이 위쪽 기판으로 향한다.[4,5] 출처: Dipl-ing-metaller, “PVD-CVD,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:PVD-CVD.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). 파일 수정 없음.[11]</figcaption>
 </figure>
 
-공급원의 온도는 증기압과 방출률에 영향을 준다. 하지만 기판에서 얻는 두께는 방출률만으로 결정되지 않는다. 공급원과 기판의 거리, 상대적인 방향 및 표면에 남는 비율도 필요하다. 방출원을 기준으로 여러 방향으로 퍼져 나간 입자 가운데 기판에 입사한 부분만 막 형성에 기여하기 때문이다.[3,4]
+증발원의 온도를 높이면 증기압이 올라가 방출률이 커진다. 이때 기판에 쌓이는 양을 알려면 기판이 증발원에서 얼마나 떨어져 있고 어느 방향을 향하는지도 알아야 한다. 증발원과 기판 사이의 거리보다 입자의 평균 자유 행로가 충분히 길면, 기체 분자와의 충돌이 드물어 입자가 직선으로 날아간다고 근사할 수 있다.[4,5]
 
-잔류 기체와의 충돌을 무시할 만큼 평균 자유 경로가 길면, 공급원에서 기판까지의 수송은 직선 경로로 근사할 수 있다. 이 조건에서 돌출부나 홀의 입구가 경로를 가리면 shadowing이 생긴다.[2,4]
+이 조건에서 트렌치의 입구가 증발원과 측벽 사이의 경로를 가리면, 가려진 부분에 직접 도달하는 입자가 줄어든다. 이를 **그림자 효과**(shadowing)라 한다. 따라서 평탄부에서 증착률을 높여도 입구 아래의 얇은 부분은 남을 수 있다. 단차가 있는 금속 배선에서는 단면에서 막이 가장 얇아지는 위치까지 확인해야 한다.[1,2,5]
 
-따라서 평탄한 금속막에 적합한 증발 조건을 깊은 구조에 그대로 적용해서는 안 된다. 공급원과 기판의 기하학적 관계를 바꾸면 입사 조건이 바뀌므로, 표면별 두께를 확인하면서 원하는 방향성과 피복성을 갖추었는지 판단한다.[2,4]
+### (2) 스퍼터링과 방출 수율
 
-### (2) Sputtering
+스퍼터링(sputtering)에서는 고에너지 입자가 고체 **타깃**에 충돌해 운동량을 전달하면 타깃 원자가 방출된다. 대표적인 장치에서는 플라즈마 속 아르곤 이온($\mathrm{Ar^+}$)이 타깃을 향해 가속되고, 타깃에서 튀어나온 원자 중 일부가 기판에 쌓인다.[12,13]
 
-Sputtering은 이온 등의 고에너지 입자가 고체 target에 충돌하여 target 원자를 방출시키는 과정이다. 대표적인 증착 구성에서는 플라즈마의 Ar 이온을 target 쪽으로 가속하고, 방출된 물질이 기판에 쌓이도록 한다. Evaporation과 달리 방출의 직접 원인은 공급원의 가열에 의한 기화가 아니라 충돌에 따른 운동량 전달이다.[10,11]
-
-입사 이온 수를 $N_\mathrm{ion}$, 그 충돌로 target에서 방출된 원자 수를 $N_\mathrm{ejected}$라 하면 sputtering yield $Y$는 다음과 같이 정의한다. 이는 이온 한 개당 방출 원자 수라는 무차원 평균이며, 기판에 도달한 원자 수를 뜻하지 않는다.[10,11]
+타깃에 입사한 이온 수를 $N_\mathrm{ion}$, 방출된 타깃 원자 수를 $N_\mathrm{ejected}$라 하면 **스퍼터링 수율** $Y$는 이온 하나당 방출되는 평균 원자 수이다.[12,13]
 
 $$
 Y=\frac{N_\mathrm{ejected}}{N_\mathrm{ion}}.
 $$
 
-Yield는 입사 이온의 에너지에 의존한다. 이온 에너지를 바꾸면 단순히 가열 온도만 달라지는 것이 아니라 충돌에 의한 방출 조건이 변한다. 또한 target에서 방출된 뒤의 기체 충돌과 입사 방향 분포가 막의 피복에 영향을 주므로, 높은 yield가 곧 높은 바닥 피복 비율을 의미하지는 않는다.[10,11]
+수율은 입사 이온의 에너지에 따라 달라진다. 수율로 알 수 있는 양은 타깃에서 나온 원자 수까지이다. 방출된 원자는 기판으로 이동하는 동안 기체 입자와 충돌해 방향이 바뀔 수 있다. 기판에서 보이는 입사각 분포는 압력과 장비 형상에 따라 달라지므로, 타깃의 수율과 트렌치 바닥의 피복률은 따로 평가한다.[1,12,13]
 
-Sputtering에서도 입사각의 분포와 shadowing을 고려해야 한다. 압력과 장비 형상에 따라 기판에 도달하는 입자의 방향 분포가 달라지며, 평탄한 표면의 증착률과 좁은 구조 안의 피복성은 별도로 평가한다. 따라서 ‘PVD는 언제나 동일한 피복성을 갖는다’는 비교 대신 실제 증착 조건과 단면 두께를 함께 제시하는 것이 적절하다.[1,11]
+## 3. 화학 기상 증착
 
-## 3. CVD: 기체 수송과 표면 반응
+### (1) 물질 전달과 표면 반응의 정상상태 모형
 
-### (1) 일차 반응과 정상상태 모델
-
-CVD의 성장률은 전구체가 기판 가까이 도달하는 속도와, 도달한 전구체가 표면에서 소비되는 속도의 영향을 함께 받는다. 실제로는 흡착, 반응, 부산물 탈착 및 배출이 이어지지만, 다음 모델에서는 기체 전달과 유효 표면 반응의 두 단계로 묶는다. 한 종류의 제한 전구체에 대한 일차 반응을 가정하고, 기상 반응·역반응과 표면 축적을 무시하는 정상상태 근사이다.[1,12]
+CVD에서는 전구체가 기판 표면까지 이동한 뒤 흡착해 반응하고, 휘발성 부산물이 표면에서 떨어져 나간다. 평탄한 기판의 국소 성장률을 구하는 간단한 모형에서는 이 과정을 **기체에서 표면으로의 물질 전달**과 **표면에서의 전구체 소비**로 나눈다. 성장률을 좌우하는 전구체가 한 종류이고 표면 소비 속도는 그 농도에 비례한다고 가정한다. 기상 반응과 역반응은 무시한다.[1,8]
 
 <figure markdown="span">
   ![반응 기체가 여러 기판을 지나가고 반응기 바깥에서 가열하는 열 CVD 장치](images/thermal-cvd-reactor.svg)
-  <figcaption markdown="1">그림 2. 열 CVD 반응기의 한 예. 공급 기체가 가열된 반응기 안의 여러 기판을 지나간다. 실제 반응기 형상과 기체 공급 방식은 공정에 따라 다르다.[1,12] 출처: S-kei의 원도를 Д.Ильин이 벡터화한 “ThermalCVD-en,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ThermalCVD-en.svg), [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). 파일 수정 없음.[20]</figcaption>
+  <figcaption markdown="1">그림 2. 열 CVD 반응기의 한 예. 공급 기체가 가열된 반응기 안의 여러 기판을 지나간다. 실제 반응기 형상과 기체 공급 방식은 공정에 따라 다르다.[1,8] 출처: S-kei의 원도를 Д.Ильин이 벡터화한 “ThermalCVD-en,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ThermalCVD-en.svg), [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). 파일 수정 없음.[14]</figcaption>
 </figure>
 
-주 기체 흐름과 표면 바로 위에서의 전구체 수농도를 각각 $C_g$, $C_s$로 두고 단위는 $\mathrm{m^{-3}}$로 정한다. 기체 전달 계수 $h_g$와 일차 표면 반응 계수 $k_s$는 모두 m/s이다. 표면으로 향하는 전달 플럭스 $J_\mathrm{tr}$와 표면에서 소비되는 플럭스 $J_\mathrm{rxn}$의 양의 방향을 기판으로 정하면 다음과 같다.[1,12]
+표면에서 떨어진 주 기류와 표면 바로 위 기체에서의 전구체 수농도를 각각 $C_g$, $C_s$($\mathrm{m^{-3}}$)라 하자. 물질 전달 계수 $h_g$와 일차 표면 반응 계수 $k_s$의 단위는 모두 m/s이다. 단위 시간에 표면의 단위 면적에 도달하는 전구체 수 $J_\mathrm{tr}$와 반응으로 소비된 전구체 수 $J_\mathrm{rxn}$를 각각 양수로 세면 다음과 같다.[1,8]
 
 $$
 J_\mathrm{tr}=h_g(C_g-C_s),\qquad
-J_\mathrm{rxn}=k_sC_s.
+J_\mathrm{rxn}=k_s C_s.
 $$
 
-두 플럭스의 단위는 $\mathrm{m^{-2}\,s^{-1}}$이며 전구체 입자 수를 센다. 표면에 전구체가 계속 축적되지 않는 정상상태에서는 두 값이 같다. 이를 $J$로 놓고 위의 두 식을 풀면 표면 농도와 순소비 플럭스를 얻는다.[1,12]
+정상상태에서는 표면에 전구체가 누적되지 않으므로 두 플럭스가 같다. 두 식을 같게 놓고 풀면 표면 농도와 공통 플럭스 $J$($\mathrm{m^{-2}\,s^{-1}}$)를 얻는다. 유효 계수 $k_\mathrm{eff}$의 역수는 두 단계 각각의 저항에 해당하는 역수의 합이다.[1,8]
 
 $$
-\begin{aligned}
-C_s&=\frac{h_g}{h_g+k_s}C_g,\\
-J&=\frac{h_gk_s}{h_g+k_s}C_g=k_\mathrm{eff}C_g,\\
-\frac{1}{k_\mathrm{eff}}&=\frac{1}{h_g}+\frac{1}{k_s}.
-\end{aligned}
+C_s=\frac{h_g}{h_g+k_s}C_g,\qquad
+J=k_\mathrm{eff} C_g,\qquad
+\frac{1}{k_\mathrm{eff}}=\frac{1}{h_g}+\frac{1}{k_s}.
 $$
 
-유효 계수 $k_\mathrm{eff}$ 역시 m/s이다. 이 식은 기체 전달과 표면 반응 중 느린 과정이 전체 공급을 제한한다는 뜻이다. 양의 계수에 대해 $k_\mathrm{eff}$는 $h_g$와 $k_s$ 각각보다 작다. 따라서 전달과 반응의 두 단계가 직렬로 필요한 이 모델에서는 어느 한 단계의 플럭스만으로 전체 성장률을 과대평가할 수 있다.[1,12]
-
-전구체 한 개가 소비될 때 고체에 편입되는 유효 부피를 $\Omega_\mathrm{inc}$로 두면 두께 성장률은 아래와 같이 변환한다. $\Omega_\mathrm{inc}$의 단위는 전구체 한 개당 $\mathrm{m^3}$이며, 화학량론과 고체의 수밀도를 포함한다. 예를 들어 전구체 한 개당 고체 원자 하나가 편입되고 고체 원자 수밀도가 $n_s$이면 $\Omega_\mathrm{inc}=1/n_s$이다.[1,12]
+$J$를 두께 성장률로 바꾸려면 소비된 전구체 한 분자당 고체에 더해지는 평균 부피 $\Omega_\mathrm{inc}$($\mathrm{m^3}$)가 필요하다. 예를 들어 소비된 한 분자에서 원자 하나가 한 원소로 이루어진 막에 편입되고 막의 원자 수밀도가 $n_s$이면 $\Omega_\mathrm{inc}=1/n_s$이다. 막의 밀도와 편입되는 원자 수가 주어졌을 때, 표면에 수직인 방향의 성장률 $R_\mathrm{dep}$은 다음과 같고 단위는 m/s이다.[1,8]
 
 $$
 R_\mathrm{dep}=\Omega_\mathrm{inc}J.
 $$
 
-이 관계로 얻는 성장률의 단위는 m/s이다. 플럭스가 전구체 분자를 세는지, 고체 원자를 세는지 먼저 정하지 않고 질량밀도나 원자 수밀도로 나누면 단위 또는 화학량론이 어긋난다. 위의 식은 편입 효율과 막 밀도를 주어진 값으로 처리하는 두께 변환이며, 그 값 자체를 수송 모델이 예측하는 것은 아니다.[1,12]
+### (2) 성장률을 제한하는 단계
 
-### (2) 반응 제한과 전달 제한
-
-아래 표는 위 모델의 두 극한을 비교한다. ‘제한’은 해당 단계만 존재한다는 뜻이 아니라, 다른 단계보다 전체 성장에 더 큰 저항을 준다는 뜻이다.[1,12]
-
-| 영역 | 계수의 관계와 근사 | 표면 농도와 공정 해석 |
+| 제한 단계 | 계수의 관계 | 표면에서 일어나는 일 |
 | --- | --- | --- |
-| Surface-reaction-limited | $k_s\ll h_g$, $J\approx k_sC_g$ | $C_s\approx C_g$이며 전구체는 공급되지만 반응이 느리다. 온도에 따른 반응 계수 변화가 중요하다. |
-| Mass-transport-limited | $h_g\ll k_s$, $J\approx h_gC_g$ | $C_s\ll C_g$이며 빠른 반응이 표면 부근 전구체를 소모한다. 유동과 기체 전달의 균일성이 중요하다. |
+| 표면 반응 제한 | $k_s\ll h_g$ | 공급에 비해 반응이 느려 $C_s\approx C_g$이다. 따라서 $J\approx k_s C_g$이다.[1,8] |
+| 물질 전달 제한 | $h_g\ll k_s$ | 반응이 빨라 표면 근처의 전구체가 고갈된다. $C_s\ll C_g$이고 $J\approx h_g C_g$이다.[1,8] |
 
-두 극한 사이에서는 어느 하나의 근사식 대신 결합식을 사용한다. 온도가 증가할 때 반응 속도가 기체 전달보다 빠르게 증가하는 공정에서는 반응 제한에서 전달 제한으로 넘어갈 수 있다. 그러므로 온도를 높였는데 성장률 증가가 둔해졌다는 관측은 전달 제한과 일관될 수 있지만, 그 사실만으로 모든 기상·표면 반응을 식별한 것은 아니다.[1,12]
+두 단계의 속도가 비슷하면 어느 쪽도 생략하기 어렵다. 예를 들어 $h_g=k_s$라면 $C_s=C_g/2$이고 $J=h_g C_g/2$이다. $C_g$와 $h_g$를 고정하고 $k_s$만 두 배로 높여도 새 플럭스는 $2h_g C_g/3$이다. 표면 반응 계수는 두 배가 됐지만 기체에서 표면으로 물질을 전달하는 데에도 시간이 걸리므로, 플럭스는 원래의 $4/3$배가 된다.[1,8]
 
-반응기 규모의 전달과 미세 구조 안의 전달도 구분해야 한다. 웨이퍼 위의 주 흐름이 균일하더라도 깊은 구조 안에서는 표면 소모와 제한된 수송 때문에 전구체 농도가 낮아질 수 있다. 위의 단일 $C_s$ 모델은 공간별 농도 분포를 풀지 않으므로, 이 식만으로 단차 피복성을 계산할 수 없다.[1,5]
+기판을 가열했을 때 표면 반응이 물질 전달보다 빠르게 가속되는 공정에서는, 낮은 온도에서 온도에 민감하던 성장률이 높은 온도에서 완만하게 변할 수 있다. 이 모형에서 $C_s$는 평탄한 표면 한 위치의 농도이다. 트렌치 안쪽의 피복률을 예측하려면 입구에서 바닥까지 전구체가 이동하면서 측벽 반응으로 얼마나 소모되는지도 알아야 한다.[1,6,8]
 
-### (3) 압력과 반응 활성화에 따른 구분
+### (3) 압력과 플라즈마의 역할
 
-Atmospheric-pressure CVD (APCVD)와 low-pressure CVD (LPCVD)는 주로 압력 조건을 구별하며, plasma-enhanced CVD (PECVD)는 반응 활성화에 플라즈마를 사용하는 방식을 가리킨다. 따라서 압력과 활성화 방법은 서로 다른 분류 축이다.[1,12]
+반응기 압력에 따라 상압 공정과 저압 공정을 구분하며, 각각 atmospheric-pressure CVD (APCVD)와 low-pressure CVD (LPCVD)라 부른다. 압력은 기체 내 물질 전달에 영향을 주며, 물질 전달이 성장을 제한할 때에는 위치에 따른 유동 차이가 두께 차이로 이어질 수 있다. 저압에서 물질 전달이 표면 반응에 비해 충분히 빠르면 성장률은 표면 반응에 더 민감해진다.[1,8]
 
-| 방식 | 대표적인 조절 수단 | 공정 해석의 초점 |
-| --- | --- | --- |
-| APCVD | 대기압 부근의 기체 유동과 기판 온도 | 전달 제한 조건에서는 유동·경계층 변화가 균일도에 영향을 준다.[1,12] |
-| LPCVD | 낮은 압력과 열적 반응 | 압력을 낮추면 기체 전달 조건이 달라져 반응 제한으로 운전할 수 있는 범위가 바뀐다.[1,12] |
-| PECVD | 플라즈마에 의한 반응종 활성화 | 열만 사용하는 경우보다 낮은 기판 온도에서 필요한 반응을 진행시키는 데 이용한다.[2,12] |
+Plasma-enhanced CVD (PECVD)는 플라즈마로 반응을 활성화하는 방법이다. 플라즈마에서 만들어진 반응종을 이용하면 열만으로 반응을 진행할 때보다 낮은 기판 온도에서 증착할 수 있다. 이미 형성한 소자층 때문에 후속 공정의 온도를 낮춰야 할 때 고려할 수 있는 방법이다. 이때에도 얻어진 막의 조성이나 밀도는 별도로 확인한다.[1,2,8]
 
-이 명칭들만으로 막의 조성·밀도·응력이나 전기적 특성이 결정되지는 않는다. PECVD로 낮은 온도에서 막을 형성할 수 있다는 사실도, 높은 온도에서 형성한 막과 같은 특성을 보장하지 않는다. 공정 비교에는 성장률뿐 아니라 실제 막의 특성과 기판이 허용하는 열적 조건을 포함해야 한다.[1,2,12]
+## 4. 유기금속 화학 기상 증착과 GaN 성장
 
-## 4. MOCVD: 전구체 공급과 화합물 반도체 성장
+Metal–organic chemical vapor deposition (MOCVD)은 금속 원소를 유기금속 전구체로 공급하는 CVD 공정이다. 질화갈륨($\mathrm{GaN}$)의 에피택셜 성장에서는 trimethylgallium (TMGa)으로 Ga를, 암모니아($\mathrm{NH_3}$)로 N을 공급할 수 있다. 두 기체를 반응기에 넣은 뒤에는 전구체의 분해, 기상 부반응, 표면으로의 수송을 거쳐 일부가 막 성장에 기여한다.[15,16,17]
 
-### (1) 유기금속 전구체와 표면 성장
-
-MOCVD는 유기금속 전구체를 이용하는 CVD 계열의 공정이다. 기체 공급·분해·표면 반응을 제어하면서 화합물 반도체의 조성과 층 두께를 형성한다. 유기금속이라는 명칭이 모든 반응물이 유기금속이어야 한다는 뜻은 아니다.[9,15,16]
-
-GaN 성장의 대표적인 조합은 Ga 공급원인 trimethylgallium (TMGa)과 N 공급원인 암모니아 $\mathrm{NH_3}$이다. 두 반응물의 공급량뿐 아니라 분해되어 실제 성장에 참여하는 정도가 중요하다. 전구체의 투입 몰 유량을 같게 맞추는 것이 곧 GaN 결정에서 필요한 Ga와 N의 편입량을 맞추는 방법은 아니다.[15,16]
-
-가스 공급계에서 정한 양과 성장 표면에 실제 도달하여 반응하는 양 사이에는 수송과 화학반응이 개입한다. MOCVD를 이해할 때는 공급계의 설정값, 표면에 도달한 반응종, 고체에 편입된 양을 나누어 생각해야 한다.[9,15,16]
-
-### (2) V/III 공급비와 해석의 한계
-
-GaN의 TMGa–암모니아 조합에서 입력 V/III ratio를 다음과 같이 정의한다. $\dot n_{\mathrm{NH_3}}$와 $\dot n_{\mathrm{TMGa}}$는 각각 공급되는 전구체의 몰 유량이며, 같은 단위인 mol/s 또는 mol/min으로 환산한다. 이 경우 각 분자는 각각 N 원자와 Ga 원자를 하나씩 포함한다.[15,16]
+이 조합에서 **V/III 공급비**는 V족 원소인 N을 공급하는 암모니아의 몰 유량 $\dot n_{\mathrm{NH_3}}$를 III족 원소인 Ga를 공급하는 TMGa의 몰 유량 $\dot n_{\mathrm{TMGa}}$로 나눈 값이다. 분자 하나에 각각 N과 Ga가 하나씩 있으므로 두 유량을 같은 단위(예를 들어 mol/min)로 나타내면 다음의 무차원 비를 얻는다.[16,17]
 
 $$
-(V/III)_\mathrm{in}
-=\frac{\dot n_{\mathrm{NH_3}}}{\dot n_{\mathrm{TMGa}}}.
+(V/III)_\mathrm{in}=\frac{\dot n_{\mathrm{NH_3}}}{\dot n_{\mathrm{TMGa}}}.
 $$
 
-이 무차원 비율은 **입력 전구체의 비**이다. 성장 표면에서 반응할 수 있는 활성 N과 Ga 종의 비 또는 완성된 고체의 원자 조성비와는 구별한다. 분해 효율과 기상 부반응, 유동 조건이 개입하기 때문에 서로 다른 반응기에서 같은 입력 V/III 값을 사용했다고 해서 같은 성장 조건을 실현한 것은 아니다.[15,16]
+암모니아의 유량을 두 배로 늘리는 경우와 TMGa의 유량을 절반으로 줄이는 경우를 비교해 보자. 두 경우 모두 V/III 공급비는 두 배가 되지만, 두 번째 경우에는 단위 시간에 공급하는 Ga의 양도 절반으로 줄어든다. 공급비만 같다고 해서 표면에 도달하는 활성종의 양이나 막의 성장률까지 같아지는 것은 아니다. GaN 성장 결과를 비교할 때에는 두 전구체의 절대 유량, 온도, 압력과 측정한 성장률을 함께 기록한다.[16,17]
 
-이 구분은 조건을 바꾼 실험을 해석할 때 유용하다. 암모니아 유량을 늘리는 것과 TMGa 유량을 줄이는 것은 모두 입력 V/III를 키우지만, 두 경우의 절대 공급량과 성장률은 같지 않을 수 있다. 따라서 비율 하나만 보고 조건을 옮기지 않고 각 전구체 유량, 온도, 압력과 측정된 성장률을 함께 기록한다.[15,16]
+## 5. 원자층 증착과 반응의 포화
 
-MOCVD의 목적이 에피택셜 층이라면 막이 생겼다는 사실만으로 성공을 판단할 수 없다. 조성과 두께 외에도 성장 결정과 기판의 관계를 확인해야 한다. 앞의 CVD 모델은 수송과 반응의 경쟁을 이해하는 출발점이지만, 결정 결함이나 격자 변형을 직접 예측하지는 않는다. 이 구분은 6절에서 다룬다.[8,9]
+### (1) 반응물의 순차 공급과 표면 반응
 
-## 5. ALD: 분리된 표면 포화반응
+ALD의 각 반쪽 반응은 **자기 제한적**(self-limiting)이다. 한 반응물이 접근할 수 있는 표면 반응 자리를 모두 소모하면, 그 반응물을 더 공급해도 같은 반응은 더 진행되지 않는다. 다음 반응물이 표면의 화학적 상태를 바꾸면 다시 성장할 수 있다. 한 사이클에서 반응하는 자리의 수와 표면에 남는 원자의 수는 표면 화학에 따라 달라지므로, 한 사이클을 결정학적 원자층 하나와 일대일로 대응시킬 수는 없다.[6,7,18]
 
-### (1) Temporal ALD와 spatial ALD
-
-ALD의 핵심은 표면이 서로 분리된 반응물에 순차적으로 노출되고, 각 반응 단계가 self-limiting하게 진행된다는 점이다. Temporal ALD에서는 시간에 따라 주입과 제거를 반복한다. Spatial ALD에서는 반응물 영역을 공간적으로 나누고 기판과 공급부를 상대적으로 이동시켜 같은 표면이 각 반응물을 순서대로 만나게 한다.[5,6,13]
-
-아래 표는 두 반응물을 사용하는 temporal ALD 한 사이클의 대표적인 구성이다. Purge는 불활성 기체와 배기 등을 이용하여 남은 기상 반응물과 부산물을 제거하는 단계이며, 이미 형성된 표면 결합을 모두 제거하는 과정이 아니다.[13,14]
-
-| 단계 | 표면과 기체에서의 과정 | 다음 단계에 필요한 조건 |
-| --- | --- | --- |
-| A 주입 | A가 반응 가능한 표면 자리와 반응한다. | 목표 표면에 충분한 노출을 제공한다. |
-| 첫 purge | 남은 A와 기상 부산물을 제거한다. | B와 A의 기상 혼합을 억제한다. |
-| B 주입 | B가 A 반응 후의 표면과 반응한다. | 다음 A 반응에 필요한 표면 상태를 만든다. |
-| 둘째 purge | 남은 B와 기상 부산물을 제거한다. | 다음 사이클의 A와 분리한다. |
+시간 분할 ALD(temporal ALD)는 같은 반응 공간에 첫 반응물 주입 → 퍼지(purge) → 둘째 반응물 주입 → 퍼지 순서를 반복한다. 퍼지 단계에서는 불활성 기체를 흘리거나 배기하여 남은 기체 반응물과 부산물을 제거한다. 공간 분할 ALD(spatial ALD)에서는 각 반응물을 서로 분리된 영역에 공급한다. 기판과 공급부가 상대적으로 움직이면 기판의 한 지점이 두 영역을 차례로 지난다.[6,7,19]
 
 <figure markdown="span">
   ![ALD에서 반응물 A와 B의 순차 노출과 퍼지, 시간에 따른 흡착과 온도별 사이클당 성장량](images/ald-basics-illustration.svg)
-  <figcaption markdown="1">그림 3. Temporal ALD의 순차 표면 반응과 반복 주입 (a, b), 흡착 거동의 여러 예 (c), 온도에 따른 사이클당 성장량의 정성적 예 (d). 곡선은 특정 공정의 실측값이 아니다.[5,13] 출처: Peter M. Piechulla, Riikka L. Puurunen, Mingliang Chen, Aristeidis Goulas, J. Ruud van Ommen, “ALD basics illustration,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 파일 수정 없음.[21]</figcaption>
+  <figcaption markdown="1">그림 3. 시간 분할 ALD의 순차 표면 반응과 반복 주입 (a, b), 흡착 거동의 여러 예 (c), 온도에 따른 사이클당 성장량의 정성적 예 (d). 곡선은 특정 공정의 실측값이 아니다.[6,7] 출처: Peter M. Piechulla, Riikka L. Puurunen, Mingliang Chen, Aristeidis Goulas, J. Ruud van Ommen, “ALD basics illustration,” [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 파일 수정 없음.[20]</figcaption>
 </figure>
 
-Self-limiting은 충분히 노출된 표면에서 같은 반응물의 추가 공급이 성장량을 계속 늘리지 못한다는 뜻이다. 한 사이클이 반드시 결정학적 원자층 하나를 완성한다는 뜻은 아니다. 실제 성장량은 반응 자리와 표면 화학에 의존하므로 ‘원자층’이라는 이름만으로 사이클 수를 원자층 수로 바꾸어서는 안 된다.[5,13,14]
+산화알루미늄($\mathrm{Al_2O_3}$) 증착을 예로 들면 두 반응물을 나누어 쓰는 이유가 분명해진다. 수산기($\mathrm{-OH}$)가 있는 표면에 trimethylaluminum (TMA)을 공급하면 표면의 산소와 Al 사이에 결합이 생기고 메테인($\mathrm{CH_4}$)이 방출된다. 이때 일부 메틸기($\mathrm{-CH_3}$)는 Al에 결합한 채 남는다. 이어서 수증기를 공급하면 남은 메틸기가 물과 반응해 메테인으로 떨어져 나가고, 표면에는 다음 TMA와 반응할 수 있는 수산기가 다시 생긴다. 이 설명은 대표적인 표면 반응을 따라간 것으로, 모든 Al 원자에 같은 수의 메틸기가 남는다고 가정하지 않는다.[21,22]
 
-Spatial ALD에서도 표면의 순차 노출과 반응물 간 분리는 유지되어야 한다. 공간적으로 분리된 공급 영역에 가스가 연속 주입되더라도, 이동하는 표면이 순서대로 포화반응을 겪으면 ALD의 원리에 부합한다. Temporal ALD의 pulse–purge 순서를 모든 ALD 장비의 시간표로 해석하지 않는 이유이다.[5,6]
+### (2) 사이클당 성장량과 포화 확인
 
-### (2) 사이클당 성장량과 포화 검증
-
-Growth per cycle (GPC)은 사이클당 두께 증가량이다. 사이클 수 $N_1$, $N_2$에서 측정한 두께를 각각 $d(N_1)$, $d(N_2)$라 하면 선택한 구간의 평균값을 다음과 같이 계산한다. 두께가 nm이면 단위는 nm/cycle이다.[5,13]
+사이클 수 $N_1$, $N_2$에서 측정한 막 두께를 $d(N_1)$, $d(N_2)$라 하면, 그 구간의 두께 증가량을 사이클 수의 차이로 나누어 **사이클당 성장량**을 구한다. 이 값을 growth per cycle (GPC)이라 하며, 구간 평균은 다음과 같다. 두께를 nm로 측정하면 단위는 nm/cycle이다.[6,7]
 
 $$
-\overline{\mathrm{GPC}}
-=\frac{d(N_2)-d(N_1)}{N_2-N_1}.
+\overline{\mathrm{GPC}}=\frac{d(N_2)-d(N_1)}{N_2-N_1}.
 $$
 
-이 식은 두께 자료의 기울기에 대한 정의이다. 사이클 수와 두께가 선형인 구간에서는 일정한 GPC로 두께를 설계할 수 있다. 그러나 선형성만으로 각 반응의 포화를 입증할 수는 없다. A와 B의 공급을 각각 바꾸어 추가 노출에 따른 성장량 변화를 확인해야 하며, 충분한 purge 조건도 별도로 점검해야 한다.[13,14]
-
-Purge가 부족하면 서로 분리해야 할 반응물이 함께 남아 비포화 반응이 기여할 수 있다. 또한 온도를 높이면 전구체의 열분해가 추가 성장에 기여할 수 있다. 이런 경우 두께가 더 빨리 늘었다는 결과를 ALD의 포화 성장량이 커졌다고 바로 해석하면 안 된다.[5,14]
+사이클 수에 비례해 두께가 늘었다면 그 구간에서는 평균 GPC로 증착 두께를 예측할 수 있다. 각 반쪽 반응이 포화됐는지는 **같은 사이클 수에서 한 반응물의 노출량을 더 늘려도 막 두께가 달라지는지**로 확인한다. 퍼지가 짧아 두 반응물이 섞이거나 높은 온도에서 전구체가 열분해되면, 자기 제한 반응 이외의 경로로도 막이 자랄 수 있다.[6,7,18]
 
 !!! info "[Measurement]"
-    먼저 한 반응물의 노출 조건을 고정하고 다른 반응물의 노출량을 늘리며 위 식으로 GPC를 비교한다. A와 B를 바꾸어 같은 확인을 수행한 뒤 purge 조건도 변화시킨다. 이때 온도와 두께 추출 구간을 유지한다. 성장량이 포화되는지와 기상 혼합이 제거되었는지는 별개의 질문이므로, 한 번의 두께 측정으로 두 조건을 동시에 검증했다고 해석하지 않는다.[13,14]
+    온도와 두께 측정 위치를 고정한다. 둘째 반응물의 노출 조건과 퍼지 시간을 유지하면서 첫 반응물의 노출량을 늘려 GPC가 일정해지는 구간을 찾는다. 두 반응물의 역할을 바꾸어 같은 실험을 하고, 퍼지 시간을 늘려도 GPC가 유지되는지 확인한다. 노출 중 반응물 분압이 거의 일정하면 노출량은 **반응물 분압과 접촉 시간의 곱**(Pa·s)으로 비교할 수 있다.[6,7,18]
 
-### (3) 고종횡비 구조의 피복 조건
+### (3) 깊은 구조에서의 반응물 노출
 
-ALD에서 입구 부근이 먼저 포화되면 이후의 반응물이 더 안쪽의 미반응 표면에 도달할 수 있다. 이것이 복잡한 구조를 균일하게 덮는 데 유리한 이유이다. 그러나 깊은 구조의 모든 위치가 충분히 노출되어야 하므로, 평탄한 시편에서 얻은 포화 조건을 그대로 적용해서 내부 피복을 보장할 수는 없다.[5,13,14]
+깊은 구멍에서는 먼저 입구 근처의 표면이 반응물을 소비한다. 이 부분이 포화되면 뒤이어 들어오는 반응물이 더 안쪽까지 도달할 수 있다. 따라서 평탄부에서 GPC가 이미 일정해진 뒤에도 노출량을 더 늘리면, 윗면 두께는 거의 그대로인 채 측벽 아래쪽의 피복이 개선될 수 있다.[6,7,18]
 
-반응물의 수송, 표면에서 소모되는 정도, 구조의 깊이와 폭은 필요한 노출 조건을 함께 결정한다. 따라서 ALD의 self-limiting 성질은 높은 conformality를 가능하게 하는 원리이며, 모든 형상과 모든 주입 시간에서 완전한 피복을 보장하는 장비 사양은 아니다.[5,13,14]
+Hausmann 등은 깊은 구멍이 식각된 실리콘 웨이퍼에 금속 아마이드 전구체와 물을 사용해 산화하프늄과 산화지르코늄을 각각 증착했다. 노출량이 작을 때에는 구멍 위쪽만 덮였고, 노출량을 충분히 늘렸을 때에는 바닥까지 막이 형성됐다. 코팅 전후 구멍의 입구와 바닥 단면을 비교한 사진은 [원문 그림 4](https://gordon.faculty.chemistry.harvard.edu/sites/g/files/omnuum7801/files/gordon/files/aldhf_3.pdf#page=5)에서 볼 수 있다.[6,18]
 
-실제 비교에서는 1절의 피복 비율과 깊이에 따른 두께 분포를 함께 사용한다. 구조가 실제로 어떻게 덮이는지는 [Hausmann 등의 원문 Fig. 4](https://gordon.faculty.chemistry.harvard.edu/sites/g/files/omnuum7801/files/gordon/files/aldhf_3.pdf#page=5)의 단면 사진에서 볼 수 있다. 해당 결과는 그 논문의 전구체·노출·형상 조건에 대한 사례이며, 임의의 ALD 공정에 같은 피복 결과를 부여하는 근거로 사용하지 않는다.[5,14]
+## 6. 에피택셜 성장과 격자 변형
 
-## 6. Epitaxy: 결정 관계와 격자 변형
+### (1) 기판과 박막의 결정 방향
 
-### (1) MOCVD와 MBE의 성장 조건
+에피택시(epitaxy)에서는 기판의 결정 방향에 따라 그 위에서 자라는 결정의 방향이 정해진다. Si 위에 Si를 성장시키는 것처럼 두 재료가 같으면 동종 에피택시(homoepitaxy), 서로 다르면 이종 에피택시(heteroepitaxy)이다. 에피택시는 성장한 층의 결정학적 관계를 설명하므로 여러 증착법으로 구현할 수 있다.[2,3,15,23]
 
-에피택셜 성장에서는 공급된 종이 기판의 결정학적 질서를 따라 편입될 조건을 마련한다. 예를 들어 Si 위의 Si 성장과 서로 다른 화합물 반도체 사이의 성장은 기판과 막의 재료 관계가 다르지만, 모두 기판과 성장 결정의 방향 관계를 다룬다. 공급 방법을 선택한 뒤에도 표면 상태와 결정 성장 조건을 별도로 조절해야 한다.[2,8,9]
+MOCVD가 기체 전구체를 이용하는 데 비해, molecular beam epitaxy (MBE)에서는 보통 초고진공에서 가열된 결정 기판을 향해 원자선이나 분자선을 보낸다. 고체 공급원을 쓰는 MBE 장치에서는 각 증발 셀(effusion cell)의 온도로 공급률을 조절하고, 셔터를 열거나 닫아 해당 원소의 공급을 전환한다. [텍사스 대학교 오스틴의 MBE 장치도, 그림 2.1](https://lase.ece.utexas.edu/introduction-mbe-growth)에서 기판을 향해 배치한 공급원과 셔터의 위치를 볼 수 있다.[3,15,24]
 
-MBE는 초고진공에서 원자·분자 빔을 가열된 결정 기판에 공급하는 대표적인 방법이다. 전형적인 고체 공급원 MBE에서는 effusion cell의 온도로 빔의 공급률을 조절하고 shutter로 공급을 전환한다. MBE라는 이름만으로 모든 공급원이 고체라고 한정할 수는 없으며, 기체 공급원 등을 이용하는 변형도 있다.[8,9,17]
+### (2) 격자 불일치와 면내 변형률
 
-장치 구성은 [University of Texas at Austin의 MBE 설명 §2와 Fig. 2.1](https://lase.ece.utexas.edu/introduction-mbe-growth)에서 확인할 수 있다. 공급원을 향하는 가열 기판, 여러 공급원과 그 앞의 shutter를 구분하여 읽으면, 기체 흐름과 전구체 반응을 중심으로 설명한 MOCVD와의 차이를 이해할 수 있다. 두 방법 모두 층 두께와 조성을 제어하지만 공급의 물리적 조건과 표면 반응은 동일하지 않다.[8,9,17]
-
-### (2) Lattice mismatch와 실제 변형률
-
-Heteroepitaxy에서는 박막과 기판의 자연 격자 주기가 다를 수 있다. 충분히 얇은 층이 기판의 면내 주기에 맞춰 변형되면 coherent 또는 pseudomorphic 상태를 유지할 수 있다. 두께와 불일치가 커지면 변형 에너지와 전위 형성 에너지의 경쟁으로 misfit dislocation을 통한 완화가 가능해진다.[8,18]
-
-여기서는 동일한 면내 방향의 1:1 격자 대응과 두꺼운 기판을 가정한다. 같은 온도에서 무변형 박막과 기판의 격자상수를 각각 $a_f$, $a_s$라 하고, 격자 불일치 $f$의 부호를 다음과 같이 정한다. 두 값은 같은 길이 단위로 사용하므로 $f$는 무차원이다.[8,18]
+이종 에피택시에서는 기판과 박막의 원래 격자 주기가 다를 수 있다. 같은 온도에서 변형되지 않은 박막과 기판의 격자상수를 각각 $a_f$, $a_s$라 하자. 여기서는 같은 면내 방향에서 두 격자 주기가 1 대 1로 대응하고, 기판이 충분히 두꺼워 기판의 격자 주기는 일정하다고 가정한다. **격자 불일치** $f$는 기판의 격자상수를 기준으로 정의한다.[3,25]
 
 $$
 f=\frac{a_f-a_s}{a_s}.
 $$
 
-이 값은 두 물질의 무변형 격자상수 차이이며, 성장한 박막이 실제로 얼마나 늘어나거나 줄었는지를 직접 나타내지 않는다. 성장 후 박막의 면내 격자상수를 $a_\parallel$이라 하면 실제 면내 변형률은 무변형 박막을 기준으로 다음과 같이 정의한다. 완전한 coherent 상태에서 $a_\parallel=a_s$를 대입하면 오른쪽의 관계가 얻어진다.[8,18]
+반면 막이 성장하면서 얼마나 늘어나거나 줄었는지 알려면 기준 길이를 **변형되기 전 박막**에 두어야 한다. 성장한 막의 면내 격자상수를 $a_\parallel$이라 하면 면내 변형률은 $\varepsilon_\parallel=(a_\parallel-a_f)/a_f$이다. 얇은 막이 계면에서 기판의 면내 주기에 완전히 맞춰진 정합(coherent) 상태에서는 $a_\parallel=a_s$이므로 다음 관계가 성립한다.[3,25]
 
 $$
-\varepsilon_\parallel
-=\frac{a_\parallel-a_f}{a_f},\qquad
 \varepsilon_\parallel^\mathrm{coherent}
+=\frac{a_s-a_f}{a_f}
 =-\frac{f}{1+f}.
 $$
 
-이는 선택한 두 정의와 coherent 조건의 대수적 결과이다. $a_f>a_s$이면 $f>0$이지만 박막의 실제 면내 변형률은 음수이므로 압축 상태이다. 작은 불일치에서만 $\varepsilon_\parallel^\mathrm{coherent}\approx-f$로 근사할 수 있다. 문헌을 비교할 때에는 mismatch의 부호뿐 아니라 분모가 기판인지 박막인지도 확인해야 한다.[8,18]
+두 값은 모두 무차원이다. 박막의 원래 격자상수가 더 크면($f>0$) 기판 주기에 맞춘 박막은 면내에서 압축된다($\varepsilon_\parallel<0$). 불일치가 작을 때만 $\varepsilon_\parallel\approx-f$로 근사할 수 있다. 두께가 증가하면 막에 저장되는 탄성 변형 에너지도 커져, 계면에 부정합 전위(misfit dislocation)가 생기면서 변형이 일부 완화될 수 있다. 이때에는 실제 $a_\parallel$로 변형률을 구한다.[3,25]
 
-위의 coherent 변형률 관계는 박막이 기판의 면내 주기에 맞춰져 있다는 가정을 사용한다. 전위에 의해 완화된 층에는 이 관계를 그대로 적용하지 않고 실제 면내 격자상수를 사용한다.[8,18]
+## 7. 공정 선택과 두께 측정
 
-## 7. 공정 선택과 측정 결과의 해석
+공정 선택은 소자에서 막이 맡을 역할과 그 역할을 확인할 측정에서 출발한다.[1,2]
 
-공정 이름은 출발점이며 목표 막의 모든 특성을 대신하지 않는다. 아래 표는 앞에서 설명한 원리와 실제 확인할 항목을 연결한다. 장비별 처리량이나 막 품질에 대한 보편적인 순위를 제시하는 표는 아니다.
-
-| 목표와 비교 대상 | 우선 확인할 제어 조건 | 함께 확인할 결과 |
+| 공정 목표 | 우선 확인할 공정 변수 | 결과를 판별할 관측량 |
 | --- | --- | --- |
-| PVD로 평탄한 막 형성 | 방출률, 공급원–기판 기하와 입사 분포 | 웨이퍼 위치별 두께와 단차 피복 비율[1,4,11] |
-| CVD 성장률과 균일도 조절 | 반응·전달 제한 영역, 온도와 유동 | 두께의 시간 변화와 공간 분포[1,12] |
-| MOCVD 화합물 반도체 성장 | 각 전구체의 절대 유량과 입력 비, 온도·압력 | 성장률, 조성·불순물 및 결정 상태[15,16] |
-| ALD로 구조 내부 피복 | 각 반응물의 포화 노출과 반응물 분리 | GPC, 깊이에 따른 두께와 바닥 피복 비율[5,13,14] |
-| 에피택셜 층 형성 | 기판·막의 결정 관계와 표면 성장 조건 | 격자 변형과 완화 여부[8,18] |
+| 단차를 지나는 금속 배선 형성 | 증발원 또는 타깃에서 오는 입자의 방향과 가려지는 위치 | 윗면과 단차 부근의 단면 두께, 배선이 가장 얇아지는 위치[1,5,13] |
+| 웨이퍼에 일정한 두께의 CVD 막 형성 | 기판 온도, 기체 유동, 반응 제한 또는 물질 전달 제한 여부 | 위치별 두께와 증착 시간에 따른 성장률[1,8] |
+| 깊은 구조의 내벽에 절연막 형성 | 각 ALD 반응물의 노출량과 퍼지 시간 | 평탄부의 GPC, 측벽의 깊이별 두께, 바닥 피복률[6,7,18] |
+| 화합물 반도체의 에피택셜 성장 | 전구체별 유량, 온도, 기판과 박막의 격자 불일치 | 성장률과 조성, 성장층의 결정 방향과 면내 변형률[3,15,16,17,25] |
 
-두께 측정은 성장률을 평가하는 데 필요하지만, 두께가 맞는다는 사실만으로 조성이나 결정 품질이 맞는다고 결론내릴 수 없다. 또한 윗면·측벽·바닥의 두께가 비슷한 conformal coating과 빈 공간 전체를 채우는 gap filling은 같은 목표가 아니다. 좁은 공간을 채우다가 입구가 닫히면 내부에 빈 공간이 남을 수 있으므로, 목표가 피복인지 충전인지 먼저 정해야 한다.[1,2]
+평탄한 시편에서는 타원편광법(ellipsometry)으로 반사광의 편광 변화를 측정하고, 기판과 박막으로 이루어진 광학 모형에 측정값을 맞추어 두께를 추정할 수 있다. 이때 어느 층의 두께를 구했는지 명시해야 한다. 예를 들어 Si와 증착막 사이에 산화층이 있으면 그 층도 광학 응답에 기여한다. 미세한 구멍의 측벽과 바닥을 평가할 때에는 단면 전자현미경 사진에서 원하는 위치를 골라 막 두께를 측정할 수 있다.[6,18,22]
 
-비교 자료에는 두께의 정의와 측정 위치, 온도·압력, 공급량 또는 사이클 수 및 시편 형상을 함께 적는다. 이는 서로 다른 공정의 숫자를 같은 의미로 비교하기 위한 조건이다. 예를 들어 평탄한 시편의 GPC와 깊은 홀 바닥의 GPC를 구분하지 않으면, 반응 자체의 성장량 차이와 내부 노출 부족을 혼동할 수 있다.[1,5,14]
-
-증착 후의 형상 가공은 [Etching](etching.md)에서 다룬다.
+내벽을 일정한 두께로 **덮는 공정**과 트렌치 내부를 **채우는 공정**은 단면 사진에서 확인할 항목도 다르다. 피복이 목적이면 윗면에서 바닥까지 막이 얼마나 고르게 이어지는지 살핀다. 충전이 목적이면 입구가 먼저 닫히면서 내부에 빈 공간이 남았는지 확인한다. 이후 형상을 가공하는 공정은 [Etching](etching.md)에서 다룬다.[1,2,13]
 
 ## 8. 핵심 정리
 
-- PVD와 CVD는 물질을 방출·공급하고 막으로 만드는 원리로 구분하며, ALD는 분리된 순차 포화반응을 이용한다. Spatial ALD까지 포함하려면 시간 분리만으로 ALD를 정의하지 않는다.[3,4,5,6]
-- CVD의 일차 정상상태 모델에서는 기체 전달과 표면 반응이 함께 플럭스를 제한한다. 이 플럭스를 두께 성장률로 바꿀 때에는 고체 수밀도와 편입 화학량론이 필요하다.[1,12]
-- MOCVD의 입력 V/III는 전구체 공급비이며, 표면의 활성종 비나 고체 조성비와 구별한다.[15,16]
-- ALD의 포화반응과 충분한 노출은 함께 확인해야 한다. 일정한 GPC나 평탄한 시편의 균일도만으로 깊은 구조의 피복성을 판단할 수 없다.[5,13,14]
-- Epitaxy는 기판과 성장 결정의 관계이다. 공급 방식과 별도로 격자 불일치, 실제 변형률과 완화를 구별해야 한다.[8,9,18]
+- 초기 성장에서는 한 층씩 기판을 덮는 층상 성장, 분리된 섬이 먼저 생기는 섬 성장, 젖음층 위에서 섬이 자라는 경우를 구분한다. 평균 증착량과 막의 연속성은 서로 다른 정보를 준다.[9,10]
+- PVD의 단차 피복성은 입자가 어느 방향에서 구조에 도달하는지에 영향을 받는다. CVD의 성장률은 표면으로의 물질 전달과 표면 반응 가운데 어느 단계가 느린지에 민감하다.[1,5,8,13]
+- ALD는 순차적인 자기 제한 반응을 이용한다. 깊은 구조를 덮을 때에는 각 반응물의 노출이 바닥에서도 충분한지 깊이별 두께로 확인한다.[6,7,18]
+- MOCVD의 V/III 공급비는 반응기에 넣은 전구체의 몰 유량비이다. 성장한 층의 조성과 결정 상태는 별도로 평가하며, 변형률을 구할 때에는 변형되기 전 박막을 기준으로 삼는다.[3,16,17,25]
 
 ## 9. 참고문헌
 
 1. J. Hoyt, “Lecture 17: Chemical Vapor Deposition,” *6.774 Physics of Microfabrication: Front-End Processing*, MIT OpenCourseWare (2004), transcript, pp. 1–13. [강의 원문](https://ocw.mit.edu/courses/6-774-physics-of-microfabrication-front-end-processing-fall-2004/1sSADV3Iiuifbp51EEBEB0v15lnIZkjBA_transcript.pdf).
 2. S. Pennathur, “Lecture 3,” *ME 141B: The MEMS Class*, University of California, Santa Barbara (2010), slides 3, 9–15, 19–24. [강의 원문](https://sites.engineering.ucsb.edu/~sumita/courses/Courses/ME141B/ME141B_lecture_3_F10.pdf).
-3. A. G. Andreou, “Film Deposition,” Johns Hopkins University 520/580.495 (2000), including R. B. Darling, *Physical Vapor Deposition*, pp. 7–31. [강의 원문](https://pages.jh.edu/aandreo1/495/Archives/2002/LectureNotes/FilmDeposition.pdf).
-4. C. A. Mack, “Evaporation, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 20–21. [Lecture 20](https://www.lithoguru.com/scientist/CHE323/Lecture20.pdf), [Lecture 21](https://www.lithoguru.com/scientist/CHE323/Lecture21.pdf).
-5. V. Cremers, R. L. Puurunen, and J. Dendooven, “Conformality in Atomic Layer Deposition: Current Status Overview of Analysis and Modelling,” *Applied Physics Reviews* **6**, 021302 (2019), §§I–III, V–VI. [DOI: 10.1063/1.5060967](https://doi.org/10.1063/1.5060967), [저자 기관 원문](https://backoffice.biblio.ugent.be/download/8614054/8614061).
-6. P. Poodt, “Spatial Atomic Layer Deposition for Large-Area and Flexible Electronics,” *NEVAC Blad* **58**(2), 29–31 (2020). [기관 저장소 원문](https://pure.tue.nl/ws/portalfiles/portal/151430173/NEVAC_ALD_Issue_2020_Poodt.pdf).
-7. X. Klemenschits, *Emulation and Simulation of Microelectronic Fabrication Processes*, TU Wien doctoral thesis (2022), §5.1.2. [기관 원문](https://www.iue.tuwien.ac.at/phd/klemenschits/18.html).
-8. Laboratory for Advanced Semiconductor Epitaxy, “An Introduction to MBE Growth,” University of Texas at Austin, §§2, 5–6. [기관 원문](https://lase.ece.utexas.edu/introduction-mbe-growth).
-9. C. G. Fonstad, “Lecture 7: Epitaxy Techniques and Considerations,” *6.772 Compound Semiconductor Devices*, MIT OpenCourseWare (2003), slides 3–7, 13–15. [강의 원문](https://ocw.mit.edu/courses/6-772-compound-semiconductor-devices-spring-2003/8c305146942ad5a5ad1c559a6ecae11c_Lecture7v2.pdf).
-10. NPTEL, “Lecture 38: Deposition and Fabrication Techniques I,” *Advances in Spintronic Materials, Technology and Devices*, §Sputtering technique. [강의 원문](https://archive.nptel.ac.in/content/storage2/courses/115103039/module16/lec38/6.html).
-11. C. A. Mack, “Sputtering, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 22–23. [Lecture 22](https://www.lithoguru.com/scientist/CHE323/Lecture22.pdf), [Lecture 23](https://www.lithoguru.com/scientist/CHE323/Lecture23.pdf).
-12. C. A. Mack, “Chemical Vapor Deposition, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 24–25. [Lecture 24](https://www.lithoguru.com/scientist/CHE323/Lecture24.pdf), [Lecture 25](https://www.lithoguru.com/scientist/CHE323/Lecture25.pdf).
-13. S. M. George, “Atomic Layer Deposition: An Overview,” *Chemical Reviews* **110**, 111–131 (2010), pp. 112–114. [DOI: 10.1021/cr900056b](https://doi.org/10.1021/cr900056b), [대학 공개 사본](https://www.seas.upenn.edu/~nanosop/documents/overviewofALD.pdf).
-14. D. M. Hausmann, E. Kim, J. Becker, and R. G. Gordon, “Atomic Layer Deposition of Hafnium and Zirconium Oxides Using Metal Amide Precursors,” *Chemistry of Materials* **14**, 4350–4358 (2002), §§II–IV. [DOI: 10.1021/cm020357x](https://doi.org/10.1021/cm020357x), [저자 기관 원문](https://gordon.faculty.chemistry.harvard.edu/sites/g/files/omnuum7801/files/gordon/files/aldhf_3.pdf).
-15. T. Ciarkowski *et al.*, “Connection between Carbon Incorporation and Growth Rate for GaN Epitaxial Layers Prepared by OMVPE,” *Materials* **12**, 2455 (2019), §§1–3. [DOI: 10.3390/ma12152455](https://doi.org/10.3390/ma12152455), [공개 원문](https://pmc.ncbi.nlm.nih.gov/articles/PMC6695831/).
-16. Y. Zhang, Z. Chen, K. Zhang, Z. Feng, and H. Zhao, “Laser-Assisted Metal–Organic Chemical Vapor Deposition of Gallium Nitride,” *physica status solidi (RRL) – Rapid Research Letters*, 2100202 (2021), §§1–2, 4. [DOI: 10.1002/pssr.202100202](https://doi.org/10.1002/pssr.202100202), [공개 원문](https://d-nb.info/1233639382/34).
-17. A. Ptak, “Principles of Molecular Beam Epitaxy,” in *Handbook of Crystal Growth*, 2nd ed., Vol. III, Part A, pp. 161–192 (2015), abstract. [DOI: 10.1016/B978-0-444-63304-0.00004-4](https://doi.org/10.1016/B978-0-444-63304-0.00004-4), [저자 기관 초록](https://research-hub.nlr.gov/en/publications/chapter-4-principles-of-molecular-beam-epitaxy/).
-18. S. Smirnov, “Critical Thickness and Dislocations,” §3.1.1, TU Wien doctoral thesis. [기관 원문](https://www.iue.tuwien.ac.at/phd/smirnov/node68.html).
-19. Dipl-ing-metaller, “PVD-CVD,” Wikimedia Commons (2010). [그림 원문](https://commons.wikimedia.org/wiki/File:PVD-CVD.jpg), CC BY-SA 3.0.
-20. S-kei and Д.Ильин, “ThermalCVD-en,” Wikimedia Commons (2022). [그림 원문](https://commons.wikimedia.org/wiki/File:ThermalCVD-en.svg), CC0 1.0.
-21. P. M. Piechulla, R. L. Puurunen, M. Chen, A. Goulas, and J. R. van Ommen, “ALD basics illustration,” Wikimedia Commons (2025). [그림 원문](https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg), CC BY 4.0.
+3. Laboratory for Advanced Semiconductor Epitaxy, “An Introduction to MBE Growth,” University of Texas at Austin, §§2, 5–7. [기관 원문](https://lase.ece.utexas.edu/introduction-mbe-growth).
+4. A. G. Andreou, “Film Deposition,” Johns Hopkins University 520/580.495 (2000), including R. B. Darling, *Physical Vapor Deposition*, pp. 7–31. [강의 원문](https://pages.jh.edu/aandreo1/495/Archives/2002/LectureNotes/FilmDeposition.pdf).
+5. C. A. Mack, “Evaporation, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 20–21. [Lecture 20](https://www.lithoguru.com/scientist/CHE323/Lecture20.pdf), [Lecture 21](https://www.lithoguru.com/scientist/CHE323/Lecture21.pdf).
+6. V. Cremers, R. L. Puurunen, and J. Dendooven, “Conformality in Atomic Layer Deposition: Current Status Overview of Analysis and Modelling,” *Applied Physics Reviews* **6**, 021302 (2019), §§I–III, V–VI. [DOI: 10.1063/1.5060967](https://doi.org/10.1063/1.5060967), [저자 기관 원문](https://backoffice.biblio.ugent.be/download/8614054/8614061).
+7. S. M. George, “Atomic Layer Deposition: An Overview,” *Chemical Reviews* **110**, 111–131 (2010), pp. 112–114. [DOI: 10.1021/cr900056b](https://doi.org/10.1021/cr900056b), [대학 공개 사본](https://www.seas.upenn.edu/~nanosop/documents/overviewofALD.pdf).
+8. C. A. Mack, “Chemical Vapor Deposition, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 24–25. [Lecture 24](https://www.lithoguru.com/scientist/CHE323/Lecture24.pdf), [Lecture 25](https://www.lithoguru.com/scientist/CHE323/Lecture25.pdf).
+9. Universität Tübingen, “Thin film growth: Concepts and theory,” ch. 6, §§6.1.1–2, Figs. 6.1–6.4. [강의 원문](https://www.soft-matter.uni-tuebingen.de/teaching/vorlesung_nano_ss24/BM-Nano-Chapter6.pdf).
+10. J. E. Prieto and I. Markov, “Stranski-Krastanov mechanism of growth and the effect of misfit sign on quantum dots nucleation,” §I (2017). [arXiv:1706.00235](https://arxiv.org/pdf/1706.00235).
+11. Dipl-ing-metaller, “PVD-CVD,” Wikimedia Commons (2010). [그림 원문](https://commons.wikimedia.org/wiki/File:PVD-CVD.jpg), CC BY-SA 3.0.
+12. NPTEL, “Lecture 38: Deposition and Fabrication Techniques I,” *Advances in Spintronic Materials, Technology and Devices*, §Sputtering technique. [강의 원문](https://archive.nptel.ac.in/content/storage2/courses/115103039/module16/lec38/6.html).
+13. C. A. Mack, “Sputtering, parts 1–2,” *CHE323/CHE384 Chemical Processes for Micro- and Nanofabrication* (2013), Lectures 22–23. [Lecture 22](https://www.lithoguru.com/scientist/CHE323/Lecture22.pdf), [Lecture 23](https://www.lithoguru.com/scientist/CHE323/Lecture23.pdf).
+14. S-kei and Д.Ильин, “ThermalCVD-en,” Wikimedia Commons (2022). [그림 원문](https://commons.wikimedia.org/wiki/File:ThermalCVD-en.svg), CC0 1.0.
+15. C. G. Fonstad, “Lecture 7: Epitaxy Techniques and Considerations,” *6.772 Compound Semiconductor Devices*, MIT OpenCourseWare (2003), slides 3–7, 13–15. [강의 원문](https://ocw.mit.edu/courses/6-772-compound-semiconductor-devices-spring-2003/8c305146942ad5a5ad1c559a6ecae11c_Lecture7v2.pdf).
+16. T. Ciarkowski *et al.*, “Connection between Carbon Incorporation and Growth Rate for GaN Epitaxial Layers Prepared by OMVPE,” *Materials* **12**, 2455 (2019), §§1–3. [DOI: 10.3390/ma12152455](https://doi.org/10.3390/ma12152455), [공개 원문](https://pmc.ncbi.nlm.nih.gov/articles/PMC6695831/).
+17. Y. Zhang, Z. Chen, K. Zhang, Z. Feng, and H. Zhao, “Laser-Assisted Metal–Organic Chemical Vapor Deposition of Gallium Nitride,” *physica status solidi (RRL) – Rapid Research Letters*, 2100202 (2021), §§1–2, 4. [DOI: 10.1002/pssr.202100202](https://doi.org/10.1002/pssr.202100202), [공개 원문](https://d-nb.info/1233639382/34).
+18. D. M. Hausmann, E. Kim, J. Becker, and R. G. Gordon, “Atomic Layer Deposition of Hafnium and Zirconium Oxides Using Metal Amide Precursors,” *Chemistry of Materials* **14**, 4350–4358 (2002), §§II–IV. [DOI: 10.1021/cm020357x](https://doi.org/10.1021/cm020357x), [저자 기관 원문](https://gordon.faculty.chemistry.harvard.edu/sites/g/files/omnuum7801/files/gordon/files/aldhf_3.pdf).
+19. P. Poodt, “Spatial Atomic Layer Deposition for Large-Area and Flexible Electronics,” *NEVAC Blad* **58**(2), 29–31 (2020). [기관 저장소 원문](https://pure.tue.nl/ws/portalfiles/portal/151430173/NEVAC_ALD_Issue_2020_Poodt.pdf).
+20. P. M. Piechulla, R. L. Puurunen, M. Chen, A. Goulas, and J. R. van Ommen, “ALD basics illustration,” Wikimedia Commons (2025). [그림 원문](https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg), CC BY 4.0.
+21. T. Weckman and K. Laasonen, “First principles study of the atomic layer deposition of alumina by TMA–H₂O-process,” *Physical Chemistry Chemical Physics* **17**, 17322–17334 (2015), reactions R1–R3 and §3. [DOI](https://doi.org/10.1039/C5CP01912E), [저자 기관 원문](https://aaltodoc.aalto.fi/server/api/core/bitstreams/0ce3f5b8-4566-4385-a0d9-304030b446e8/content).
+22. J. L. Cho, *Engineering Lithium Ion Conducting Thin Film Solid Electrolytes by Atomic Layer Deposition*, UCLA doctoral dissertation (2015), §2.2.4 and Figs. 2.9–2.10, 3.3. [학위논문 원문](https://escholarship.org/content/qt2vr3z5pd/qt2vr3z5pd_noSplash_e57ed5f878ce86c39afadca3aefac7d2.pdf).
+23. X. Klemenschits, *Emulation and Simulation of Microelectronic Fabrication Processes*, TU Wien doctoral thesis (2022), §5.1.2. [기관 원문](https://www.iue.tuwien.ac.at/phd/klemenschits/18.html).
+24. A. Ptak, “Principles of Molecular Beam Epitaxy,” in *Handbook of Crystal Growth*, 2nd ed., Vol. III, Part A, pp. 161–192 (2015), abstract. [DOI: 10.1016/B978-0-444-63304-0.00004-4](https://doi.org/10.1016/B978-0-444-63304-0.00004-4), [저자 기관 초록](https://research-hub.nlr.gov/en/publications/chapter-4-principles-of-molecular-beam-epitaxy/).
+25. S. Smirnov, “Critical Thickness and Dislocations,” §3.1.1, TU Wien doctoral thesis. [기관 원문](https://www.iue.tuwien.ac.at/phd/smirnov/node68.html).

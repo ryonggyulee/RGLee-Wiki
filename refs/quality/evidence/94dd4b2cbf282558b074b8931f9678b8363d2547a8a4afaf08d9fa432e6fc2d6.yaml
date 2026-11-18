@@ -1,0 +1,275 @@
+page: docs/device-physics/semiconductor-process/thin-film-deposition.md
+hashes:
+  source: dfab2fb346cb35e99b6f97b19df6d5bb974e1385474be7534c11a911566c7c78
+  content: b09c6cd9e896f00ffeda809f373eaa271271f3c1f65ccc8af6bf632270ee3197
+  outline: 19a8e960efd773d0721a00ce3d76f8ca83aaeb33944c8e761732d754db4553a4
+  presentation: f32b39f1fb1360c90a24fae39699a887254af0dc3aeb676d67ff881469209f34
+assets:
+  docs/device-physics/semiconductor-process/images/evaporation-chamber.jpg: aee5bcbdfb6a1daba17c67dbf58f85a42d6091b8babe3ba0e03ddbf575d2fe52
+  docs/device-physics/semiconductor-process/images/thermal-cvd-reactor.svg: 126d1a10270d8fb07e706b3cea8fc671476dce4fabb0881847e5debb54dba008
+  docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: dfab2fb346cb35e99b6f97b19df6d5bb974e1385474be7534c11a911566c7c78
+  assets:
+    docs/device-physics/semiconductor-process/images/evaporation-chamber.jpg: aee5bcbdfb6a1daba17c67dbf58f85a42d6091b8babe3ba0e03ddbf575d2fe52
+    docs/device-physics/semiconductor-process/images/thermal-cvd-reactor.svg: 126d1a10270d8fb07e706b3cea8fc671476dce4fabb0881847e5debb54dba008
+    docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+  coverage:
+    mode: changes
+    baseline_source_hash: 7b526fcf538f0530a3c3dd18524ddcc6fba9fcc01f9fad319f028d7680297166
+    checked:
+    - §1의 표면 핵생성·성장 세 형태·젖음과 변형, 면적 평균과 연속성, 국소 피복 수치 및 §2의 입사/피복 설명
+    - §3 CVD의 결합식과 k_s를 바꾼 중간 영역 예제, §4 V/III 예제의 절대 유량
+    - §5 반응물별 노출 평가, TMA/물 반응·잔류 표면기, 고종횡비 시료의 노출 비교와 실험 귀속, §7 타원편광법과 단면 관측
+    - §6 격자 불일치/변형률의 기준, §7 공정 선택과 충전/피복, §8 종속 결론, 새 참고문헌 [9,10,21,22]의 실제 원문 및 변경된 그림 1 캡션
+    dependencies:
+    - 성장 분류의 평면 젖음 기준과 비평형 효과, 단면에서 top을 분모로 쓰는 규약과 측정 위치
+    - CVD 평탄 국소 모형의 정상상태·선형 소비·양의 플럭스 및 편입부피, MOCVD 투입 종과 실제 성장종
+    - 고정 사이클·위치·온도에서의 ALD 포화, 평탄부와 깊이 방향 노출, 광학 두께 추출을 위한 층 모델, 정합 상태와 완화된 막의 기준 길이
+    reused_evidence:
+    - path: refs/quality/evidence/3793f120f46f3ce81db407be7da53120750393c4f61a728e6f996296bd807649.yaml
+      sha256: 73553052e14cbf3dfaf9be641adc448092c68fc7991beea243c6fe67e070bd5b
+      scope: 이 기록의 원문·locator 대응(과학 본문의 이전 사본은 기록 안에서 557c7a6a…로 연결)을 과거 검증으로 재사용했다. 대상은 PVD/CVD/ALD 공급 방식, 평균 증착률·GPC·수율
+        정의, 기존 PVD 가열법·스퍼터링, APCVD/LPCVD/PECVD의 분류·적용 범위, temporal/spatial ALD, 동종/이종 에피택시와 MBE 장비, 그림 1–3의 기존 원본·허가 및 그림
+        2–3 내용이다. 이전과 현재의 본문과 인용 번호에 대응하는 동일 문헌을 맞췄고 세 그림 파일을 HEAD와 대조했다. 신규 성장 모드·수치·Al₂O₃ 반응 경로·타원편광 해석이나 Hausmann 실험 귀속에는
+        과거 판정을 전용하지 않았다.
+  findings:
+  - id: early-growth
+    claim: 결정 표면에서 흡착종의 확산과 탈착, 핵생성과 계단 가장자리 편입이 경쟁한다. 공급률이나 온도가 달라지면 섬의 성장 형태가 달라질 수 있다.
+    locations:
+    - §1(1) 마지막 문단, §1(2) 마지막 문단
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: https://www.soft-matter.uni-tuebingen.de/teaching/vorlesung_nano_ss24/BM-Nano-Chapter6.pdf
+      provenance: Universität Tübingen, Physics of Nanostructures, ch. 6 lecture script
+      locator: §6.1.2, Figs. 6.3–6.4
+      supports: 입사 플럭스와 확산 시간 척도의 경쟁, 재탈착, 표면 핵생성·가장자리 편입을 설명한다.
+    - id: https://lase.ece.utexas.edu/introduction-mbe-growth
+      provenance: UT Austin Laboratory for Advanced Semiconductor Epitaxy
+      locator: §5, migration-enhanced epitaxy와 off-axis substrate 문단
+      supports: 독립적인 III–V 성장 사례로 흡착원자의 이동 길이, 스텝 간격 및 step-flow에 따른 형상 변화를 다룬다.
+    - id: https://pages.jh.edu/aandreo1/495/Archives/2002/LectureNotes/FilmDeposition.pdf
+      provenance: R. B. Darling, University of Washington PVD notes reproduced in Andreou
+      locator: PVD, surface processes
+      supports: 표면의 흡착종과 기판 입사, 탈착 및 증발률 사이의 관계를 다룬다.
+    check: 확산과 입사 플럭스의 상대 크기에 따라 섬의 개수·분포가 달라질 수 있고 표면을 떠나는 종은 성장량에서 제외된다.
+    assumptions: 결정 표면의 증착 초기이며, 도달한 원자가 모두 남거나 단일 성장 경로를 따른다는 가정은 없다.
+  - id: growth-modes
+    claim: 젖음의 에너지 조건과 FM·VW·SK의 초기 성장 순서, 정합 변형에 의한 섬 성장 가능성, 평균 두께와 피복 연속성의 구별.
+    locations:
+    - description, §1(2), §8 첫 항목
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://www.soft-matter.uni-tuebingen.de/teaching/vorlesung_nano_ss24/BM-Nano-Chapter6.pdf
+      provenance: Universität Tübingen, Physics of Nanostructures, ch. 6 lecture script
+      locator: §6.1.1, Figs. 6.1–6.2 및 §6.1.2
+      supports: 세 성장 형태와 층·섬 순서, 계면 에너지·미스핏과 성장 동역학의 한계를 명시한다.
+    - id: https://arxiv.org/abs/1706.00235
+      provenance: Prieto–Markov Madrid/Sofia growth thermodynamics
+      locator: §I, pp. 1–2
+      supports: Δσ=σ+σi−σs와 젖음, 섬 형성 전 젖음층, 탄성 완화에 따른 에너지 이득 및 추가 면적의 비용을 다룬다.
+    check: 평면을 덮을 때의 단위면적 자유에너지 변화는 γfilm+γinterface−γsubstrate이다. 음수이면 덮는 편이 유리하다. 같은 총부피라도 두께의 면적 평균은 섬 사이의 빈 영역이 0임을 알려주지
+      못한다. 변형 완화와 표면 면적 증가가 경쟁할 수 있어 SK를 모든 불일치의 필연적 결과로 확대하지 않았다.
+    assumptions: 평면 기판의 단위 투영 면적, 먼저 변형 없는 한계에서 비교한다. 비평형 성장에는 표면 이동과 입사 속도도 관여한다.
+  - id: geometry-example
+    claim: 국소 두께와 기판 위 기준 두께로 계산한 측벽·바닥 피복률 및 종횡비 예제.
+    locations:
+    - §1(3) 측정 상자, §7 표, §8
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: https://ocw.mit.edu/courses/6-774-physics-of-microfabrication-front-end-processing-fall-2004/1sSADV3Iiuifbp51EEBEB0v15lnIZkjBA_transcript.pdf
+      provenance: Hoyt, MIT 6.774, Plummer/Deal/Griffin-based lecture
+      locator: 강의록 pp. 1–3
+      supports: 배선 단차에서 위치별 박막화, 균일한 피복 및 h/w의 정의를 비교한다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers/Puurunen/Dendooven conformality analysis
+      locator: §II.H, Fig. 7, §III
+      supports: 국소 두께비, bottom/top·sidewall/top의 사용과 깊이에 따른 막 두께 프로파일을 구분한다.
+    check: 1 μm=1000 nm이므로 h/w=1000/100=10. 9/10×100%=90%, 4/10×100%=40%. 주어진 세 측정값 가운데 최소는 바닥의 4 nm이다. 가상의 수치는 논문 실측치로 인용하지
+      않았다.
+    assumptions: 증착 전 깊이·입구 폭, 각 면의 법선 방향 두께, 윗면 두께 양수. 측벽 깊이 절반과 바닥 중앙은 서로 다른 시료 위치이다.
+  - id: directional-coverage
+    claim: 증발 입자의 직선 경로가 가려지거나 스퍼터 원자의 입사각 분포가 달라지면 단차의 국소 박막화가 가능하다. 피복과 내부 충전은 관측 항목이 다르다.
+    locations:
+    - 도입, §2, §7 금속 배선 및 충전, §8
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: https://pages.jh.edu/aandreo1/495/Archives/2002/LectureNotes/FilmDeposition.pdf
+      provenance: R. B. Darling, University of Washington PVD notes reproduced in Andreou
+      locator: Darling, equilibrium vapor pressure 및 evaporation rate, pp. 14–19
+      supports: 온도와 증기압에 따른 공급원 방출 및 방출 방향을 다룬다.
+    - id: https://www.lithoguru.com/scientist/CHE323/
+      provenance: C. A. Mack, CHE323/CHE384, Campbell-based lectures
+      locator: Lectures 20–21, L21 slides 2–3, 8–10; L23 slides 2–5
+      supports: 충돌이 드문 진공, 입사각·음영과 via fill 공극을 비교한다.
+    - id: https://ocw.mit.edu/courses/6-774-physics-of-microfabrication-front-end-processing-fall-2004/1sSADV3Iiuifbp51EEBEB0v15lnIZkjBA_transcript.pdf
+      provenance: Hoyt, MIT 6.774, Plummer/Deal/Griffin-based lecture
+      locator: 강의록 pp. 1–3, 5–6
+      supports: 불균일 금속 피복의 얇은 위치, 단차와 좁은 간격의 공극, 증발 경로와 시야 가림을 예시한다.
+    check: 온도에 따른 방출률, 기하학적 전달과 음영을 구분했다. 평탄부 두께만으로 국소 최솟값을 정할 수 없고, 개구가 먼저 닫히면 내부 공극이 남는다는 단면 해석은 두 강의의 사례와 일치한다.
+    assumptions: 평균 자유 행로가 소스-기판 거리보다 큰 직진 증발의 한계. 스퍼터 조건에는 산란과 입사각 분포가 있다.
+  - id: cvd-crossover
+    claim: 일차 정상상태 모형의 직렬 저항, 성장률 환산과 양 극한. 두 계수가 같을 때 k_s만 두 배로 하면 플럭스는 4/3배이다.
+    locations:
+    - §3(1)–(3), §7–8 CVD 결론
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: https://ocw.mit.edu/courses/6-774-physics-of-microfabrication-front-end-processing-fall-2004/1sSADV3Iiuifbp51EEBEB0v15lnIZkjBA_transcript.pdf
+      provenance: Hoyt, MIT 6.774, Plummer/Deal/Griffin-based lecture
+      locator: pp. 7–10, 경계층에서 농도와 flux를 도입해 film velocity를 구하는 부분
+      supports: 기상 전달·일차 표면 플럭스, 정상상태에서 둘의 일치와 수밀도를 사용한 두께 변환을 명시한다.
+    - id: https://www.lithoguru.com/scientist/CHE323/
+      provenance: C. A. Mack, CHE323/CHE384, Campbell-based lectures
+      locator: Lecture 24 slides 4–11, Lecture 25 slides 2–9
+      supports: 독립 교재·강의의 농도 경계조건, 정상상태 속도식, 온도/유동 민감도 및 압력에 따른 영역 이동을 대조했다.
+    check: h(Cg−Cs)=kCs에서 Cs=hCg/(h+k), J=hkCg/(h+k). k=h이면 J=hCg/2, k=2h이면 J=2hCg/3, 비는 4/3이다. [J] m⁻²s⁻¹에 편입부피 m³를 곱하면 m/s이다.
+      k/h→0에서는 반응 제한, h/k→0에서는 전달 제한이다. 평탄부 모형에는 트렌치 깊이 좌표나 옆벽 소비가 없다.
+    assumptions: 평탄부의 국소 정상상태, 단일 지배 전구체, 양의 계수, 정반응 일차 소비. 예제에서는 Cg, hg 및 편입당 부피를 고정한다.
+  - id: gan-inlet
+    claim: GaN의 NH₃/TMGa 입력 몰 유량비를 두 방식으로 배가할 수 있으며, 표면 활성종과 성장률에는 절대 유량과 반응·수송도 관여한다.
+    locations:
+    - §4 세 문단, §7 표, §8 마지막 항목
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: 10.3390/ma12152455
+      provenance: Ciarkowski et al., Virginia Tech and collaborators, OMVPE experiments
+      locator: §§1–3, Table 1, Fig. 2
+      supports: NH3 대 TMGa 비를 정의하고 수송·부반응에 따른 성장 효율 및 TMGa 유량에 따른 성장률을 실험 조건별로 제시한다.
+    - id: 10.1002/pssr.202100202
+      provenance: Y. Zhang et al., Ohio State, laser-assisted MOCVD experiments
+      locator: §§1, 2.2, Fig. 3, Table 2
+      supports: 다른 연구팀이 NH3 분해를 제어하며 성장률과 TMGa 유량을 비교하고 같은 입력비에서도 유효 활성종 비가 달라지는 조건을 논한다.
+    check: 원래 유량 A,B에서 2A/B=A/(B/2)=2A/B. 후자의 단위 시간당 Ga 공급은 B/2이다. 두 조작에서 성장률이 얼마나 바뀌는지는 이 산술로 결정할 수 없다.
+    assumptions: 각 분자에 각각 N 또는 Ga 하나, 유량은 같은 몰/시간 단위, 비교마다 나머지 한쪽 유량은 고정한다.
+  - id: surface-chemistry
+    claim: 수산화 표면에서 TMA의 리간드 교환과 CH₄ 방출, 다음 물 주입에 의한 메틸기의 제거·수산기 재생.
+    locations:
+    - §5(1) Al₂O₃ 예제
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1039/C5CP01912E
+      provenance: Weckman/Laasonen, Aalto atomistic calculations
+      locator: 2015, Phys. Chem. Chem. Phys. 17, 17322–17334, 반응 R1–R3 및 §3
+      supports: 배위 환경별 리간드 교환과 두 반쪽 반응의 표면 종 및 메테인 부산물을 계산했다.
+    - id: https://escholarship.org/uc/item/2vr3z5pd
+      provenance: J. L. Cho, UCLA doctoral experiments
+      locator: 2015 UCLA doctoral thesis, Figs. 2.9–2.10, 3.1–3.3
+      supports: 독립적인 제자리 FTIR 측정으로 TMA/물 교대 후 표면 종단기의 소모·재생을 확인하고 메테인 방출 경로를 해석했다.
+    check: R1과 R3에서 한 개 또는 두 개 수산기와 반응하면 남은 메틸기 개수가 다르다. R2는 물과 반응 시 CH₄ 방출과 OH 도입을 보인다. 독립 FTIR 실험은 TMA 뒤 Al–CH₃ 증가와 OH 감소,
+      물 뒤 반대 변화를 관측했다. 메테인 생성 경로와 FTIR로 직접 관측한 표면 진동을 구분했다.
+    assumptions: TMA/물 열 ALD의 대표 경로이며 Al당 잔류 리간드 수를 고정하지 않는다.
+  - id: ald-exposure
+    claim: 각 반응물의 노출, 충분한 퍼지 및 깊이 방향 두께를 구분해 ALD 포화를 해석한다. 충분히 일정한 분압의 노출량은 분압과 시간의 곱이다.
+    locations:
+    - §5(2) 측정, §5(3) 첫 문단, §7–8 ALD
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers/Puurunen/Dendooven conformality analysis
+      locator: §II.D, II.H, Fig. 7 및 §VI
+      supports: 노출량과 분압/펄스 시간 및 표면 피복, 구조 안 분압·표면 반응과 깊이별 두께 관계를 다룬다.
+    - id: 10.1021/cm020357x
+      provenance: Hausmann/Kim/Becker/Gordon, Harvard metal-amide deposition experiments
+      locator: §III.B–F, Figs. 4, 7–8
+      supports: 저·고 노출의 구멍 피복, 유동 속도와 노출, 퍼지 시간 및 증착률을 단독으로 비교한다.
+    - id: 10.1039/D0CP03358H
+      provenance: Yim et al., Aalto-led LHAR alumina experiments
+      locator: Fig. 11a, series E, TMA pulse time
+      supports: 별도 Al₂O₃ 실험에서 입구부터 거의 평탄한 두께 영역과 TMA 펄스 증가에 따른 도달거리 증가를 보고한다. Harvard의 Hf/Zr 실험을 반복 인용한 자료와 구별한다.
+    check: E=∫p(t)dt에서 거의 일정한 p에 대해 E≈pΔt, 단위 Pa·s. 추가 공급에도 윗면 GPC가 거의 일정할 때 내부 도달 깊이는 더 늘 수 있다. 위치별 두께 포화와 사이클 수에 대한 선형성을
+      분리해 해석한다.
+    assumptions: 동일 온도·사이클 수·측정 위치에서 한 반응물씩 변경하고 다른 조건을 유지한다. 깊은 구조에서는 반응물 전달 시간도 필요하다.
+  - id: reported-experiment
+    claim: Hausmann 등의 식각 실리콘 시료, 금속 아마이드/물 증착, 저·고 노출의 피복 비교 및 그림 4의 출처.
+    locations:
+    - §5(3) 둘째 문단과 원문 링크
+    category: bibliography
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/cm020357x
+      provenance: Hausmann/Kim/Becker/Gordon, Harvard metal-amide deposition experiments
+      locator: §III.B, pp. 4353–4354, Fig. 4 및 p. 4358 Acknowledgment; 저자본 aldhf_3.pdf와 aldhf.pdf의 Fig. 4 캡션·패널
+      supports: 금속 아마이드와 물 사용, 식각 실리콘의 입구와 바닥 단면 및 식각 웨이퍼의 공급자를 분리해 확인했다.
+    check: pp. 4353–4354 본문은 낮은 노출에서 상부에만, 높은 노출에서 전 깊이에 피복이 됐다고 보고한다. 그림 4는 코팅 전후 단면이다. p. 4358 감사의 글은 식각 웨이퍼를 Martin Gutsche가
+      제공했다고 기록한다. 수정된 문장의 연구팀 행위는 두 산화물 각각의 증착이다.
+    assumptions: 저·고 노출 조건은 해당 논문의 재료, 반응기 및 구멍 형상에 한정한다. 독립 실험이 필요해지는 일반적 노출 효과는 별도 ald-exposure finding에 있다.
+  - id: optical-metrology
+    claim: 타원편광법은 반사 편광 상태에서 층 모형을 통하여 막 두께를 추정하며, 계면 산화층도 응답에 기여한다. 단면 전자현미경은 국소 위치별 평가에 쓰인다.
+    locations:
+    - §7 두께 측정 문단, §1(3) 및 §5(3)의 두께 지표
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: https://escholarship.org/uc/item/2vr3z5pd
+      provenance: J. L. Cho, UCLA doctoral experiments
+      locator: §2.2.4, Figs. 2.11–2.14, §3 Fig. 3.4
+      supports: 반사 편광 측정, 공기/박막/기판 모형 적합, HRTEM과 두께 측정을 제시한다.
+    - id: 10.1021/cm020357x
+      provenance: Hausmann/Kim/Becker/Gordon, Harvard metal-amide deposition experiments
+      locator: §III.B p. 4353 및 Fig. 4
+      supports: 계면 SiO₂의 기여를 XRR·타원편광법 결과와 연결하고 식각 구조의 단면 SEM을 제시한다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers/Puurunen/Dendooven conformality analysis
+      locator: §II.H–III, Fig. 7
+      supports: 측벽과 바닥에 대한 단면 위치를 포함한 국소 피복 및 두께 프로파일 확인 방법을 제시한다.
+    check: Cho의 편광 진폭·위상차와 모형 적합을 확인했다. Hausmann은 표면의 SiO₂로 인해 단일층 광학 해석 두께와 층별 XRR 두께가 달라지는 사례를 제시한다. 단면 SEM/TEM 근거는 두 원문과
+      Cremers §III에서 확인했다.
+    assumptions: 평탄한 광학 시편과 해당 막에 맞는 모형. 계면층을 광학 측정만으로 언제나 분리할 수 있다는 가정은 없다.
+  - id: coherent-strain
+    claim: 정합된 박막의 면내 변형률을 구하는 분모와 격자 불일치의 분모가 다르고, 두께 증가에 따른 전위 완화 뒤에는 실제 면내 주기를 사용한다.
+    locations:
+    - §6(2), §7 표, §8 마지막 항목
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://lase.ece.utexas.edu/introduction-mbe-growth
+      provenance: UT Austin Laboratory for Advanced Semiconductor Epitaxy
+      locator: §6–7, Fig. 7.5 부근
+      supports: 완전 정합과 부분 완화, 두께와 불일치에 따른 계면 전위 형성을 실제 III–V 예로 다룬다.
+    - id: https://www.iue.tuwien.ac.at/phd/smirnov/node68.html
+      provenance: S. Smirnov, TU Wien thesis
+      locator: §3.1.1, 첫 두 문단 및 Eq. 3.2 주변
+      supports: 격자 불일치와 두께에 따른 탄성 에너지, 전위 생성 비용 및 잔류 면내 변형의 구별을 제공한다. 기호와 분모는 본문의 명시 정의를 사용했다.
+    check: a_f=a_s(1+f)를 (a_s−a_f)/a_f에 대입하면 −f/(1+f)이다. f>0이면 압축, |f|≪1이면 −f+O(f²). 완화된 경우 a_parallel=a_s를 대입할 수 없다.
+    assumptions: 같은 온도와 면내 방향에서 1:1 주기가 대응하며 기판이 충분히 두껍다. 작은 불일치 근사와 완전 정합의 정확식을 구분한다.
+  - id: evap-image
+    claim: 그림 1에서 아래 증발원에서 윗기판으로 물질이 이동한다.
+    locations:
+    - §2(1) 그림 1
+    category: asset
+    status: supported
+    method: source
+    sources:
+    - id: https://commons.wikimedia.org/wiki/File:PVD-CVD.jpg
+      provenance: Wikimedia Commons, Dipl-ing-metaller original image
+      locator: Description, 원본 JPEG 장치도
+      supports: 증발원에서 기판 방향으로 전파되는 물질의 경로를 나타낸다.
+    check: 로컬 JPEG의 아래 Verdampfer, 위 Substrat 및 상향 화살표를 원래 파일 설명과 대조했다. 기존 그림 2·3의 패널·라이선스는 바뀌지 않았다.
+    assumptions: 그림에 나타난 장치 배치이며, 모든 증발 증착기의 기하를 규정하지 않는다.
+  summary: 기준 검증본 이후의 주장, 자산, 인용과 종속 결론을 원문 대조·직접 검산·범위가 유지된 과거 근거로 확인했다. 초기 수정본 6960460e…에서 식각 웨이퍼 제작을 증착 연구자에게 귀속한 문장을 지적했고,
+    현재 dfab2fb3…에서는 식각된 시료에 두 산화물을 각각 증착한 것으로 고쳐졌다. 실제 관측 결과는 출처 고유 실험에 한정했고 예제의 비율은 명시된 정의에서 재계산했다. 범위 내 미해결 0건.
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''

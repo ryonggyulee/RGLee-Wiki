@@ -1,7 +1,7 @@
 schema_version: 2
 rubric_version: 4
 hash_version: 2
-updated_at: '2026-11-23'
+updated_at: '2026-11-24'
 documents:
 - path: docs/computational-materials-science/electronic-structure/density-functional-theory.md
   topic: Density functional theory
@@ -5957,51 +5957,53 @@ documents:
       to_source_hash: f4be5d999cf020c5310e2c9f27c1e7f4cd9a887f4f08b49dfd849afbb9f4196c
 - path: docs/device-physics/semiconductor-process/atomic-layer-deposition.md
   topic: Atomic layer deposition
-  scope: 열 ALD와 플라즈마 강화 ALD의 표면 반응을 비교하고 반응 포화, 초기 핵생성, 고종횡비 구조의 피복성을 측정 자료로 해석한다.
+  scope: 자기 제한적 표면 반응을 바탕으로 열 ALD의 네 단계, 플라즈마를 이용한 반쪽 반응, 성장량과 트렌치 피복성의 측정 방법을 설명한다.
   kind: article
   group: device-physics / semiconductor-process
   hashes:
-    source: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
-    content: 1603a335d8f64bf646c7ea84f34aa195d5d0d8a64a6d5a1d8a2d709b1be40e5c
-    outline: 7e12998f630418feb838f3fb8c5066dea97b26aeafb1fbd4c4205ab80c259b68
-    presentation: 56081819d134e183edc319a7f6359bceb893f778d7cf951bc6f8854a52f1b083
+    source: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
+    content: 79b576ffa830c17fe2e4a33ade4260d8e2f93a029035b84fd6e7ea1b0fe2d2a0
+    outline: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
+    presentation: 34ed8e7d6cd85e4c08b707701270bd1a47ec487ec70aa434f0582b5f29e7814b
   metrics:
-    characters: 4858
+    characters: 6509
     explanatory_elements:
-      total: 3
-      figures: 2
-      tables: 0
-      equations: 1
+      total: 6
+      figures: 3
+      tables: 1
+      equations: 2
       code_blocks: 0
   automatic_check: pass
   issues: []
   assets:
+    docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
     docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
     docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
   review:
     status: pass
     scope: facts
-    coverage: full
+    coverage: changes
     rubric_version: 4
-    reviewed_at: '2026-11-23'
+    reviewed_at: '2026-11-24'
     model:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
-    content_hash: 1603a335d8f64bf646c7ea84f34aa195d5d0d8a64a6d5a1d8a2d709b1be40e5c
-    outline_hash: 7e12998f630418feb838f3fb8c5066dea97b26aeafb1fbd4c4205ab80c259b68
+    source_hash: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
+    content_hash: 79b576ffa830c17fe2e4a33ade4260d8e2f93a029035b84fd6e7ea1b0fe2d2a0
+    outline_hash: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
     assets:
+      docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
       docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
       docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
-    evidence_path: refs/quality/evidence/2192bddec6e6fa159145ffb69ba37f838f2ea8753261bb5b1cfdd423b2a6d92b.yaml
+    evidence_path: refs/quality/evidence/7532f675d657a5c670ec6aecba211fc119d8b55ddb8e8f86f0a2709b70d03d24.yaml
     finding_counts:
-      supported: 16
+      supported: 9
       mismatch: 0
       insufficient: 0
       inaccessible: 0
-    summary: 새 문서 전체의 직접 원출처 대조와 독립적인 반응식·차분·정규화 검산을 완료했다. 서로 다른 데이터세트를 구분했으며 두 JPEG는 직접 재추출한 원본과 SHA-256이 일치한다. 16개 finding이
-      supported이며 mismatch, insufficient, inaccessible는 각각 0개이다. [9]는 출판판의 산화물·질화물 깊이별 관측과 저자의 기작 해석을 구분하여 대조했다.
+    summary: 최종 SHA의 변경 및 영향을 받는 가정에서 9개 finding을 확인했다. 독립 원문에서 포화와 퍼지, 열·플라즈마 표면기와 생성물, 측정 대상 및 도식의 원본을 대조했고 두 반응식과 두께의 구간
+      평균을 검산했다. 근거 부족·접근 불가·불일치로 남은 항목은 0개이다.
 - path: docs/device-physics/semiconductor-process/doping-and-annealing.md
   topic: 'Semiconductor process: Doping and annealing'
   scope: 확산·이온 주입의 도펀트 분포, channeling과 implantation damage, 열처리에 의한 activation·TED 및 농도 계측을 설명

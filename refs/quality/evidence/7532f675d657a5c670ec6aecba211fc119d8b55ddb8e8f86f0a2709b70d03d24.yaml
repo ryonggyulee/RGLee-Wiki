@@ -1,0 +1,251 @@
+page: docs/device-physics/semiconductor-process/atomic-layer-deposition.md
+hashes:
+  source: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
+  content: 79b576ffa830c17fe2e4a33ade4260d8e2f93a029035b84fd6e7ea1b0fe2d2a0
+  outline: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
+  presentation: 34ed8e7d6cd85e4c08b707701270bd1a47ec487ec70aa434f0582b5f29e7814b
+assets:
+  docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+  docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+  docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
+  assets:
+    docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+    docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+    docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
+    checked:
+    - 도입·§1의 반응 자리, 리간드, 포화와 퍼지, 그림 1의 네 패널·이상 곡선·원본·라이선스
+    - §2의 TMA와 물의 단일 결합 교환식, 네 단계의 부산물과 퍼지 후 표면기
+    - §3의 기판에서 성장막으로의 전환, 평균 GPC 계산, 노출량과 퍼지 시간에 따른 판정, Heil과 Groner QCM 및 온도 의존성
+    - §4(1)의 열·플라즈마 단계 비교표, 플라즈마 산화 경로와 적외선에 의한 표면기 판별
+    - §4(2)–§7로 이동한 진술의 인용 연결, 공간 분할과 플라즈마 적용, 측정 기준·요약 및 §8의 참고문헌 재번호
+    dependencies:
+    - 한 반쪽 반응의 포화가 성장막의 원자층 완성과 다른 조건인 점이 §2의 반응식·§3의 성장 측정·§7 첫 두 항목에 적용된다.
+    - 동일한 초기 기판, 주입 및 온도에서 비교하는 사이클 수·노출량·퍼지·온도 실험의 독립변수와 종속변수가 서로 다르다.
+    - §4(1)의 표면기와 기상 생성물을 구분하고, §5–6의 기판 회전과 피복성은 원 실험의 재료·기하·노출 조건에 한정한다.
+    reused_evidence:
+    - path: refs/quality/evidence/2192bddec6e6fa159145ffb69ba37f838f2ea8753261bb5b1cfdd423b2a6d92b.yaml
+      sha256: 12c18adf5291b4e0a9f4e752bee0e0c51a72e306c832947e27f5e2196c28e071
+      scope: 82f8057의 검증본에서 fraction의 입체 장애 근거, exposure·window의 분자 노출/온도별 가능한 원인, temperature-mass의 밀도·면적당 Al·수소 구별, plasma-geometry와
+        nitride의 ZnO/원격 이온·광자/AlN 결과, spatial·deep-transport·profile-metric의 벽면 재결합과 깊이별 기준·조건 분리, figure-one/two의 JPEG 추출
+        및 저작권, bibliography의 기존 14편 서지 동일성을 승계했다. 해당 원출처·실험 조건, 기준과 분모는 그대로이고 두 JPEG 바이트 해시도 일치한다. 새 그림, 새 인용, 재배치된 반응식·표·실험
+        비교 및 본문 번호 대응에는 아래 직접 확인을 사용했다.
+  findings:
+  - id: site-ligand-saturation
+    category: scientific
+    status: supported
+    method: source
+    locations:
+    - 도입
+    - §1, 그림 1(c)
+    - §2(1),(3)
+    - §7
+    claim: 흡착 가능한 자리의 소모나 리간드에 의한 입체 장애로 A의 추가 흡착이 포화될 수 있고, B가 다음 A에 반응하는 표면을 만든다.
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala–Leskelä handbook chapter 2002
+      locator: §3.1, PDF p. 4
+      supports: 포화된 화학흡착층에서도 자리 밀도·리간드 입체 장애 때문에 한 단층분보다 적은 금속이 남을 수 있다. 과량분은 이후 퍼지한다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers–Puurunen–Dendooven 2019
+      locator: p. 021302-5, §II.E, 식 5–10
+      supports: 미점유 자리 분율과 반응 확률 관계 및 B 반응으로 다음 A에 대한 표면 반응성 회복을 설명한다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008 precursor pulse experiment
+      locator: Fig. 7(a–c), p. 103302-7
+      supports: TMA를 산화제 없이 반복하면 후반 주입에서 질량 증가가 멈추고 미반응 TMA가 검출된다.
+    - id: https://publications.iupac.org/books/rbook/Red_Book_2005.pdf
+      provenance: IUPAC Red Book 2005
+      locator: IR-9.1.2.2–4, pp. 144–145
+      supports: 리간드는 중심 원자에 결합한 원자 또는 원자단이다. Heil 등의 TMA 메틸 리간드와 같은 용법이다.
+    check: 유한한 자리 수와 입체 장애는 가능한 포화 원인이다. 화학흡착 유지, 같은 반응물의 재노출, 다음 반쪽 반응에 의한 재활성화가 그림 및 실험과 일치한다.
+    assumptions: 안정한 화학흡착을 하는 이상적 반쪽 반응. A와 B는 설명에 사용한 이원 순차 공정의 반응물이다.
+  - id: illustration
+    category: asset
+    status: supported
+    method: source
+    locations:
+    - §1 그림 1, §3(3)의 (d) 참조
+    - §8 [5]
+    claim: 그림 1의 원본, 저자, 라이선스와 패널 판독이 맞다.
+    sources:
+    - id: https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg
+      provenance: Piechulla, Puurunen, Chen, Goulas and van Ommen 2025 original drawing
+      locator: Summary, Licensing, original SVG panels a–d
+      supports: 2025-06-21, 명시된 5인 저작 및 CC BY 4.0. (a) 네 단계, (b) 시간별 분압, (c) 흡착량, (d) 온도별 GPC와 window이다.
+    check: Commons 원본 SVG를 받아 얻은 SHA-256이 assets의 dd046f42…와 동일했다. 바이트가 같은 그림을 렌더링하여 (c)의 검정 곡선이 분홍 주입 구간 안에서 평탄해지고 회색 퍼지에서
+      이어지는 모습을 직접 확인했다.
+    assumptions: 도식은 정성적 예시이다. (c)의 이상 곡선과 여러 점선의 다른 흡착 거동을 구분했다.
+  - id: thermal-four-steps
+    category: scientific
+    status: supported
+    method: derivation
+    locations:
+    - §2(1)–(4)의 두 식과 퍼지
+    - §4(1) 표의 열 ALD 열
+    - §7 첫 항목
+    claim: OH가 있는 표면에서 TMA와 물을 차례로 반응시키면 각각 메테인이 나올 수 있고, 첫 퍼지 후 메틸기와 둘째 퍼지 후 수산기가 유지된다.
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004 thermal ALD
+      locator: §2B, p. 640 reactions A/B, Fig. 5, Table 1, §4A
+      supports: 단일 OH 및 Al–메틸의 교환식, TMA/질소/물/질소 순서, 짧은 퍼지에서 추가 성장 및 저온에서의 긴 물 퍼지를 보고한다.
+    - id: 10.1063/1.2940598
+      provenance: Langereis et al. 2008 differential surface IR
+      locator: Fig. 2(a), p. 231904-2
+      supports: 열 공정과 플라즈마 공정에서 TMA 뒤 CH₃ 증가와 OH 소모, 산화 단계 뒤 OH 회복을 직접 비교한다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008 QCM/QMS
+      locator: §III.B, Eqs. 3–5 and p. 103302-6
+      supports: TMA에 붙은 여러 메틸기 중 둘 이상이 떨어질 수 있는 결합과 다른 온도의 열 공정 자료를 명시한다.
+    check: 표면 골격을 고정하고 Me=CH₃를 넣으면 첫 식 양변의 나머지 원자 수는 Al₁O₁C₃H₁₀, 둘째 식은 Al₁O₁C₁H₅로 각각 같다. 둘째 식의 Al은 이미 표면에 있으며 물은 추가 Al을 공급하지
+      않는다. 각 퍼지는 직전 기체 반응물과 휘발성 메테인을 분리한다.
+    assumptions: 각 식은 교환 한 번을 나타낸다. 한 TMA가 인접한 OH에도 결합할 수 있으며, 전체 막의 고정 배위수나 한 사이클의 완전 단층을 가정하지 않는다.
+  - id: growth-and-substrate
+    category: scientific
+    status: supported
+    method: derivation
+    locations:
+    - §3(1) 및 Measurement
+    - §7 둘째 항목
+    claim: 초기 기판의 표면기가 다르면 성장량이 달라질 수 있고, 정상 성장의 두께 기울기에서 평균 GPC를 구한다.
+    sources:
+    - id: 10.1063/1.2077840
+      provenance: Sturm et al. 2005 XPS
+      locator: p. 076104-1 and Fig. 1
+      supports: 300 °C TMA–물의 초기 1–4회 증착에서 XPS로 면적당 Al을 평가하여 HF-last Si에서 산화 Si보다 적은 초기 축적을 관측했다.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon–Kessels 2019 initial growth experiment
+      locator: Fig. 2(a,b), GPC during Initial Growth
+      supports: 서로 다른 Si 시작 표면의 두께 곡선과 그 차분을 비교하면 초기 경향이 다르고 이후 같은 기울기에 도달한다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008 ellipsometry
+      locator: Figs. 2–3, §III.A
+      supports: 사이클 수별 두께 기울기와 한 사이클 안의 TMA 투입량별 GPC를 별도 축에서 측정했다.
+    check: 연속 사이클 증분을 N₁+1부터 N₂까지 합하면 중간 두께가 소거되어 d(N₂)−d(N₁)가 남는다. 이를 N₂−N₁로 나누면 nm/cycle의 구간 평균이다. 서로 다른 기판의 초기 구간까지 하나의
+      정상 기울기를 대입하지 않았다.
+    assumptions: N₂>N₁, 동일한 공정·두께 기준. 산화막이 기판을 덮은 뒤 재현되는 표면 상태에서의 정상 성장에 한정했다.
+  - id: exposure-qcm-purge
+    category: scientific
+    status: supported
+    method: source
+    locations:
+    - §3(2) 전체
+    - §3(3) 온도 곡선과의 구별
+    - §7 둘째 항목
+    claim: 반응물 노출과 퍼지를 각각 바꾸어 포화와 반응물 중첩 가능성을 검사할 수 있다. Heil의 연속 TMA QCM과 Groner의 58 °C 질량/사이클 곡선은 서로 다른 측정이다.
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004 thermal QCM
+      locator: Figs. 2–5, Table 1, pp. 641–644 §§3A and 4A
+      supports: 58 °C에서 개별 반응물 공급과 퍼지를 따로 바꾸었다. 긴 주입에도 질량/사이클 곡선의 작은 기울기가 남았고 짧은 퍼지에서 질량 증가량이 더 컸다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008 plasma QCM
+      locator: Figs. 3 and 7(c), pp. 103302-4 and -7
+      supports: 15회 연속 TMA 주입에서 5–6회 후 QCM 질량 증가가 검출되지 않았다. 별도로 주입 횟수를 바꾸며 한 사이클의 성장량도 확인했다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers et al. 2019 exposure conventions
+      locator: §II.D–E, p. 021302-5
+      supports: 분압과 시간의 곱, 반응 확률 및 포화에 필요한 노출량을 구별한다.
+    check: 표면 근처의 분자 분압이 일정하면 노출량의 시간적분은 분압×시간이고 차원은 Pa·s이다. Heil의 산화 전 QCM 시간 이력과 Groner의 완성 사이클 증가량을 구별했다. Groner는 낮은 온도에서
+      완만한 접근 및 고정 퍼지가 긴 노출에 부족했을 가능성을 함께 언급한다. 본문은 퍼지 의존성도 따로 점검한다.
+    assumptions: 비교 대상 이외의 노출 및 온도는 고정한다. 완만한 포화는 가능한 해석이며, GPC만으로 표면 반응 경로를 유일하게 알아낼 수 있다고 해석하지 않는다.
+  - id: plasma-oxidant-and-surface
+    category: scientific
+    status: supported
+    method: source
+    locations:
+    - §4(1) 비교표와 앞뒤 문단
+    - §7 셋째 항목
+    claim: 시간 분할 TMA–산소 플라즈마에서는 첫 퍼지 뒤 산화가 일어나고, 다음 TMA에 반응하는 수산기가 형성된다. 산화·물 매개 교환이 서로 다른 부산물을 만든다.
+    sources:
+    - id: 10.1063/1.2940598
+      provenance: Langereis et al. 2008 surface film IR experiment
+      locator: Figs. 1 and 2, pp. 231904-2–3
+      supports: 플라즈마 노출과 TMA 주입 전후의 차분 IR로 25–150 °C의 주된 OH/메틸 종결기를 판별했다. 25 °C에서 플라즈마 시간을 늘리면 탄소계 잔류종이 줄었다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008 low-pressure QMS/QCM/OES
+      locator: §II.A, §§III.C–D, Figs. 6–10
+      supports: 잔류 기체를 비운 뒤 방전하고 다음 주입 전에 이를 끝낸다. TMA 뒤 메테인, 플라즈마 뒤 물과 CO₂가 검출되며 GPC의 플라즈마 시간 포화를 별도 검사했다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. 2022 atmospheric spatial reactor exhaust IR
+      locator: Fig. 4 and Eqs. 5–6, p. 062407-8
+      supports: 별도 장치와 가스 분석으로 메틸의 산화와 생성된 물의 근접 메틸 교환을 구분하고 Al–OH를 재생하는 경로를 제시한다.
+    check: Langereis의 표면 IR과 Heil·Mione의 각기 다른 반응기에서 측정한 기체 생성물을 구별했다. Mione의 공간 분할 실험은 화학의 근거로만 사용했다. 표의 시간적 순서는 Heil의 시간
+      분할 실험에 대응한다. 산소 분압 하나로 라디칼 도달량이 정해지지 않는다는 결론은 Heil의 거의 일정한 분압에서 방전을 켜고 끄는 절차 및 원격·직접형의 기존 근거와 양립한다.
+    assumptions: TMA 기반 알루미나의 산소 플라즈마 산화 예시이다. 주된 표면기와 가능한 부산물이라는 범위에서 비교한다.
+  - id: window-comparison
+    category: scientific
+    status: supported
+    method: source
+    locations:
+    - §3(3) 그림 1(d)
+    - §4(1) 저온 성장 해석
+    claim: 반응물별 포화와 온도에 따른 GPC 평탄 구간은 측정 조건이 다르며, Al₂O₃의 온도별 두께 증가량에는 표면기와 막 특성의 변화도 반영될 수 있다.
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004 thermal film characterization
+      locator: Figs. 4, 6, 9 and 11, §4A–C
+      supports: 반응물 노출과 온도를 별도 변화시키고 온도 하강 시 밀도 감소·수소 증가를 측정했다. 두께와 QCM 성장량의 변환은 밀도에 의존한다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. 2022 temperature study
+      locator: Fig. 5 and discussion after Eqs. 5–6
+      supports: 온도 상승으로 탈수산화에 따라 TMA 축적과 산화 부산물이 줄 수 있는 경로를 설명한다.
+    - id: https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg
+      provenance: Piechulla et al. 2025 graphical example
+      locator: 원본 패널 (d)와 Summary
+      supports: 온도를 가로축으로 나타낸 정성적 window 도식이다.
+    check: 주입량을 바꾸는 포화 곡선, 온도를 바꾸는 GPC 곡선, 두께로부터 추론하는 막 내 금속량의 조건을 독립적으로 확인했다. 응축·탈착·열분해 등 변하지 않은 경계 요인은 baseline window의
+      근거와 연결된다.
+    assumptions: 관찰한 온도 곡선만으로 특정 기작을 단정하지 않는다.
+  - id: spatial-and-trench
+    category: scientific
+    status: supported
+    method: source
+    locations:
+    - §5–6, 그림 2와 3
+    - §7 넷째 항목
+    claim: 회전식 장치에서는 기판이 분리된 공급 영역을 순차적으로 지나며, 트렌치에서는 입구와 내부의 막 두께로 피복성 차이를 판별한다.
+    sources:
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. 2023 spatial ALD
+      locator: Figs. 1 and 2, p. 182902-3
+      supports: 100 °C에서 1–3 rpm으로 노출을 바꾸고 SiO₂ 200회와 TiO₂ 420회 후의 침투 두께를 재료별로 비교했다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers et al. 2019 conformality conventions
+      locator: §II, p. 021302-7, half-thickness penetration depth
+      supports: 기준 두께의 절반이 되는 침투 깊이를 정의하고 종횡비·기준 두께를 명시하여 비교한다.
+    check: 구 그림 1·2가 동일 파일로 신 그림 2·3에 해당하고 본문의 번호도 이를 가리킨다. 일정한 공급구 폭에서 회전이 느리면 각 공급구 아래 체류 시간이 증가하므로 공반응물 단독 효과를 분리하려면 전구체
+      포화를 확인해야 한다.
+    assumptions: x₅₀의 두께 기준과 통로 높이가 같은 구조끼리 비교한다. 재료 간 절대 두께 비교에 서로 다른 증착 사이클 수가 반영되어 있다.
+  - id: renumbering
+    category: bibliography
+    status: supported
+    method: source
+    locations:
+    - §1 그림 1 캡션, §4(1) 표/IR 문단, §5–6 그림, §8
+    claim: 새 참고문헌은 [5] 도식과 [10] IR 원 논문이고 기존 14개 서지의 정체성과 본문 인용 연결이 보존되었다.
+    sources:
+    - id: https://commons.wikimedia.org/wiki/File:ALD_basics_illustration.svg
+      provenance: Piechulla et al. Commons original
+      locator: Summary and Licensing
+      supports: 새 [5]의 저작자, 연도 및 도식 원본
+    - id: 10.1063/1.2940598
+      provenance: Langereis et al., APL 2008 original
+      locator: p. 231904-1, Figs. 1–2
+      supports: 새 [10]의 저자 4인, 제목, 권·논문번호, DOI 및 표면 IR 데이터
+    check: 기존 1–4는 유지되었고 기존 5–14의 새 번호는 차례로 8, 9, 11, 12, 13, 14, 6, 7, 15, 16이다. 14편 서지 문자열이 번호를 제외하면 동일함을 대조했다. 같은 문구의 문단은
+      변환표로 검사하고 바뀐 문단의 출처와 그림·표 호출은 내용을 대조했다.
+    assumptions: 기존 서지의 출판 정보 확인은 기준본의 bibliography를 승계하며 새 두 서지는 이번 직접 대조에 해당한다.
+  summary: 최종 SHA의 변경 및 영향을 받는 가정에서 9개 finding을 확인했다. 독립 원문에서 포화와 퍼지, 열·플라즈마 표면기와 생성물, 측정 대상 및 도식의 원본을 대조했고 두 반응식과 두께의 구간
+    평균을 검산했다. 근거 부족·접근 불가·불일치로 남은 항목은 0개이다.

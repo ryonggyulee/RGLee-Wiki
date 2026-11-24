@@ -104,6 +104,7 @@ nav:
           - Etching: device-physics/semiconductor-process/etching.md
           - Doping and annealing: device-physics/semiconductor-process/doping-and-annealing.md
           - Thin-film deposition: device-physics/semiconductor-process/thin-film-deposition.md
+          - Atomic layer deposition: device-physics/semiconductor-process/atomic-layer-deposition.md
       - Device reliability:
           - Overview: device-physics/device-reliability/index.md
           - Overview: device-physics/device-reliability/overview.md

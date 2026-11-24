@@ -1,7 +1,7 @@
 schema_version: 2
 rubric_version: 4
 hash_version: 2
-updated_at: '2026-11-18'
+updated_at: '2026-11-23'
 documents:
 - path: docs/computational-materials-science/electronic-structure/density-functional-theory.md
   topic: Density functional theory
@@ -4493,12 +4493,12 @@ documents:
   kind: index
   group: device-physics
   hashes:
-    source: e0b4e400cc2506f8f550785693696aec02499f1268a13dbd2887b12ebc1214f8
-    content: cc3f51e94fdafb73170bc2299f9922878eb21cffd10f23679898034350c88bb4
+    source: e7620c6a35ba6c9798db9724e8aa65e2f78435a94a7ab06fb9b27e02e04ba987
+    content: 3169752cc98836974c9212ef8909e1d1d6c74693f00133c54e1aad7eac591c28
     outline: 2c09192059f513e8f33e00108682010909d75ee3106b2a7741099238b4a903cf
     presentation: 2271ce3f2279febc5aa5e126ecb4204a24df7370bdafe31cc720b5e0d835cfd3
   metrics:
-    characters: 839
+    characters: 861
     explanatory_elements:
       total: 0
       figures: 0
@@ -4507,6 +4507,7 @@ documents:
       code_blocks: 0
   automatic_check: pass
   issues: []
+  assets: {}
   review:
     status: excluded
     reason: Home과 index는 navigation hub이므로 scientific review에서 제외한다.
@@ -5954,6 +5955,53 @@ documents:
       updated_at: '2026-10-17'
       from_source_hash: 369d180d7bd45b1aef4637e7351288bc1e88c6c07434c899596315fa4dac38c2
       to_source_hash: f4be5d999cf020c5310e2c9f27c1e7f4cd9a887f4f08b49dfd849afbb9f4196c
+- path: docs/device-physics/semiconductor-process/atomic-layer-deposition.md
+  topic: Atomic layer deposition
+  scope: 열 ALD와 플라즈마 강화 ALD의 표면 반응을 비교하고 반응 포화, 초기 핵생성, 고종횡비 구조의 피복성을 측정 자료로 해석한다.
+  kind: article
+  group: device-physics / semiconductor-process
+  hashes:
+    source: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
+    content: 1603a335d8f64bf646c7ea84f34aa195d5d0d8a64a6d5a1d8a2d709b1be40e5c
+    outline: 7e12998f630418feb838f3fb8c5066dea97b26aeafb1fbd4c4205ab80c259b68
+    presentation: 56081819d134e183edc319a7f6359bceb893f778d7cf951bc6f8854a52f1b083
+  metrics:
+    characters: 4858
+    explanatory_elements:
+      total: 3
+      figures: 2
+      tables: 0
+      equations: 1
+      code_blocks: 0
+  automatic_check: pass
+  issues: []
+  assets:
+    docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+    docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+  review:
+    status: pass
+    scope: facts
+    coverage: full
+    rubric_version: 4
+    reviewed_at: '2026-11-23'
+    model:
+      name: ''
+      reasoning_effort: ''
+      source: ''
+    source_hash: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
+    content_hash: 1603a335d8f64bf646c7ea84f34aa195d5d0d8a64a6d5a1d8a2d709b1be40e5c
+    outline_hash: 7e12998f630418feb838f3fb8c5066dea97b26aeafb1fbd4c4205ab80c259b68
+    assets:
+      docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+      docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+    evidence_path: refs/quality/evidence/2192bddec6e6fa159145ffb69ba37f838f2ea8753261bb5b1cfdd423b2a6d92b.yaml
+    finding_counts:
+      supported: 16
+      mismatch: 0
+      insufficient: 0
+      inaccessible: 0
+    summary: 새 문서 전체의 직접 원출처 대조와 독립적인 반응식·차분·정규화 검산을 완료했다. 서로 다른 데이터세트를 구분했으며 두 JPEG는 직접 재추출한 원본과 SHA-256이 일치한다. 16개 finding이
+      supported이며 mismatch, insufficient, inaccessible는 각각 0개이다. [9]는 출판판의 산화물·질화물 깊이별 관측과 저자의 기작 해석을 구분하여 대조했다.
 - path: docs/device-physics/semiconductor-process/doping-and-annealing.md
   topic: 'Semiconductor process: Doping and annealing'
   scope: 확산·이온 주입의 도펀트 분포, channeling과 implantation damage, 열처리에 의한 activation·TED 및 농도 계측을 설명
@@ -6232,12 +6280,12 @@ documents:
   kind: index
   group: device-physics
   hashes:
-    source: ed9edf8bffa927c339a1469c07768ec1f98f06550895fa77a5551dc71079ddd6
-    content: f163956fddf09ebd6498f90e8f80985e79951631d7ec2014ff26fa3b0bc00592
+    source: 66d2c43728d9c97af6bae63d6fb7a8e8b4194c2a215aa4ac62b739f46ca21048
+    content: 9ac41e36831d53ab9e18aa494f1ed97ca6bbb2ed29d9bc345d8d613307c71c96
     outline: ad2043f0a3af974f1b2584e82c7fdd8bb7c5aea16a15ef16bcb9b662270ef19d
     presentation: 3d37bd3ff8549b430b698e36a9a14d426461a41e55f8f90347c39297a3fb4b7b
   metrics:
-    characters: 129
+    characters: 151
     explanatory_elements:
       total: 0
       figures: 0
@@ -6246,6 +6294,7 @@ documents:
       code_blocks: 0
   automatic_check: pass
   issues: []
+  assets: {}
   review:
     status: excluded
     reason: Home과 index는 navigation hub이므로 scientific review에서 제외한다.
@@ -6255,8 +6304,8 @@ documents:
   kind: article
   group: device-physics / semiconductor-process
   hashes:
-    source: d863f3ad15d261b920130b161222f7dd336108eb1c510d53156b46925fd3ba5e
-    content: 6884917722ebcc44895dbb18697684a3bdbdc17ace79b52a6e0114b1608d36d6
+    source: 7c3283db279195bb2fb51ecf0640ae3738acdb1824b7ac735b967af81cc80587
+    content: b68e064513dcdef2918f646d3caa8397334c73e142ba3a5fa75cef3d4cc7cc5b
     outline: 1cb8b8cb14ab9694cfb9a4fe57bf4ce0500d6b40bd3e0c3d7d528b5f44e0c784
     presentation: 5cff86c42c4953b75080eedc6d11261d46fcef033899e282dca3a7e8de6d5454
   metrics:
@@ -6283,8 +6332,8 @@ documents:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: d863f3ad15d261b920130b161222f7dd336108eb1c510d53156b46925fd3ba5e
-    content_hash: 6884917722ebcc44895dbb18697684a3bdbdc17ace79b52a6e0114b1608d36d6
+    source_hash: 7c3283db279195bb2fb51ecf0640ae3738acdb1824b7ac735b967af81cc80587
+    content_hash: b68e064513dcdef2918f646d3caa8397334c73e142ba3a5fa75cef3d4cc7cc5b
     outline_hash: 1cb8b8cb14ab9694cfb9a4fe57bf4ce0500d6b40bd3e0c3d7d528b5f44e0c784
     assets: *id001
     evidence_path: refs/quality/evidence/94dd4b2cbf282558b074b8931f9678b8363d2547a8a4afaf08d9fa432e6fc2d6.yaml
@@ -6321,9 +6370,9 @@ documents:
       summary: 기준 검증본 이후의 주장, 자산, 인용과 종속 결론을 원문 대조·직접 검산·범위가 유지된 과거 근거로 확인했다. 초기 수정본 6960460e…에서 식각 웨이퍼 제작을 증착 연구자에게 귀속한 문장을
         지적했고, 현재 dfab2fb3…에서는 식각된 시료에 두 산화물을 각각 증착한 것으로 고쳐졌다. 실제 관측 결과는 출처 고유 실험에 한정했고 예제의 비율은 명시된 정의에서 재계산했다. 범위 내 미해결 0건.
     polish:
-      updated_at: '2026-11-18'
-      from_source_hash: dfab2fb346cb35e99b6f97b19df6d5bb974e1385474be7534c11a911566c7c78
-      to_source_hash: d863f3ad15d261b920130b161222f7dd336108eb1c510d53156b46925fd3ba5e
+      updated_at: '2026-11-23'
+      from_source_hash: d863f3ad15d261b920130b161222f7dd336108eb1c510d53156b46925fd3ba5e
+      to_source_hash: 7c3283db279195bb2fb51ecf0640ae3738acdb1824b7ac735b967af81cc80587
 - path: docs/index.md
   topic: RGLee's Wiki
   scope: 분야와 주제별로 위키의 전체 문서를 찾아보는 목차

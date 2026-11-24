@@ -1,0 +1,440 @@
+page: docs/device-physics/semiconductor-process/atomic-layer-deposition.md
+hashes:
+  source: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
+  content: 1603a335d8f64bf646c7ea84f34aa195d5d0d8a64a6d5a1d8a2d709b1be40e5c
+  outline: 7e12998f630418feb838f3fb8c5066dea97b26aeafb1fbd4c4205ab80c259b68
+  presentation: 56081819d134e183edc319a7f6359bceb893f778d7cf951bc6f8854a52f1b083
+assets:
+  docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+  docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: cf43d9898663cc75dc98403a2a81fc6905196ed250be57eeef197764d9ea90b8
+  assets:
+    docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+    docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: full
+    baseline_source_hash: null
+    checked:
+    - 신규 문서 전체. description·제목·도입, §§1–4 모든 설명과 Measurement 3곳, 두 반응식, 두 그림·alt·캡션, §5 요약 4개, §6 서지 14개.
+    - 새로 추가된 Thin-film deposition 링크가 실제 PVD·CVD 등 비교 절을 가리킴을 확인했다.
+    dependencies:
+    - 포화·자리 밀도·리간드 교환 → 분자 노출·퍼지 시험과 온도별 GPC.
+    - 기판 종결·밀도 → 초기와 정상 성장 및 평균 GPC 측정의 해석.
+    - 플라즈마 활성종·공급 방식·트렌치 벽면 재결합 → 깊이별 막 두께와 정규화된 절반 두께 위치.
+    reused_evidence: []
+  findings:
+  - id: cycle
+    claim: 순차 노출과 표면 자리의 포화가 두께 제어를 가능하게 한다. 시간 분할에서는 퍼지가 잔류 반응물·부산물과 기상 성장분을 줄인다.
+    locations:
+    - description·도입
+    - §1(1)
+    - §3(1) Measurement
+    - §5 첫 항목
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala & Leskelä, Handbook of Thin Film Materials (2002)
+      locator: §3.1, Fig. 1, §7.1.1, Fig. 18
+      supports: 반응물의 교대 노출, 퍼지 또는 배기, 포화 곡선과 사이클 반복을 설명한다.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: pp. 640–642, 반응 (A,B), Figs. 4–5 및 Table 1
+      supports: TMA와 물의 주입·퍼지를 개별적으로 바꾼 QCM 자료에서 짧은 퍼지가 추가 성장을 일으킨다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: §II, ALD reactors 및 exposure
+      supports: 시간 분리와 공간 분리, 분자 노출과 흡착 포화를 구분한다.
+    check: 고정된 사이클 수에서 각 주입·퍼지를 독립적으로 바꾸는 제안은 실험의 변인 통제와 일치한다. 실제 QCM의 질량 증가와 본문의 두께 기반 진단은 동일 조건에서 비교한 성장 지표다.
+    assumptions: 이원 시간 분할의 전형적인 사이클 및 자기 제한 조건. 초기 핵생성까지 두께가 원점을 지나 선형이라는 전제가 없다.
+  - id: fraction
+    claim: 반응 가능한 자리와 리간드의 입체 장애에 따라 사이클당 성장이 한 원자층보다 작을 수 있다.
+    locations:
+    - §1(1) 둘째 문단
+    - 도입
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala & Leskelä, Handbook of Thin Film Materials (2002)
+      locator: §3.1 및 §7.1.1.1
+      supports: 표면 자리 수와 부피가 큰 리간드에 의한 차폐를 부분 단층 성장의 원인으로 설명한다.
+    - id: 10.1002/cvde.200306265
+      provenance: Puurunen (2003), independent ligand/adsorbate GPC model
+      locator: 원논문 초록과 GPC 모형의 결론
+      supports: 반응자리와 리간드가 차지하는 면적의 경쟁으로 흡착이 포화되고 한 층보다 작은 GPC가 가능하다.
+    check: 포화의 기준은 주어진 반쪽 반응의 접근 가능한 자리를 모두 사용했는지이며 기하학적 단층의 완성과 다르다.
+    assumptions: 포화된 단위 면적에서의 평균 성장량. 언제나 단층 미만이라는 주장을 포함하지 않는다.
+  - id: thermal-exchange
+    claim: TMA·물 반쪽 반응에서 각각 CH₄가 생성된다. 단일 결합 교환과 다중 표면 결합은 양립하며 식만으로 성장량을 결정할 수 없다.
+    locations:
+    - §1(2) 반응 설명, 두 식과 직후 해설
+    - §5 둘째 항목
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: p. 640, reactions (A) and (B)
+      supports: OH의 양성자와 TMA 메틸기가 메테인을 형성하고 이어 물이 표면 Al–CH₃를 Al–OH로 바꾼다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. (2008), low-pressure time-resolved diagnostics
+      locator: p. 103302-2, Eqs. (1,2), QCM analysis Eqs. (3–5)
+      supports: 동일 결합 변화, TMA 흡착 때 이탈하는 메틸기의 수, 70 °C에서 주로 두 결합을 통한 흡착을 다룬다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. (2022), spatial atmospheric-pressure IR/OES dataset
+      locator: 반응 (2) 주변의 mono-/bifunctional 흡착 논의
+      supports: 표면 수산기 가용성과 TMA 흡착 양식을 연관시킨다.
+    check: 첫 식에서 S를 제외한 원자수는 좌우 모두 Al₁O₁C₃H₁₀이다. Al–Me + H₂O → Al–OH + CH₄에서 S′를 제외하면 Al₁O₁C₁H₅이다. 면적당 반응 횟수 또는 자리 밀도를 주지
+      않아 총 Al 개수와 두께를 산출할 수 없다.
+    assumptions: S와 S′는 각각 보존되는 표면 골격이다. 두 식은 개별 결합 교환을 표시하며 서로 더하여 Al₂O₃ 단위 하나의 총괄 반응으로 삼지 않는다.
+  - id: plasma-chemistry
+    claim: 산소 플라즈마의 라디칼이 메틸기를 산화하여 CO₂와 물을 만들고, 생성된 물이 다시 메틸기와 반응하여 CH₄를 생성할 수 있다.
+    locations:
+    - §2(1) 첫 문단
+    - §5 둘째 항목
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. (2008), low-pressure time-resolved diagnostics
+      locator: p. 103302-1, 시간분해 질량분석·광방출 결과와 결론
+      supports: 산소 라디칼 소비, H₂O/CO₂/CO와 소량 CH₄ 방출을 확인한다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. (2022), spatial atmospheric-pressure IR/OES dataset
+      locator: Fig. 4, 반응 (5,6) 및 해석
+      supports: 별도 대기압 공간 분할 장치의 배기가스 IR에서 CO₂, H₂O, CH₄를 관측하고 물에 의한 이차 교환 반응을 제안한다.
+    check: 서로 다른 장치와 측정 데이터에서 가스 생성물과 복수 반응 경로 해석이 일치한다. 이차 반응을 가능성으로 기재한 강도도 일치한다.
+    assumptions: TMA 기반 산화알루미늄의 비교. 한 종류의 배기가스로 표면 메틸기의 경로별 수율을 확정하지 않는다.
+  - id: temperature-mass
+    claim: PEALD에서 낮은 온도로 리간드 제거와 성장이 가능하다. 두께, 면적당 Al 수, 막 밀도와 수소 함량은 서로 다른 성장 지표다.
+    locations:
+    - §2(1) 둘째 문단
+    - §5 둘째·셋째 항목
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: 초록 및 저온 막 조성·밀도 측정
+      supports: 열 ALD 산화알루미늄에서 성장 온도를 낮추면 밀도가 낮아지고 수소 함량이 증가한다.
+    - id: 10.1149/1.3428705
+      provenance: Potts et al. (2010), thermal/plasma temperature comparison
+      locator: Al₂O₃ results, Figs. 5–6
+      supports: 열 및 플라즈마 성장에서 면적당 Al 수와 두께 증가가 밀도에 따라 달리 보이며 수소·밀도도 측정했다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. (2022), spatial atmospheric-pressure IR/OES dataset
+      locator: Fig. 4와 Discussion, 반응 (5,6)
+      supports: 산소 활성종에 의한 리간드 제거를 온도별 반응 생성물로 분석한다.
+    check: 단위면적당 Al 수는 조성이 주어졌을 때 두께와 밀도의 곱에 비례한다. 서로 다른 온도에서 두께만으로 Al 양을 단정할 수 없다는 권고는 양쪽의 실험과 일치한다.
+    assumptions: 특정 알루미나 공정의 관측 및 비교 방법, 모든 기판에서 동일한 최저 온도나 조성 변화를 보장하지 않는다.
+  - id: plasma-geometry
+    claim: 직접형·원격형 기하, 압력과 출력은 활성종 노출에 영향을 준다. ZnO/고분자 실험과 원격 금속산화물 소자 실험에서 기판의 형태·전기적 반응이 각각 관찰됐다.
+    locations:
+    - §2(2) 두 문단
+    - §3(1) 플라즈마 기록 조건
+    - §5 둘째 항목
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/j.surfcoat.2017.07.056
+      provenance: Napari et al. (2017), separate ZnO reactor/substrate experiment
+      locator: accepted manuscript, Introduction, abstract 및 Fig. 10
+      supports: 직접 방전과 afterglow 배치, 직접형/원격형 ZnO의 조성과 결정성 차이, 직접 처리한 polycarbonate AFM 표면 형태 변화를 보고한다.
+    - id: 10.1149/1.3552663
+      provenance: Profijt et al. (2011), ion-energy/flux and VUV measurements
+      locator: pp. G88–G91, Figs. 1–3 및 전기적 특성 측정
+      supports: 원격 O₂ 방전에서 기판 위치 이온 에너지·플럭스와 압력·출력 의존성을 측정하고 VUV에 의한 전기적 영향을 분리했다.
+    check: 두 연구는 독립된 장치·기판을 사용한다. 전자는 ZnO와 고분자 형태, 후자는 금속산화물 전기 구조라는 사례 귀속을 확인했다. O₂ 분압만으로 기판 O 라디칼 플루언스를 정할 수 없다는 설명은 공급
+      기체와 실제 활성종의 구분에 따른다.
+    assumptions: 원격에서도 조건에 따라 이온이 남을 수 있다. 특정 고분자의 형태 변화를 모든 원격 공정이나 모든 기판에 일반화하지 않는다.
+  - id: nitride
+    claim: TMA에 O₂ 또는 NH₃ 플라즈마를 조합하여 Al₂O₃ 또는 AlN을 성장시킬 수 있으며 산화·질화 공정에서 각각 포화 조건을 확인해야 한다.
+    locations:
+    - §2(3)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1149/1.3301664
+      provenance: Dendooven et al. (2010), Ghent oxide/nitride structures
+      locator: pp. G112–G113, Conformality of AlN, Fig. 5(a–d)
+      supports: 종횡비 약 10의 구조에 같은 TMA 노출을 주고 O₂ 또는 NH₃ 플라즈마를 각각 3, 9, 18초 노출한 별개 실험을 대조했다. 깊이별 분광 타원측정 두께에서 산화물의 피복성이 더 좋다.
+        질화 공정에서 깊이가 증가할 때 굴절률 모형 계수 A가 약 1.9에서 1.6으로 감소하므로 저자들은 내부의 막 조성이 변할 수 있다고 해석했다. 본문은 AlN 성장 가능성만 주장한다.
+    - id: 10.1039/D4TC01867B
+      provenance: Mpofu et al. (2024), plasma/thermal AlN saturation and mass spectrometry
+      locator: Fig. 1(a), pp. 12819–12820
+      supports: AlN 질화에서 TMA 주입 길이와 NH₃ 플라즈마 시간을 각각 바꾼 성장 곡선을 제시한다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. (2008), low-pressure time-resolved diagnostics
+      locator: 초록 및 산화 공정의 시간분해 흡착 실험
+      supports: 별도 실험에서 TMA/O₂의 산화물 성장 및 전구체 포화를 확인했다.
+    check: 공반응물이 공급하는 원소의 차이와 개별 포화 시험은 각 원 연구의 실제 반응물과 측정축에서 확인된다.
+    assumptions: 두 가지 Al 공정의 예. 질화를 위해 특정 보편적인 시간이나 온도를 지정하지 않는다.
+  - id: exposure
+    claim: 분자 노출은 분압을 주입 시간에 걸쳐 적분한 양이며, 거의 일정한 분압에서는 압력과 시간의 곱이다.
+    locations:
+    - §3(1) 첫 문단
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: §II.D Exposure in ALD
+      supports: 분자 노출을 반응물 분압과 주입 시간의 곱으로 정의하고 평면과 고종횡비 구조의 필요 노출을 비교한다.
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala & Leskelä, Handbook of Thin Film Materials (2002)
+      locator: §7.1.1, pulse time과 precursor flux의 효과
+      supports: 공급 플럭스와 시간의 곱으로 분자 dose를 근사하고 둘의 효과를 논의한다.
+    - id: 10.1016/j.surfcoat.2017.07.056
+      provenance: Napari et al. (2017), separate ZnO reactor/substrate experiment
+      locator: Introduction, plasma configuration
+      supports: 분자 공급량과 활성종 밀도를 구분하는 데 필요한 방전 매개변수와 배치를 제시한다.
+    check: 짧은 시간 구간에서 분압을 일정하다고 보고 pᵢΔtᵢ를 합해 극한을 취하면 ∫p_A(t)dt, 일정 분압 p₀에서는 p₀Δt이고 단위는 Pa·s이다. 동일한 밸브 시간만으로 노출이 일정해지지 않는다.
+    assumptions: 노출은 표면 근처 분자 A의 압력–시간 단위 규약이며 플라즈마 라디칼 수/면적이나 순흡착량과 별도이다.
+  - id: window
+    claim: 노출 포화와 온도에 대한 GPC 평탄 구간은 구별된다. 온도에 따른 표면 수산기 수, 저온 반응 속도·응축, 고온 탈착·분해가 서로 다른 경향을 일으킬 수 있다.
+    locations:
+    - §3(2) 전체
+    - §3(1)의 노출·퍼지 진단
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala & Leskelä, Handbook of Thin Film Materials (2002)
+      locator: §7.1.1.1 및 §7.1.1.4, Figs. 18–19
+      supports: 노출 시간에 대한 포화와 온도별 평탄 또는 기울어진 자기 제한 성장, 양쪽 온도 극단의 네 원인을 구분한다.
+    - id: 10.1149/1.3428705
+      provenance: Potts et al. (2010), thermal/plasma temperature comparison
+      locator: 도입 Fig. 1, Al₂O₃ 결과 Fig. 6
+      supports: 이상적 window와 이탈 기작을 제시하고 Al 양의 온도 의존성을 탈수산화와 관련지었다.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: Figs. 4–5 및 Table 1
+      supports: 온도를 낮추면 필요한 반응물 주입 및 특히 물 퍼지 시간이 길어진다.
+    check: 그림의 네 기울기를 하나의 원인으로 역추론하지 않는 본문의 해석과 일치한다. 주어진 온도에서 포화 성장이어도 온도 변화에 따라 포화값이 변할 수 있다.
+    assumptions: 응축·탈착·분해는 가능한 기작으로 제시한다. 알루미나 한 재료에서 모든 기작을 관측했다는 의미가 아니다.
+  - id: nucleation-gpc
+    claim: 기판 종결에 따라 처음 몇 사이클의 Al 흡수와 두께 증가가 다를 수 있다. 두께 차분으로 구간 평균 GPC를 얻고 정상 구간의 기울기를 별도로 평가한다.
+    locations:
+    - §3(3) 및 Measurement
+    - §5 셋째 항목
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon & Kessels (2019), in situ initial growth study
+      locator: Results, Initial Growth, Fig. 2 및 결론
+      supports: SE와 진동 분광으로 SiO₂와 H/Si(111) 모두 첫 사이클에서 성장, 이후 H/Si에서 낮은 GPC가 정상값에 접근함을 확인했다.
+    - id: 10.1063/1.2077840
+      provenance: Sturm et al. (2005), Twente initial uptake XPS
+      locator: p. 076104-1, 1–4 cycles XPS
+      supports: 300 °C TMA·물 처리에서 HF-last Si의 초기 Al 양이 산화된 Si보다 작음을 측정했다.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: 저온 Al₂O₃ 성장률·두께 자료
+      supports: 사이클당 성장을 실제 막 두께와 함께 비교한다.
+    check: 각 사이클 증가 d(k)−d(k−1)를 k=N₁+1…N₂까지 합하면 d(N₂)−d(N₁)이다. N₂−N₁로 나누면 구간 평균이며 nm/cycle이다. d(N)=a+gN인 정상 구간에서는 이 값이 g가
+      된다. 초기 유효 두께까지 정상 직선에서 역으로 결정할 수 없다.
+    assumptions: N₂>N₁, 같은 조건과 기판 전처리, 같은 두께 정의. 두 실험의 온도·기판 준비가 달라 결과의 방향만 대조했다.
+  - id: spatial
+    claim: 공간 분할에서는 기판 한 점이 분리된 반응 영역을 순서대로 지나며, 그중 한 영역은 플라즈마로 활성화할 수 있다.
+    locations:
+    - 도입
+    - §4(1), 그림 1(a)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: §II, temporal/spatial reactors
+      supports: 시간·공간 분할 방식과 회전식 반응기의 원리를 설명한다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. (2022), spatial atmospheric-pressure IR/OES dataset
+      locator: 대기압 공간 분할 실험 장치와 IR/OES in situ 진단
+      supports: 별도 공간 분할 알루미나 공정에서 플라즈마를 사용한다.
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: p. 182902-2 experimental, p. 182902-3 Fig. 1(a)
+      supports: 기판 테이블이 회전하여 서로 반대편에 놓인 전구체와 DBD 공급 영역을 통과한다.
+    check: 반응물 분리와 화학종 활성화가 별개의 구분임은 두 공간 분할 플라즈마 실험 및 반응기 분류에서 확인된다.
+    assumptions: 이 장치에서 회전으로 상대 이동을 만든다. 모든 공간 분할 장치에 회전이 필수라는 뜻이 아니다.
+  - id: deep-transport
+    claim: 열 ALD의 표면 포화 후 전구체가 더 깊이 침투할 수 있다. 산소 라디칼은 이미 반응한 벽에서도 분자로 재결합하여 고종횡비 구조 안쪽에서 부족할 수 있다.
+    locations:
+    - §4(2) 첫 문단
+    - §5 마지막 항목
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: §II gas transport 및 growth types, §V thickness profile models
+      supports: 깊은 구조의 기체 수송, 흡착 포화와 반응 전선 및 라디칼 소실을 구분한다.
+    - id: 10.1149/1.3301664
+      provenance: Dendooven et al. (2010), Ghent oxide/nitride structures
+      locator: pp. G112–G113, Figs. 2(a,b), 3(a–f), 5(a,b); p. G114, Discussion
+      supports: Fig. 2에서 TMA/H₂O와 TMA/O₂ 플라즈마의 깊이별 두께를 비교하고 Fig. 3에서 출력·압력·노출 시간을 개별적으로 바꿨다. 플라즈마 노출이 길면 피복이 개선됐다. Fig. 5의
+        동일 노출에서 질화물의 피복성이 더 낮았고, 저자는 표면 재결합에 의한 활성종 손실을 해석으로 제안했다.
+    - id: 10.1021/acs.jpcc.9b08176
+      provenance: Arts et al. (2019), low-pressure LHAR recombination measurements
+      locator: Theory 및 Fig. 2
+      supports: 저압에서 산화물별 O 원자 벽 재결합과 침투의 관계를 비교한다.
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: pp. 182902-2–3, Figs. 2–3
+      supports: 대기압의 전이 확산 조건에서 측정된 깊이별 막 두께와 재결합 해석을 제시한다.
+    check: 열 ALD의 유한 표면 자리와 O 원자 두 개가 O₂로 돌아가는 지속적 손실 경로를 구별했다. 원문의 전이 영역에는 벽뿐 아니라 분자 간 충돌도 존재한다.
+    assumptions: 산소 플라즈마와 해당 트렌치 및 내벽. 일반적인 불완전 피복 전체를 재결합만으로 설명하지 않는다.
+  - id: profile-metric
+    claim: 절반 두께 위치를 높이로 정규화하여 깊이 방향 피복을 비교한다. 입구에서 성장이 비슷해도 산화물 막의 침투 깊이는 플라즈마 노출과 함께 달라지며 전구체 공급도 따로 확인해야 한다.
+    locations:
+    - §4(2) 그림 2, Measurement, 마지막 문단
+    - §5 마지막 항목
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: §II, definitions of PD50% and coated aspect ratio
+      supports: 기준 두께의 50%가 되는 깊이와 기준 위치를 정의한다.
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: pp. 182902-2–3, Eqs. (4,5), Figs. 2–3
+      supports: SiO₂/TiO₂ 기판의 회전수를 바꾸어 측정한 막 두께 프로파일과 PD50%/h, 서로 다른 사이클 수를 제시한다.
+    - id: 10.1021/acs.jpcc.9b08176
+      provenance: Arts et al. (2019), low-pressure LHAR recombination measurements
+      locator: Experimental and Results, Fig. 2(a,b)
+      supports: 별도 저압 실험은 TMA 등 각 전구체를 과량 공급하고 플라즈마 시간에 따른 프로파일을 측정했다. 공동 내부의 두께로 정규화했다.
+    check: x는 입구부터 잰 거리이고 h와 같은 길이 단위이므로 x₅₀/h는 무차원이다. 바깥쪽 또는 입구 안쪽에서 정한 d_ref 중 동일한 정의를 유지하고 감소하는 쪽의 절반 위치를 비교한다. 고정된 공급
+      영역 각도 Δθ에서 체류 시간은 Δθ/ω로서 회전 속도를 바꾸면 두 공급 시간이 함께 바뀐다. 별도 과량 전구체 조건에서 플라즈마 의존성을 살피는 진단이 이 교란을 다룬다.
+    assumptions: 동일 구조·기준 정의와 충분한 전구체 공급이 전제다. 자료가 입구에 국소 최댓값을 갖는 TiO₂에서도 감소 방향을 지정한 설명과 맞는다.
+  - id: figure-one
+    claim: 그림 1은 van de Poll 외의 회전식 증착기, 막을 받치는 기둥과 덮개 제거 뒤 광학 현미경 사진이며 원본 패널·표시가 유지된다.
+    locations:
+    - §4(1) 그림 1, alt와 캡션
+    - §6 [13]
+    category: asset
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: p. 182902-3, Fig. 1(a,b,c), p. 182902-1 저작권 문구
+      supports: 패널, 저자·제목·DOI·CC BY 4.0, 별도 권리 표시가 없는 원본 캡션을 확인했다.
+    - id: https://creativecommons.org/licenses/by/4.0/
+      provenance: Creative Commons, CC BY 4.0 deed
+      locator: Deed, Share/Adapt and Attribution
+      supports: 저작자 표기, 라이선스 링크, 변경 여부 표시 조건을 확인했다.
+    check: 기관 출판본 PDF 제5페이지에서 pdfimages -f 5 -l 5 -j로 직접 추출한 첫 JPEG의 SHA-256 c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe가
+      게재 파일과 같다. 육안으로 (a)의 기판·양쪽 공급구, (b)의 기둥·덮개, (c)의 평면 사진을 확인했다.
+    assumptions: CC BY 4.0은 원 논문의 예외 표시 없는 부분에 적용되며 그림 1에 제3자 권리 표시가 없다.
+  - id: figure-two
+    claim: 그림 2는 100 °C 대기압의 SiO₂와 TiO₂에 대해 플라즈마 시간별 트렌치 두께를 비교한 원 그림이며 축·자료가 보존된다.
+    locations:
+    - §4(2) 그림 2, alt와 캡션
+    - §6 [13]
+    category: asset
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: p. 182902-3 실험 조건과 Fig. 2(a,b), p. 182902-1 CC BY 고지
+      supports: 200회 SiO₂, 420회 TiO₂, 2% O₂/N₂, 100 °C, 10⁵ Pa, 회전수 1/2/3 rpm에 대응하는 0.73/0.37/0.24 s 및 각 곡선의 단위를 확인했다.
+    - id: https://creativecommons.org/licenses/by/4.0/
+      provenance: Creative Commons, CC BY 4.0 deed
+      locator: Deed, Share/Adapt and Attribution
+      supports: 출처·라이선스·변경 여부 표기 조건을 확인했다.
+    check: 같은 PDF 페이지에서 두 번째로 추출한 JPEG SHA-256 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f가 게재 파일과 같다.
+      (a) SiO₂, (b) TiO₂, 점선 x=0, 위 거리(μm), 아래 거리/높이와 주황·파랑 각각 세 곡선의 침투 순서를 확인했다. 절대 두께는 서로 다른 사이클 수로 정규화되지 않았다.
+    assumptions: 이 수치·축은 표시한 한 출판 데이터세트에만 귀속된다. 일반적 노출 효과는 별도의 저압 실험과 함께 profile-metric에서 대조했다. 그림 2에 별도 권리 표시가 없다.
+  - id: bibliography
+    claim: 14개 참고문헌의 저자, 제목, 발행처와 연도, 권·페이지/논문번호 및 본문에 쓰인 원출처 식별자가 원본과 대응한다.
+    locations:
+    - §6 [1]–[14]
+    - 그림 1–2 출처 표기
+    category: bibliography
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala & Leskelä, Handbook of Thin Film Materials (2002)
+      locator: 논문집 원 장 p. 103, 목차, §§3.1,7.1.1, Figs. 18–19 및 출판사 서지
+      supports: 장 저자 Ritala·Leskelä, 2002, vol. 1 ch. 2 pp. 103–159. 스캔 원 장 제목·책 이름 각주를 확인했다.
+    - id: 10.1063/1.5060967
+      provenance: Cremers, Puurunen & Dendooven (2019), conformality review
+      locator: 출판 PDF 표지·첫 페이지
+      supports: Cremers·Puurunen·Dendooven, Applied Physics Reviews 6, 021302 (2019), 제목·DOI 일치.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. (2004), Colorado thermal Al₂O₃ QCM/film study
+      locator: 출판 논문 p. 639, ACS 및 USPTO 소장 출판본 사본
+      supports: Groner, Fabreguette, Elam, George, Chemistry of Materials 16, 639–645 (2004), 제목·DOI 일치.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. (2008), low-pressure time-resolved diagnostics
+      locator: 출판 PDF p. 103302-1 및 기관 서지
+      supports: Heil 외, Journal of Applied Physics 103, 103302 (2008), 제목·DOI 일치.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. (2022), spatial atmospheric-pressure IR/OES dataset
+      locator: 출판 PDF p. 062407-1 및 기관 서지
+      supports: Mione 외, Journal of Vacuum Science & Technology A 40, 062407 (2022), 제목·DOI 일치.
+    - id: 10.1149/1.3428705
+      provenance: Potts et al. (2010), thermal/plasma temperature comparison
+      locator: 출판 PDF p. P66 및 기관 서지
+      supports: Potts 외, Journal of The Electrochemical Society 157, P66–P74 (2010), 제목·DOI 일치.
+    - id: 10.1016/j.surfcoat.2017.07.056
+      provenance: Napari et al. (2017), separate ZnO reactor/substrate experiment
+      locator: 저자 원고 첫 페이지와 기관 표지
+      supports: Napari 외, Surface and Coatings Technology 326, 281–290 (2017), 제목·DOI 일치.
+    - id: 10.1149/1.3552663
+      provenance: Profijt et al. (2011), ion-energy/flux and VUV measurements
+      locator: 출판 PDF G88–G91
+      supports: Profijt 외, Journal of The Electrochemical Society 158 (2011), 제목·페이지와 기관 PDF 일치.
+    - id: 10.1149/1.3301664
+      provenance: Dendooven et al. (2010), Ghent oxide/nitride structures
+      locator: 출판 PDF G111, G112–G113 Fig. 5, G116, UGent 서지. 원문 사본 https://citeseerx.ist.psu.edu/document?doi=a025e9eec71da0518c3ed9b8b527449a4db25c75&repid=rep1&type=pdf
+      supports: Dendooven 외, Journal of The Electrochemical Society 157(4), G111–G116 (2010), DOI와 저자·제목을 출판판에 대조했다. Experimental,
+        Conformality of AlN 및 깊이별 두께 결과를 직접 확인했다.
+    - id: 10.1039/D4TC01867B
+      provenance: Mpofu et al. (2024), plasma/thermal AlN saturation and mass spectrometry
+      locator: 출판 원문 pp. 12818–12824, DiVA PDF, DOI와 출판 서지
+      supports: Mpofu 외, Journal of Materials Chemistry C 12 (2024), 제목·DOI 일치.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon & Kessels (2019), in situ initial growth study
+      locator: PMC 출판 원문 제목·저자·서지
+      supports: Vandalon·Kessels, Langmuir 35, 10374–10382 (2019), 제목·DOI 일치.
+    - id: 10.1063/1.2077840
+      provenance: Sturm et al. (2005), Twente initial uptake XPS
+      locator: 출판 PDF p. 076104-1 및 권호 표지
+      supports: Sturm 외, Journal of Applied Physics 98, 076104 (2005), 제목·DOI 일치.
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. (2023), atmospheric-pressure rotating reactor experiment
+      locator: 출판 PDF pp. 182902-1,3 및 기관 표지
+      supports: M. L. van de Poll 외, Applied Physics Letters 123, 182902 (2023), Figs. 1,2와 DOI 및 사용 허가 일치.
+    - id: 10.1021/acs.jpcc.9b08176
+      provenance: Arts et al. (2019), low-pressure LHAR recombination measurements
+      locator: 출판 PDF p. 27030 및 기관 표지
+      supports: Arts 외, Journal of Physical Chemistry C 123, 27030–27035 (2019), 제목·DOI 일치.
+    check: 원서의 해당 장, 원 논문의 발행본·저자 원고를 직접 대조했다. 원서와 기관·출판사 웹사이트가 같은 저작물을 제공할 때는 하나의 provenance로 기록했다.
+    assumptions: '[9]의 기관 서지와 CiteSeerX에 보존된 동일 출판판은 한 저작물로 집계했다.'
+  summary: 새 문서 전체의 직접 원출처 대조와 독립적인 반응식·차분·정규화 검산을 완료했다. 서로 다른 데이터세트를 구분했으며 두 JPEG는 직접 재추출한 원본과 SHA-256이 일치한다. 16개 finding이
+    supported이며 mismatch, insufficient, inaccessible는 각각 0개이다. [9]는 출판판의 산화물·질화물 깊이별 관측과 저자의 기작 해석을 구분하여 대조했다.

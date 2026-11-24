@@ -1,0 +1,499 @@
+page: docs/computational-science/model-reduction/overlapping-fragments-method.md
+hashes:
+  source: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
+  content: 53dadd0dec700043b7cee0fcf9c52b64ce4b011994e6f83243f8b6fe119f240e
+  outline: df2bea991b962ed6f94e78d1013bdebce0bd51f95a07a5558206cee820710095
+  presentation: a650d2d86d2f55295a52a5d0883a53423b98010c1dc5ec6c291d40764e279282
+assets: {}
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
+  assets: {}
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: full
+    baseline_source_hash: null
+    checked:
+    - New article, description and §§1–9, all equations, examples, tables, benchmark attributions, SI, figure-page targets
+      and bibliography entries 1–12.
+    - 'Final changes inspected at the new SHA: explicit numerical attribution, valence orbital count, LS3DF energy/passivation
+      terms, LDOS and Bloch references 8–12.'
+    dependencies:
+    - Overlap normalization and rank underlie projection, LDOS, symmetric orthogonalization and participation.
+    - Fragment construction, termination, occupancy subset and energy reference constrain numerical interpretation; distinguish
+      CPM-H/DFT and OFM/plane-wave comparisons.
+    - Bounded local neighbor count and dense global solve have distinct asymptotics. Fixed-H comparison does not test induced
+      potential changes.
+    reused_evidence: []
+  findings:
+  - id: ofm-projection
+    claim: Overlapping finite-fragment eigenfunctions supply trial columns for projection of the full operator, giving a global
+      Ritz solution and distinct stages of basis generation, matrix construction and diagonalization.
+    locations:
+    - Description, opening, §§1–3.2, 7–8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Secs. I–II, Fig. 1, Eqs. (1)–(2)
+      supports: Fragment-state transfer and overlap integrals of the whole-system operator, generalized eigenproblem and reconstruction.
+    - id: https://deepblue.lib.umich.edu/bitstream/handle/2027.42/110475/phanim_1.pdf
+      provenance: P. Motamarri, Michigan finite-element KS dissertation
+      locator: §3.1.3, Eqs. (3.28)–(3.31)
+      supports: Independent nonorthogonal Galerkin discretization derives a Hamiltonian/mass-matrix pencil from inner products.
+    - id: https://scl.ipb.ac.rs/papers/Vukmirovic_JPCC_2012.pdf
+      provenance: Vukmirović et al. 2012 APFO-3 calculation, new structures and benchmark
+      locator: Methods and SI pp. S5–S6, Figs. 5–6
+      supports: Separate APFO-3 structures use overlapping fragment eigenfunctions and fixed-H plane-wave reference. Shares
+        the OFM inventor. Distinct test data, no independent reimplementation of the original P3HT study.
+    check: Write Φa for the reconstructed wavefunction and impose Φ†(HΦa−EΦa)=0. The same H enters every basis pair. A direct
+      sum of isolated-fragment Hamiltonians has no such identity.
+    assumptions: Fixed one-electron H, finite trial span. Ritz values of the exact projected pair must additionally be converged
+      with respect to any numerical truncation of integrals.
+  - id: implementation-record
+    claim: What the authors used to generate and apply the operators in their 2011 OFM implementation, including the scope
+      of their boundary-condition and self-consistency statements.
+    locations:
+    - §§1, 2.1–2.3, 3.1–3.2, 4.3–4.4, 5.3, 8
+    category: quotation
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Secs. I, II, III.A–D, IV, V; Fig. 1
+      supports: Periodic fragment Poisson, patched density and LDA, cuboid molecule, ESCAN plane waves and preconditioned
+        conjugate-gradient, sending grid samples, computing Hφ and taking pair overlaps; LAPACK or ScaLAPACK.
+    check: Compared each attributed implementation detail against the authors’ text. Full-system SCF is prospective and no
+      vacuum width, taper, multi-k mesh or metallic-junction test is specified. The authors’ rule for partial HOMOs identifies
+      the first DOS gap above the fragment HOMO expectation of full H. The two algorithmic speedups summarize avoiding full
+      SCF and reducing the explicit eigenproblem; no isolated timing gain for CPM is claimed.
+    assumptions: Attribution to a specific publication and its documented scope. Its suggestion about occupation is empirical
+      for these gapped examples; no replicated software execution is implied.
+  - id: alkane-counts
+    claim: Sliding windows and neutral alkane valence counts give the fragment and basis dimensions in the examples.
+    locations:
+    - §§2.2, 3.4, 5.1–5.2
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Secs. III.A and IV; Figs. 2–3
+      supports: Reports chemical formulas, hydrogen termination, the 4/7/10 valence levels, and chain and basis sizes.
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: Theory, Fig. 1 and subsequent paragraph
+      supports: P3HT chain composition, end atoms, sample size, trimer fragments, and frontier-orbital selection. Source not
+        an independent reproduction of the 2,510-atom spectra.
+    - id: https://physics.nist.gov/PhysRefData/Handbook/Tables/carbontable1.htm
+      provenance: NIST Handbook of Basic Atomic Spectroscopic Data
+      locator: Neutral C I and H I ground-state configurations (companion hydrogentable1.htm).
+      supports: Carbon 1s²2s²2p² and H 1s supply four and one valence electrons respectively.
+    check: For n carbons the alkane C_n H_(2n+2) has 6n+2 valence electrons, hence 3n+1 doubly occupied spatial valence orbitals.
+      The total is 4, 7, 10 for n=1,2,3. An open N-site chain admits N−p+1 length-p windows. The 5-site example has windows
+      123,234,345. 20(20+42)=1240; 20×18×5=1800 and 5×18×3=270. For P3HT with two end hydrogens, 5(20×25+2)=2510 and 12(40×25+2)=12024.
+    assumptions: H caps replace cut bonds. Counts are spatial valence orbitals in the pseudopotential convention. Fragment
+      orbitals may be linearly dependent; basis count and numerical rank differ.
+  - id: basis-boundary
+    claim: Clipping a finite-box periodic wavefunction may introduce spurious kinetic contributions; a smooth cutoff has product-rule
+      terms localized where the mask varies.
+    locations:
+    - §2.3; §3.3 cap-AO issue
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://pmc.ncbi.nlm.nih.gov/articles/PMC11931545/
+      provenance: Hard-wall confinement-induced atomic electronic structure study, 2025
+      locator: Discussion, hard-wall boundary and soft confinement
+      supports: Hard walls can give derivative discontinuities; confinement changes atomic orbitals.
+    - id: https://docs.siesta-project.org/projects/siesta/en/5.4/reference/siesta.html
+      provenance: SIESTA basis-generation reference
+      locator: PAO basis, finite-range orbitals, hard versus soft confinement
+      supports: Truncation/short confinement radius produces less smooth orbitals; enlarging the radius reduces the discontinuity.
+    check: Differentiate wφ twice along each Cartesian direction and sum to obtain w∇²φ+2∇w·∇φ+φ∇²w. A zero extension with
+      non-vanishing boundary value can even be discontinuous. Small φ and ∇φ where the mask changes suppress the extra terms.
+      Additional hydrogen-centered AO components need not lie in the full system's chosen AO span.
+    assumptions: Smooth functions for the classical identity. No claim that OFM used a particular mask, or that an isolated
+      metallic or crystalline fragment has vacuum decay.
+  - id: cpm-ks
+    claim: CPM uses real-space charge motifs to build a fixed KS potential. Its accuracy and the error from diagonalizing
+      a fixed Hamiltonian are distinct questions.
+    locations:
+    - §§1, 2.1, 3.1, 5.2, 6–8
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.2901965
+      provenance: Vukmirović–Wang 2008 organic CPM study
+      locator: Motif construction and Hamiltonian from density, pp. 2–4 of author manuscript
+      supports: Constructs the density using prototypes, then Poisson/Hartree and LDA potential.
+    - id: https://www.scl.rs/papers/Bodroski_JCP_2018.pdf
+      provenance: Bodroški et al. 2018 Gaussian-basis CPM implementation and tests
+      locator: §§2–3; abstract, Gaussian-basis implementation
+      supports: Original distinct Gaussian-basis implementation demonstrates the same motif procedure on a real-space grid.
+        Shares one author with the plane-wave code but has different representation, implementation and tests.
+    - id: https://deepblue.lib.umich.edu/bitstream/handle/2027.42/110475/phanim_1.pdf
+      provenance: P. Motamarri, Michigan finite-element KS dissertation
+      locator: §3.1.2, Eqs. (3.19), (3.21)–(3.25)
+      supports: Independent real-space discretization gives kinetic, local/nonlocal ionic, Hartree and XC operators and density-dependent
+        self-consistency.
+    check: With ℏ=m_e=e=1 the kinetic operator is −∇²/2. At a given n one can solve H[n] without updating n. Scientific accuracy
+      of n or H[n] cannot follow just from agreement of two diagonalizations of that H.
+    assumptions: Ordinary KS kinetic operator and LDA as specified; the ionic operator can include nonlocal pseudopotential
+      contributions.
+  - id: projection-algebra
+    claim: Generalized Ritz normalization, full-rank invariance, AO congruence, local-potential matrix elements, and examples
+      of overlapping or dependent functions follow from inner products.
+    locations:
+    - §§1, 3.2–3.4, 4.1–4.3
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai and Li, SIAM Templates 2000
+      locator: §5.7.1, Eq. (90), induced norm; square-root transformation
+      supports: Defines the positive-definite metric, equivalent standard pencil, and transformed coordinates.
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: §II, H/S inner products, Eq. (2) and last paragraph
+      supports: Full H is applied to each selected fragment state and then paired; electrostatic changes to both hopping and
+        diagonal terms.
+    - id: https://deepblue.lib.umich.edu/bitstream/handle/2027.42/110475/phanim_1.pdf
+      provenance: P. Motamarri, Michigan finite-element KS dissertation
+      locator: §3.1.3, Eqs. (3.28) onward
+      supports: Finite basis expansion and projected Hamiltonian and metric.
+    check: Substitute Φ=χU to get U†HU and U†SU. For a square invertible U, det[U†(H−ES)U]=|det U|² det(H−ES). The norm is
+      c†S_r c so rank S_r=rank Φ. Two identical normalized columns give Gram eigenvalues 0,2. The illustrated 5×3 coefficient
+      matrix is precisely the three windows. For the 12000×300 map the two reduced matrices are 300×300. Multiplication by
+      Δv(r) gives ∫φ*α Δv φβ and can generate off-diagonal terms. A scalar potential shift C gives ΔH=CS. This accounts for
+      energy-reference shifts and shows why a diagonal matrix element need not equal the diagonal after symmetric orthogonalization.
+    assumptions: Fixed H and common AO representation; equality of spectra requires an invertible complete change of basis.
+      Direct matrix elements can be built one pair at a time. Occupied count, rank, and chosen number of columns are separate.
+  - id: bloch-and-models
+    claim: Two coupled fragment levels and a periodic nearest-neighbor chain yield the stated illustrative spectra. Fourier
+      sums for H and S extend to a periodic localized basis.
+    locations:
+    - §§4.1, 4.4
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1103/PhysRevB.107.235135
+      provenance: Koepernik et al. symmetry-conserving FPLO projection
+      locator: §II.A Eqs. (1)–(3), inspected arXiv:2111.09652
+      supports: Bloch sums with basis-position or lattice-only phase, Hamiltonian and overlap matrices, k-dependent generalized
+        eigenproblem.
+    - id: https://www.cond-mat.de/events/correl11/manuscripts/kunes.pdf
+      provenance: J. Kuneš, Jülich 2011
+      locator: §2 Eqs. (5)–(6) and text on nonorthogonal translates
+      supports: Bloch sums of translated orbitals and reciprocal-space Fourier sum of overlaps.
+    check: Define O(R)=〈0α|O|Rβ〉 and |kβ〉=Σ_R exp(ik·R)|Rβ〉/√N. Translational symmetry collapses the double sum to O(k)=Σ_R
+      exp(ik·R)O(R), for O=H,1. One site per cell with real t between ±a gives E=ε0+t exp(ika)+t exp(−ika). The diatomic determinant
+      is (ε0−E)²−|t|². Disorder removes the requirement of identical diagonal energies.
+    assumptions: One normalized orthogonal orbital per site in the two toy models, common full-H diagonal ε0; the displayed
+      splitting requires nonzero coupling. Translation symmetry and a lattice-only phase convention for the extension. The
+      2011 work did not report a multi-k band test.
+  - id: local-dos
+    claim: Real-space LDOS contains coherent cross terms in the reconstructed global states, has inverse-volume inverse-energy
+      units, and need not track a local orbital's energy alone.
+    locations:
+    - §§4.2, 6–8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://docs.quantumatk.com/manual/Types/LocalDensityOfStates/LocalDensityOfStates.html
+      provenance: QuantumATK LDOS implementation documentation
+      locator: LocalDensityOfStates, Notes and displayed spectral formula
+      supports: Sum of weighted |ψ(r)|² times an energy delta or broadened kernel.
+    - id: https://west-code.org/doc/West/v6.2.1/tutorials/basic/basic_004.html
+      provenance: WEST electronic spectra implementation tutorial
+      locator: Tutorial 4, LDOS equation after the DOS example
+      supports: Independent electronic-structure implementation gives squared wavefunctions times energy deltas, planar averaged
+        and spin summed in its illustrated case.
+    check: For one spin and no averaging insert ψ_n=Σα aαnφα in the pointwise spectral weight. Squaring produces α≠β terms;
+      ∫d³r |ψ_n|²=1 gives |ψ|² length⁻³ and δ energy⁻¹. A local spectrum carrying weights 0.8 and 0.2 at energies 0 and 2
+      has centroid 0.4, principal peak at 0 for narrow equal broadening, and upper spectral edge at 2. Thus a moment, peak,
+      and edge can differ.
+    assumptions: LDOS of states retained in the reduced space; spin-resolved, normalized states. Basis truncation can degrade
+      LDOS even for useful eigenvalues.
+  - id: interior-spectrum
+    claim: An interior spectral window need not improve monotonically with a larger basis. A common expectation value alone
+      cannot certify the target span or occupations.
+    locations:
+    - §§4.3, 5.1–5.2, 7–8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Sec. III.B, Figs. 4–6; Sec. IV, Fig. 10
+      supports: Targeting both ends of an occupied spectrum yields different basis-selection behavior, gap identification
+        heuristic.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai and Li, SIAM Templates 2000
+      locator: §5.7.1 equivalent Hermitian eigenproblem and residual-vector subsection
+      supports: Equivalence of positive-definite pencils to Hermitian eigenproblems and the role of residuals, allowing a
+        direct finite counterexample.
+    check: Take H=diag(−1,0,1). A trial vector (1,0,1)/√2 gives the single Ritz value 0. After adding (1,0,−1)/√2 the two
+      Ritz values are ±1 and the interior target 0 is lost. For H+C I, isolated eigenvalues all shift by C; comparing fragments
+      with different unknown constants requires alignment. A fixed number of columns contains no information on how many lower-energy
+      filled levels were omitted.
+    assumptions: Interior eigenvalues are compared by target energy rather than an identical eigenvalue index in a full ordered
+      spectrum. No general Fermi-level prescription follows for metals, junctions, or nonequilibrium partial occupations.
+  - id: benchmark-attributions
+    claim: The stated error and basis-size numbers reproduce the authors’ reports for specific 2011 tests.
+    locations:
+    - §5.1–5.3, benchmark tables and P3HT Fig. 10 paragraph
+    category: quotation
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Secs. III.A–D and IV; Figs. 3–10, figure captions and adjacent results paragraphs, published pp. 094119-4 through
+        094119-7
+      supports: Alkane all-occupied error table and 1-orbital bottom, 2–4/5-orbital top cases; P3HT 1/3/4/>4 states and reported
+        6-31G* comparison.
+    check: Directly matched 60 Ry and the monomer (>200 meV, ~1 eV), dimer (~10, ~30 meV), and trimer (<1, <10 meV) endpoints;
+      one low trimer state ~30 meV and five top states. P3HT’s ~30 meV near the edge rises to ~120 meV 0.7 eV away for one
+      HOMO; three give 10–50 meV; four worsen, further states appear inside the gap. Compared 1800/7680 and 270/19720 to the
+      authors’ prose. Fig. 7 tests one orbital, lowest valence region, minimum atomic distance 5 Å versus 7 Å used earlier.
+      Fig. 9 plots separate CPU-time fits. Confirmed that hexyl → propyl is a change only to the fragment calculations. See
+      separate calculations for the dimension, scaling and convergence conclusions.
+    assumptions: Scope is faithful attribution of numerical conditions, observations and comparisons to the authors. The study
+      itself is the single provenance of those exact numerical results; neither its preprint nor the JPCB article supplies
+      an independent replication, and no claim of replication or generally guaranteed error is made.
+  - id: locality-scaling
+    claim: Fixed fragment size, basis size and neighbor cutoff give linear local assembly, while a conventional full dense
+      solve costs cubic work in reduced dimension.
+    locations:
+    - §5.3; §§1, 8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: §§II, III.D; Figs. 8–9
+      supports: Local basis and pair work; one general Hermitian pencil; stages timed separately.
+    - id: https://www.netlib.org/utk/people/JackDongarra/PAPERS/cpe3152.pdf
+      provenance: Yamazaki et al., dense eigensolver and operation counts
+      locator: §2, dense Hermitian/symmetric reduction, and generalized dense application
+      supports: LAPACK tridiagonal reduction takes leading-order cubic work independently of OFM benchmark.
+    check: If z is a bounded neighborhood size and q fixed, there are ≤z N_F/2 off-site pairs (plus on-site blocks), each
+      with q² entries. Fixed local box volume/work gives O(N_F)+O(zq²N_F). Dense dimension m=q N_F, reduction requires O(m³)
+      work. Empirical wall/CPU-time balance need not persist asymptotically.
+    assumptions: Fixed local density, cutoff, target and local discretization; work scaling rather than guaranteed wall-clock
+      scaling for arbitrary processor counts. Excludes building a new global SCF solution.
+  - id: participation
+    claim: Symmetric orthogonalization gives d=S_r^(1/2)a; the inverse quartic sum is an effective count of occupied sites
+      of a state.
+    locations:
+    - §6, displayed participation equation
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: Results and Discussion, p. 1794, orthonormalization and participation formula preceding Fig. 3
+      supports: Explicit transformation of nonorthogonal trimer-HOMO expansion into coefficients of orthonormal localized
+        states, then reciprocal fourth moment.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai and Li, SIAM Templates 2000
+      locator: §5.7.1, Eq. (90) and square-root factor selection
+      supports: Positive metric S=GG† permits G=S^(1/2), and d=G†a.
+    - id: 10.1103/PhysRevB.87.134202
+      provenance: Independent localization study, PRB 87 134202
+      locator: §III, normalized participation ratio discussion, single-particle definition
+      supports: Fourth power sum of normalized site amplitudes as a single-particle IPR.
+    check: Orthonormalized columns are Φ S^(−1/2); equality of reconstructed waves gives d=S^(1/2)a. Then d†d=a†Sa=1. Equal
+      weights on p sites give Σ|d|⁴=1/p, so its reciprocal is p with no length unit.
+    assumptions: Independent trial functions after any rank reduction; count depends on the localized orthonormal basis. Approximate
+      five-monomer description in the application is separately an attributed observation.
+  - id: p3ht-attributions
+    claim: The molecule count, realizations, figures, near-edge participation and interpretation of the coupling perturbations
+      are correctly attributed to the P3HT study.
+    locations:
+    - §6, narrative and Fig. 1–4 links
+    category: quotation
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: Theory, Figs. 1–4 on journal pp. 1793–1795, Results and Discussion
+      supports: 50 samples of 12,024 atoms; trimer HOMO basis; 10 distinct 2,510-atom cases for the plane-wave inset. A site-scale
+        participation near five and the plotted on-site maxima are discussed.
+    check: Matched Fig. 1 inset to discrete energies (p. 1793), Fig. 2 to DOS variants (p. 1794), Fig. 3 to localization lengths
+      and Fig. 4(a–e) to the on-site profile and state distributions for coupling variants (both p. 1795). The article reports
+      the authors’ interpretation of potential fluctuations in their disordered samples, not a universal localization mechanism.
+    assumptions: The paper maps individual orthogonalized trimer-centered states on a chain and counts effective sites. One
+      centered site per overlapping trimer shifts by one monomer. The plotted correspondence is for representative data; no
+      independent reproduction of these realizations is inferred.
+  - id: supplement-source
+    claim: Identity and content of the original supporting figures; boundaries between the 756- and 2510-atom comparisons
+      and the site-resolved plots.
+    locations:
+    - §6, final paragraph, original Fig. 1 inset and SI Figs. 1–2
+    category: asset
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/jp1114527.s001
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: ACS supplement pp. S1–S2, inspected both captions and axes. PDF SHA256 bb559fe56d65e22b2b4fdd4970ea08d890bf30ee7a3a139fab915936e287f869.
+      supports: SI Fig. 1 DOS against energy, Fig. 2 on-site t_mm against site index, for CPM and DFT/LDA; three chains of
+        ten units.
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: pp. 1793–1795, Fig. 1 inset, Theory description of 756 and 2510 atoms, Fig. 4 caption and surrounding text
+      supports: Parent article identifies the distinct tests and plots one realization's state distributions against chain/site.
+    check: 756=3(10×25+2) for three terminated chains. Neither supplemental figure has both E and real-space r as independent
+      axes. Fig. 4 displays the orthonormal site representation, not a comparison of LDOS methods. The new text does not claim
+      SI validates global LDOS. No images copied into the page.
+    assumptions: The SI and article belong to the same experiment and are one provenance. Only externally referenced plots;
+      no rights to reproduce inferred.
+  - id: related-methods
+    claim: LS3DF assembles signed fragment density and quantum energy terms with global electrostatics and boundary passivation.
+      Atomistic mode-space calculations project selected spectral subspaces for transport.
+    locations:
+    - §7 comparison table and interpretation
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1103/PhysRevB.77.165113
+      provenance: Wang–Zhao–Meza 2008 signed-fragment DFT
+      locator: §II, Eqs. (1)–(3) and adjacent paragraphs
+      supports: Signed fragment assembly, global Poisson from total density, fragment potentials equal global KS potential
+        plus surface correction, SCF potential mixing.
+    - id: 10.1007/s11390-023-3011-6
+      provenance: Yan et al. 2024 modified LS3DF implementation on independent silicon benchmarks
+      locator: §§2.1–2.2, system division and SCF iteration in optimized implementation
+      supports: New heterogeneous-machine implementation and distinct bulk-Si test data separate global electrostatic from
+        local quantum terms and reconstruct the potential/density in SCF; shares Wang with the original algorithm.
+    - id: 10.1103/PhysRevB.85.035317
+      provenance: Mil’nikov et al. 2012 nanowire calculations
+      locator: Publisher abstract, representative basis within arbitrary energy window
+      supports: Original silicon-nanowire examples of basis-transformed tight-binding Hamiltonians for transport.
+    - id: 10.1103/PhysRevApplied.13.044067
+      provenance: Ducry et al. 2020 heterogeneous-device calculations
+      locator: Publisher abstract, low-dimensional projection and hybrid H/S blocks
+      supports: Separate DFT electronic-transport implementation transforms periodic parts into chosen subspaces and couples
+        to real-space regions.
+    check: LS3DF global Hartree term uses the assembled density; Eq. (3) retains a fragment-dependent boundary correction.
+      A mode-space representative basis targets a spectrum, whereas the defining OFM trial functions are finite-fragment eigenfunctions.
+      For the CPM and OFM rows see cpm-ks and ofm-projection.
+    assumptions: Similar projection principle does not identify the construction of the basis or the physical tests. LS3DF
+      energy entails additional kinetic and other terms alongside the total-density electrostatic term.
+  - id: observables-limits
+    claim: Agreement of fixed-H spectra alone cannot assure full densities, charge transfer or a self-consistent response.
+      The suggested numerical diagnostics test different aspects.
+    locations:
+    - §§1, 4.2–4.4, 5.2, 6–8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://deepblue.lib.umich.edu/bitstream/handle/2027.42/110475/phanim_1.pdf
+      provenance: P. Motamarri, Michigan finite-element KS dissertation
+      locator: §3.1, Eqs. (3.19), (3.25a–c) and ensuing discussion
+      supports: Density needs occupation-weighted squared states; KS density feedback closes the self-consistent equations.
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Secs. III.A–D, IV and V
+      supports: Original occupations and limited spectral ranges, basis/cutoff convergence and scope; self-consistency is
+        mentioned as a possible future use.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai and Li, SIAM Templates 2000
+      locator: §5.7.1 and linked subsections on residuals, errors, clusters
+      supports: Residuals and metric conditioning convey information beyond individual eigenvalues.
+    check: ρ(r)=Σ f_n |ψ_n(r)|² includes all occupied contributions needed for the observable. Keeping a few HOMOs loses the
+      complementary subspace and occupation count. A fixed-H solve never recomputes the effective potential from a changed
+      density. Matching eigenvalues alone cannot fix eigenvectors or local spectral weights. Scope statements for k-dispersion,
+      metallic junctions and finite bias follow from the actual examples and the neutral fixed-operator construction. Numerical
+      checks listed as suggestions are not represented as tests in the papers.
+    assumptions: Ground-state KS density here. Equivalent density-matrix methods encode the same occupancy information. The
+      proposed validation list is advice only.
+  - id: bibliography
+    claim: The twelve named sources and the supplement are identifiable by the stated authors, work, link, or DOI.
+    locations:
+    - §9 entries 1–12 and §6 SI
+    category: bibliography
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović–Wang 2011 JCP original OFM study
+      locator: Published title/DOI, 134 094119; Secs. II–IV, Fig. 2 on 094119-4; arXiv:1011.4764v2
+      supports: Preprint and OSTI published manuscript are copies of one work.
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: JPCB p. 1792 masthead, pp. 1793–1795 captions
+      supports: Correct journal, DOI, title and page targets.
+    - id: 10.1021/jp1114527.s001
+      provenance: Vukmirović–Wang 2011 JPCB P3HT study and its Supporting Information
+      locator: SI cover and p. S2
+      supports: Original JPCB authors and study title; linked figures identified.
+    - id: 10.1063/1.2901965
+      provenance: Vukmirović–Wang 2008 organic CPM study
+      locator: Original manuscript title and journal metadata via PMID 18376901
+      supports: JCP 128, 121102, 2008.
+    - id: 10.1103/PhysRevB.77.165113
+      provenance: Wang–Zhao–Meza 2008 signed-fragment DFT
+      locator: PRB published PDF masthead
+      supports: Wang, Zhao and Meza, 77, 165113, 2008.
+    - id: 10.1103/PhysRevB.85.035317
+      provenance: Mil’nikov et al. 2012 nanowire calculations
+      locator: APS publisher title/metadata
+      supports: PRB 85 035317 (2012).
+    - id: 10.1103/PhysRevApplied.13.044067
+      provenance: Ducry et al. 2020 heterogeneous-device calculations
+      locator: APS publisher title/metadata
+      supports: PR Applied 13 044067 (2020).
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai and Li, SIAM Templates 2000
+      locator: Netlib book index, generalized Hermitian chapter and section page
+      supports: Book editors, positive-definite B, square-root transform.
+    - id: https://docs.quantumatk.com/manual/Types/LocalDensityOfStates/LocalDensityOfStates.html
+      provenance: QuantumATK LDOS implementation documentation
+      locator: Manual title and Notes
+      supports: LocalDensityOfStates.
+    - id: https://west-code.org/doc/West/v6.2.1/tutorials/basic/basic_004.html
+      provenance: WEST electronic spectra implementation tutorial
+      locator: Tutorial 4 heading and LDOS example
+      supports: WEST 6.2.1, planar-averaged LDOS.
+    - id: 10.1103/PhysRevB.107.235135
+      provenance: Koepernik et al. symmetry-conserving FPLO projection
+      locator: PRB metadata and author preprint, Sec. II.A
+      supports: 2023 paper, inspectable preprint and Eqs. (1)–(3).
+    - id: https://www.cond-mat.de/events/correl11/manuscripts/kunes.pdf
+      provenance: J. Kuneš, Jülich 2011
+      locator: Chapter 4 cover, Eqs. (5)–(6)
+      supports: Jülich lecture chapter, cited construction.
+    - id: 10.1007/s11390-023-3011-6
+      provenance: Yan et al. 2024 modified LS3DF implementation on independent silicon benchmarks
+      locator: Journal masthead; §§2.1–2.2
+      supports: Yan et al., JCST 2024.
+    check: Verified the publication identities and cited figure/page and topical anchors. No history review, build output,
+      mirror or DOI landing-page resolution counted as independent scientific corroboration.
+    assumptions: Bibliographic identity and figure attribution only; scientific checks appear in separate findings.
+  summary: Full independent inspection of the new article. All scoped scientific statements, derivations, source attributions
+    and bibliography checks are supported as qualified. The error ranges, cutoff, approximate five-monomer observation, figure
+    contents and exact 2011 software choices are verifiable as reported by the original investigators; they are not a reproduction
+    of those computations. Primary article and SI share provenance. Core mathematics is independently supported and checked
+    by the derivations above. No mismatch, insufficient or inaccessible finding. No historical evidence reused.

@@ -20,6 +20,7 @@ SPEC.loader.exec_module(quality)
 
 class FactReviewTests(unittest.TestCase):
     def setUp(self):
+        (quality.ROOT / "experiment").mkdir(exist_ok=True)
         self.temp = TemporaryDirectory(dir=quality.ROOT / "experiment")
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)

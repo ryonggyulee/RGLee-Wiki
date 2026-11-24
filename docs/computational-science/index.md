@@ -12,6 +12,7 @@ Computational science 영역에서는 machine learning, AI agent 및 수치해�
 - [Downfolding and effective Hamiltonians](model-reduction/downfolding.md)
 - [Wannier functions](model-reduction/wannierization.md)
 - [Mode-space reduction](model-reduction/mode-space-reduction.md)
+- [Overlapping fragments method (OFM)](model-reduction/overlapping-fragments-method.md)
 
 ### Geometric deep learning
 

@@ -16,3 +16,4 @@ Wannier 문서의 전자구조 배경은 [Electronic structure](../../computatio
 - [Downfolding and effective Hamiltonians](downfolding.md)
 - [Wannier functions](wannierization.md)
 - [Mode-space reduction](mode-space-reduction.md)
+- [Overlapping fragments method (OFM)](overlapping-fragments-method.md)

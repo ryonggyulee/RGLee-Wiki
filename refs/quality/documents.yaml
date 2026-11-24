@@ -2943,12 +2943,12 @@ documents:
   kind: index
   group: computational-science
   hashes:
-    source: 6889527e88069fa0d23d67da2a5528821e53c15844e953fe82b512f81fb114a0
-    content: 2b795a5e18cb33b44bbe81beeba5feff0e0d41fe4be7abe2e8b1e046d6a1b679
+    source: 6931b99455c0cb1e1d6879c492b9582dd34179b709f8061de9f7cb73e980af40
+    content: 2def7a36d3325f723b8d18741621fe8ab469dc0d116d547183d8e3c5b70c15ea
     outline: 189cc349667be7a96cb7ff361201b0251e212ed89e06c05af9903143e7cba2ee
     presentation: 2d197adcfedffd6e945acf2348a6b0824cc4a703abeb84fbc366f2dca9d59dea
   metrics:
-    characters: 612
+    characters: 644
     explanatory_elements:
       total: 0
       figures: 0
@@ -2957,6 +2957,7 @@ documents:
       code_blocks: 0
   automatic_check: pass
   issues: []
+  assets: {}
   review:
     status: excluded
     reason: Home과 index는 navigation hub이므로 scientific review에서 제외한다.
@@ -3192,12 +3193,12 @@ documents:
   kind: index
   group: computational-science
   hashes:
-    source: 122b3f8fe7ddc75d8ec519db7795e1d99031826dd5f8d105ee3f29d2025aed8f
-    content: f21e0cddef343e793d56adb83765cdc8085697fa32231c5a4769b2406afa3c30
+    source: c41200203d984e04d4c7548de09cae72f3c5b9aa3e978d350a91ac0810111616
+    content: ee196342673446cdddd4cfc3063ab15fb6a23dbd266af486dca23287098bb5c7
     outline: b599aad6fdee8772d88e1cf903190b7ff2284e35888c383e9e4ed971f5ca3c4f
     presentation: c1e92e867fac69e4135b3d4847c1ec754596ae20a720749b0c490942ff9ba2f2
   metrics:
-    characters: 389
+    characters: 421
     explanatory_elements:
       total: 0
       figures: 0
@@ -3206,6 +3207,7 @@ documents:
       code_blocks: 0
   automatic_check: pass
   issues: []
+  assets: {}
   review:
     status: excluded
     reason: Home과 index는 navigation hub이므로 scientific review에서 제외한다.
@@ -3366,6 +3368,52 @@ documents:
       Two supported findings, zero mismatch, insufficient or inaccessible findings. Initial reading was recorded before historical
       evidence; original source inspection and derived dimensions are distinct from reused evidence. No quantitative performance
       or rank is asserted by the examples.
+- path: docs/computational-science/model-reduction/overlapping-fragments-method.md
+  topic: Overlapping fragments method (OFM)
+  scope: 중첩된 fragment의 고유함수를 기저로 사용하여 전체 Kohn–Sham Hamiltonian을 축소하고 관심 에너지 영역의 전자상태를 계산하는 OFM의 원리와 검증 범위를 설명한다.
+  kind: article
+  group: computational-science / model-reduction
+  hashes:
+    source: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
+    content: 53dadd0dec700043b7cee0fcf9c52b64ce4b011994e6f83243f8b6fe119f240e
+    outline: df2bea991b962ed6f94e78d1013bdebce0bd51f95a07a5558206cee820710095
+    presentation: a650d2d86d2f55295a52a5d0883a53423b98010c1dc5ec6c291d40764e279282
+  metrics:
+    characters: 11047
+    explanatory_elements:
+      total: 23
+      figures: 0
+      tables: 6
+      equations: 17
+      code_blocks: 0
+  automatic_check: pass
+  issues: []
+  assets: {}
+  review:
+    status: pass
+    scope: facts
+    coverage: full
+    rubric_version: 4
+    reviewed_at: '2026-11-24'
+    model:
+      name: ''
+      reasoning_effort: ''
+      source: ''
+    source_hash: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
+    content_hash: 53dadd0dec700043b7cee0fcf9c52b64ce4b011994e6f83243f8b6fe119f240e
+    outline_hash: df2bea991b962ed6f94e78d1013bdebce0bd51f95a07a5558206cee820710095
+    assets: {}
+    evidence_path: refs/quality/evidence/77887bfa31076747cf76b7e1ad3e2d6da3aaac872e630059128f3a0fbfede21a.yaml
+    finding_counts:
+      supported: 17
+      mismatch: 0
+      insufficient: 0
+      inaccessible: 0
+    summary: Full independent inspection of the new article. All scoped scientific statements, derivations, source attributions
+      and bibliography checks are supported as qualified. The error ranges, cutoff, approximate five-monomer observation,
+      figure contents and exact 2011 software choices are verifiable as reported by the original investigators; they are not
+      a reproduction of those computations. Primary article and SI share provenance. Core mathematics is independently supported
+      and checked by the derivations above. No mismatch, insufficient or inaccessible finding. No historical evidence reused.
 - path: docs/computational-science/model-reduction/projection-methods.md
   topic: Projection methods
   scope: 전자구조 고유값 문제의 Galerkin·Rayleigh–Ritz 투영에서 출발하여 비직교 overlap, Ritz 오차, 기저 보강, resolvent와 일반 Petrov–Galerkin 모형을 설명한다.

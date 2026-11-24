@@ -5961,16 +5961,16 @@ documents:
   kind: article
   group: device-physics / semiconductor-process
   hashes:
-    source: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
-    content: 79b576ffa830c17fe2e4a33ade4260d8e2f93a029035b84fd6e7ea1b0fe2d2a0
+    source: 5903fdc21e7938e9cb1032bcf7c3e66b0d31f4f19477074b6f08b4b8e8ca5ec2
+    content: 8f7c7ce69439266080e5dee97fd237f9c7010a90ef9e78a0f537b9ebe497e004
     outline: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
     presentation: 34ed8e7d6cd85e4c08b707701270bd1a47ec487ec70aa434f0582b5f29e7814b
   metrics:
-    characters: 6509
+    characters: 7234
     explanatory_elements:
-      total: 6
+      total: 7
       figures: 3
-      tables: 1
+      tables: 2
       equations: 2
       code_blocks: 0
   automatic_check: pass
@@ -5989,21 +5989,21 @@ documents:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
-    content_hash: 79b576ffa830c17fe2e4a33ade4260d8e2f93a029035b84fd6e7ea1b0fe2d2a0
+    source_hash: 5903fdc21e7938e9cb1032bcf7c3e66b0d31f4f19477074b6f08b4b8e8ca5ec2
+    content_hash: 8f7c7ce69439266080e5dee97fd237f9c7010a90ef9e78a0f537b9ebe497e004
     outline_hash: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
     assets:
       docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
       docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
       docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
-    evidence_path: refs/quality/evidence/7532f675d657a5c670ec6aecba211fc119d8b55ddb8e8f86f0a2709b70d03d24.yaml
+    evidence_path: refs/quality/evidence/440485b88ddc70392a0726b8d44d476fdfc97a305009de10af1ef4bf1788d4be.yaml
     finding_counts:
-      supported: 9
+      supported: 8
       mismatch: 0
       insufficient: 0
       inaccessible: 0
-    summary: 최종 SHA의 변경 및 영향을 받는 가정에서 9개 finding을 확인했다. 독립 원문에서 포화와 퍼지, 열·플라즈마 표면기와 생성물, 측정 대상 및 도식의 원본을 대조했고 두 반응식과 두께의 구간
-      평균을 검산했다. 근거 부족·접근 불가·불일치로 남은 항목은 0개이다.
+    summary: §7에 추가한 소개와 7행을 마지막 검증본에 대조했으며 8개 주장 묶음이 지지된다. 원문 확인 7건과 원문 정의에 기초한 노출량 유도 1건이다. 새 수치 예제는 없다. 불일치·근거 부족·접근 불가
+      판정은 각각 0건이다. 표의 새 주장에 대한 원문 확인과 이전 버전의 불변 근거 승계를 구분했다.
 - path: docs/device-physics/semiconductor-process/doping-and-annealing.md
   topic: 'Semiconductor process: Doping and annealing'
   scope: 확산·이온 주입의 도펀트 분포, channeling과 implantation damage, 열처리에 의한 activation·TED 및 농도 계측을 설명

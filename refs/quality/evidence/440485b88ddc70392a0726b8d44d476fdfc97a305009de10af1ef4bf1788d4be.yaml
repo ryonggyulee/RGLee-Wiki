@@ -1,0 +1,223 @@
+page: docs/device-physics/semiconductor-process/atomic-layer-deposition.md
+hashes:
+  source: 5903fdc21e7938e9cb1032bcf7c3e66b0d31f4f19477074b6f08b4b8e8ca5ec2
+  content: 8f7c7ce69439266080e5dee97fd237f9c7010a90ef9e78a0f537b9ebe497e004
+  outline: f091741205693569c6d5624ad6e5817b595ab1850f52a13a0aebee4caaf6cd22
+  presentation: 34ed8e7d6cd85e4c08b707701270bd1a47ec487ec70aa434f0582b5f29e7814b
+assets:
+  docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+  docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+  docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 5903fdc21e7938e9cb1032bcf7c3e66b0d31f4f19477074b6f08b4b8e8ca5ec2
+  assets:
+    docs/device-physics/semiconductor-process/images/ald-basics-illustration.svg: dd046f422f52e81de5069186ee3c15bb71d26824343cf784c0a6d87dbc0a3f3d
+    docs/device-physics/semiconductor-process/images/plasma-spatial-ald-reactor.jpg: c86a2201b13f4f65d2cd50ddcad61cdf09126d879cd39c12671bc50bd9c2f0fe
+    docs/device-physics/semiconductor-process/images/plasma-ald-trench-thickness.jpg: 09a7bcf8f881b0dc6a6d60a35f1e41cb89056b6160265dcc5225b29d2803a55f
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: c89a979142ce0dc2cd47e03d55ff628dc7ea4b9aee03c08888e99fc72858d2d4
+    checked:
+    - §7 새 표의 도입문과 일곱 행 전체. 각 변수의 변화 방향과 적용 조건, 제시된 측정값, 인용이 맡은 역할을 대조했다.
+    dependencies:
+    - §2(1)–(4)의 반쪽 반응과 퍼지, §3(1)–(3)의 두께 기울기·분자 노출량·포화 측정·온도 곡선.
+    - §4(1)–(2)의 두께·밀도·플라즈마 종 구별, §5–6의 회전 속도·전구체 공급·그림 3과 절반 두께 판정 기준.
+    reused_evidence:
+    - path: refs/quality/evidence/7532f675d657a5c670ec6aecba211fc119d8b55ddb8e8f86f0a2709b70d03d24.yaml
+      sha256: d4ec12e53c6efcb133e5d43815030ae13c9b7db115989908e0cf44140aafce1e
+      scope: 기준본과의 diff에서 §7의 12개 추가 줄 외에 변경이 없다. 기존 도입·§1–6·§7 네 요약 항목·§8 및 이미지 세 개의 출처·권리는 이전 검토와 그 기록에 명시된 선행 근거를 승계한다.
+        표와 직접 연결된 정의·조건은 아래에서 원자료와 다시 대조했다. 기존 식의 수치 예제, 반응식, 질화 공정 및 이미지 이용 조건은 이번 신규 판정에 포함하지 않는다.
+  findings:
+  - id: exposure
+    claim: 분자의 주입 시간이 같아도 표면 가까이에서의 분압이 다르면 노출량이 달라진다.
+    locations:
+    - §7 표 도입
+    - §3(2)
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.5060967
+      provenance: Cremers et al. 2019
+      locator: §II.D, p. 021302-5
+      supports: 표면 입사 플럭스가 압력에 의존하며 일정한 분압에서 노출량은 해당 반응물의 분압과 펄스 시간의 곱이다.
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala and Leskelä 2002
+      locator: §7.1.1.2, p. 140
+      supports: 일정 플럭스에서 분자 공급량은 플럭스와 펄스 시간의 곱이며 두 변수를 독립적으로 바꿀 수 있다.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon and Kessels 2019
+      locator: Fig. 4, Eqs. 4a–b and following paragraph
+      supports: 해당 실험의 TMA와 물 플럭스를 주입 중 압력으로부터 구해 반응 속도를 해석했다.
+    check: 각 짧은 구간의 Pᵢ Δt를 합하면 노출량은 ∫Pᵢ(t)dt이다. 주입 시간이 같으면 시간 평균 분압의 비가 노출량의 비가 된다. 이는 문헌 정의에서 유도한 관계이고 새 실험값을 계산하지 않았다.
+    assumptions: 비교 변수는 분자 반응물의 국소 분압과 시간이다. 총압 또는 플라즈마 라디칼 플럭스와 구분한다.
+  - id: temperature
+    claim: 일부 공정에는 온도별 GPC가 일정한 구간이 있다. 산화알루미늄 PEALD에서는 승온에 따라 밀도가 커지고 두께 GPC가 작아진 사례가 있다.
+    locations:
+    - §7 표 기판 온도
+    - §3(3)
+    - §4(1)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala and Leskelä 2002
+      locator: Fig. 19, p. 141
+      supports: 온도에 따라 성장량이 거의 일정한 구간 및 기울기가 있는 구간을 설명한다.
+    - id: 10.1002/pssa.201900256
+      provenance: Pilz et al. 2019 original ZnO data
+      locator: Fig. 1(a)
+      supports: ZnO의 별도 측정에서 125–200 °C 구간의 두께 GPC가 거의 일정했다.
+    - id: 10.1116/6.0002158
+      provenance: Mione et al. 2022 atmospheric spatial data
+      locator: Fig. 2 and §III.A
+      supports: 80, 150, 200 °C에서 두께 GPC는 감소하고 밀도는 증가했다. 저자들은 SE와 RBS/ERD로 두 관측량을 구했다.
+    - id: 10.1149/1.3428705
+      provenance: Potts et al. 2010 low-pressure temporal data
+      locator: Figs. 5(c), 6, pp. P69–P70
+      supports: 저온에서 더 낮은 밀도와 더 큰 두께 GPC를 관측했다. 대기압 공간 분할 실험과 다른 장치의 독립 자료이다.
+    check: 일정 GPC가 가능한 일반론과 특정 산화알루미늄 결과를 분리해 대조했다. 독립적인 두 산화알루미늄 측정이 같은 경향을 보인다.
+    assumptions: 온도별로 노출 포화를 확인한다. 밀도·조성이 달라질 수 있으므로 두께 증가와 Al 원자 수 증가는 별개다.
+  - id: tma
+    claim: 미포화 표면에서는 추가 TMA 공급으로 Al 함유 물질의 흡착이 늘고 포화에 접근할수록 효과가 작아진다.
+    locations:
+    - §7 표 전구체 주입 시간
+    - §2(1)
+    - §3(2)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004
+      locator: Figs. 3–4 and §3.A
+      supports: 다른 반응물 공급을 고정하고 TMA 펄스를 늘릴 때 QCM 시료의 사이클당 질량 증가가 포화에 접근했다.
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008
+      locator: Figs. 3, 7(a–c)
+      supports: TMA를 소량씩 추가한 실험에서 처음에는 성장과 질량 증가가 나타났고 이후에는 흡착이 멎고 미반응 TMA가 검출되었다.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon and Kessels 2019
+      locator: Figs. 3–4
+      supports: 흡착 TMA와 연결된 메틸 신호가 반복 노출에서 증가한 뒤 포화했다.
+    check: 질량 또는 두께의 포화 곡선은 흡착 경향을 관찰하는 지표로 타당하다. 순수 Al 질량을 QCM이 직접 분리 정량한다는 가정은 필요하지 않다.
+    assumptions: TMA가 Al 공급원이며 같은 온도·공반응물 조건에서 유효 노출을 바꾼다. 충분한 퍼지와 자기 제한 반응을 전제한다.
+  - id: water
+    claim: 열 ALD에서 물 노출에 따라 반응 가능한 표면 메틸기 소모가 포화에 접근하며 저온의 성장 곡선에는 잔여 기울기가 생길 수 있다.
+    locations:
+    - §7 표 공반응물 주입 시간
+    - §2(3)
+    - §3(2)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004
+      locator: Fig. 4, §3.A and §4, pp. 641, 643
+      supports: 고정된 TMA 조건에서 58 °C 물 노출 시간별 질량 증가를 측정했고 긴 노출에도 작은 기울기가 남았다.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon and Kessels 2019
+      locator: Figs. 3–4, Eq. 4b
+      supports: 100 °C에서 물 주입 후 반응 가능한 메틸기 신호가 점차 감소했고 긴 노출에서는 잔류 메틸기가 남았다.
+    check: 두 연구의 측정량을 구분했다. 저온 잔여 기울기는 Groner의 전체 사이클 QCM 측정이고 물과 메틸기의 반응은 Vandalon의 직접 표면 분광 자료이다. 두께 GPC는 표에서 권하는 후속 관측량이다.
+    assumptions: TMA와 퍼지를 고정한다. 포화가 모든 메틸기의 완전 제거를 뜻하지 않으며 물 펄스 자체가 Al을 공급하지 않는다.
+  - id: purge
+    claim: 퍼지 부족으로 두 반응물이 겹치면 별도의 성장분이 생기며 퍼지를 충분히 늘릴 때 이 기여가 줄어든다.
+    locations:
+    - §7 표 첫째·둘째 퍼지 시간
+    - §2(2), (4)
+    - §3(2)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/B978-012512908-4/50005-9
+      provenance: Ritala and Leskelä 2002
+      locator: §7.1.1.3, pp. 140–141
+      supports: 퍼지가 부족하면 펄스가 겹쳐 CVD성 성장이 생기고, 퍼지를 늘리면 성장률이 감소하다 일정값에 접근할 수 있다.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004
+      locator: Fig. 5, §3.A
+      supports: 두 퍼지를 개별적으로 바꾸어 짧은 퍼지에서 사이클당 질량이 커지는 것을 관측하고 반응물 혼합으로 설명했다.
+    check: 이미 충분한 퍼지에서 시간을 더 늘릴 때까지 계속 감소한다고 주장하지 않는다. 표의 두께 GPC와 원 논문의 질량 증가는 각각의 성장 지표이다.
+    assumptions: 비교하는 한 퍼지 외에 다른 조건을 고정하고, 겹침이 실제로 추가 성장에 기여했던 경우이다.
+  - id: trench
+    claim: 전구체는 충분하고 라디칼 공급이 내부를 제한하면 플라즈마 노출을 늘렸을 때 막이 더 깊이 형성될 수 있다.
+    locations:
+    - §7 표 플라즈마 노출 시간
+    - §6 그림 3과 측정 상자
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/5.0168768
+      provenance: van de Poll et al. 2023 atmospheric-pressure spatial data
+      locator: Figs. 2–3, pp. 182902-2–4
+      supports: SiO₂와 TiO₂의 깊이별 두께 및 정규화한 절반 두께 침투 깊이를 회전 속도별로 측정했다. 더 긴 노출이 더 깊은 피복을 보인다.
+    - id: 10.1021/acs.jpcc.9b08176
+      provenance: Arts et al. 2019 independent low-pressure temporal dataset
+      locator: Figs. 2–3 and Eq. 6, pp. 27032–27033
+      supports: 충분한 전구체 주입과 고정된 플라즈마 조건에서 노출 시간을 변화시켰다. 트렌치 입구 바로 안쪽 두께의 절반에 해당하는 위치를 읽었다.
+    - id: 10.1149/1.3301664
+      provenance: Dendooven et al. 2010 Ghent macroscopic structures
+      locator: 저자 초록, Ghent 기관 서지
+      supports: 독립적인 Al₂O₃ 깊이별 두께 측정에서 플라즈마 노출 연장에 따라 피복성이 개선되었다. 열람 범위는 공개 초록이다.
+    check: 그림 3의 공간 분할 실험에서는 회전과 함께 전구체 노출도 변한다. 전구체를 충분히 유지한 Arts 실험이 표의 조건부 원인을 직접 지지한다. x₅₀는 길이이며 x₅₀/h는 무차원이다.
+    assumptions: 고정한 기준 두께의 절반이 되는 하강 지점에서 읽는다. 재료·구조·플라즈마 조건에 따라 침투 정도와 제한 단계가 달라진다.
+  - id: power
+    claim: 플라즈마 출력은 기판에 도달하는 종의 양이나 에너지에 영향을 미치며, GPC 변화 방향은 반응기 구성과 운전 조건에 따라 달라질 수 있다.
+    locations:
+    - §7 표 플라즈마 출력
+    - §4(1)–(2)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1016/j.surfcoat.2017.07.056
+      provenance: Napari et al. 2017 Jyväskylä ZnO reactor study
+      locator: §§2.1–2.2, 3.1, Fig. 1(a–c) and abstract
+      supports: 실온 ZnO에서 높은 출력의 ICP는 GPC가 줄었고, 원격 CCP의 높은 출력·충분한 펄스에서는 국소적으로 두꺼운 부분이 생겨 평균 GPC가 증가했다. 조성·불순물도 측정했다.
+    - id: 10.1149/1.3552663
+      provenance: Profijt et al. 2011 Eindhoven substrate-plane analyzer
+      locator: pp. G88–G89, Figs. 1–2
+      supports: 원격 산소 플라즈마에서 압력과 출력을 바꾸어 기판 위치에서 이온 플럭스·에너지를 측정했다. 더 높은 출력에서 플럭스가 증가하고 피크 에너지는 낮아졌다.
+    check: 출력에 따른 GPC 부호는 Napari의 서로 다른 구성에서 직접 확인된다. Profijt는 출력에 따라 입사종이 변한다는 독립 물리 측정을 제공한다. 한 점의 GPC를 국소 두께 균일성으로 해석하지
+      않는다.
+    assumptions: 서로 다른 장치의 출력 수치가 같은 플럭스를 뜻하지 않는다. 압력·노출 시간을 고정하고 GPC와 조성을 측정하는 제안은 해당 장치에서의 비교 절차이다.
+  - id: cycles
+    claim: 정상 성장에서 기울기는 거의 일정하고 초기에는 기판 표면 상태에 따라 두께 증가 양상이 달라질 수 있다.
+    locations:
+    - §7 표 사이클 수
+    - §3(1)
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.2924406
+      provenance: Heil et al. 2008
+      locator: §III.A and Fig. 2
+      supports: 플라즈마 산화 Si 위에서 두 온도의 두께 대 사이클 수가 선형으로 증가했다. 그 기울기로 사이클당 두께를 구했다.
+    - id: 10.1021/acs.langmuir.9b01600
+      provenance: Vandalon and Kessels 2019
+      locator: Fig. 2(a–b)
+      supports: SiO₂와 H/Si(111) 모두 성장하지만 H 종결 표면에서는 초기 증가가 느리고 이후 같은 기울기에 접근했다.
+    - id: 10.1063/1.2077840
+      provenance: Sturm et al. 2005
+      locator: p. 076104-1, 성장 측정 문단
+      supports: XPS로 H 종결 Si의 초기 Al 축적 지연을 열산화 SiO₂와 비교했다.
+    - id: 10.1021/cm0304546
+      provenance: Groner et al. 2004
+      locator: Fig. 2
+      supports: 58 °C에서 연속 사이클의 누적 면적당 질량이 선형으로 증가했다. 두께 측정과는 별도의 보완 관측이다.
+    check: 정상 구간의 두께 대 사이클 수 그래프의 기울기가 두께 GPC이다. 초기 표면에 따라 기울기가 달라지는 효과는 서로 다른 기판의 직접 비교로 확인된다.
+    assumptions: 같은 레시피의 정상 성장 구간에서 d(N)을 비교한다. 토대가 다른 시료에서 초기 지연 크기를 같다고 가정하지 않는다.
+  summary: §7에 추가한 소개와 7행을 마지막 검증본에 대조했으며 8개 주장 묶음이 지지된다. 원문 확인 7건과 원문 정의에 기초한 노출량 유도 1건이다. 새 수치 예제는 없다. 불일치·근거 부족·접근 불가 판정은
+    각각 0건이다. 표의 새 주장에 대한 원문 확인과 이전 버전의 불변 근거 승계를 구분했다.

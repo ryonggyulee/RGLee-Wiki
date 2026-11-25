@@ -1,0 +1,4 @@
+interface:
+  display_name: "문서 첫머리 요약 도식"
+  short_description: "과학 문서의 핵심 관계를 한 장으로 그려 도입부에 넣는다"
+  default_prompt: "$illustrate-wiki-summary로 이 글의 핵심 원리를 한 장의 도식으로 그려 도입부에 넣어 줘."

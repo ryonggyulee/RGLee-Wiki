@@ -13,6 +13,7 @@ MkDocs와 Material을 사용한다. 새 규칙은 아래 담당 파일 한 곳�
 | 새 글·전면 개정·문장 다듬기·용어 통일 | [research-and-write-wiki](.agents/skills/research-and-write-wiki/SKILL.md) | 작성 형식에 맞춘 본문 |
 | 일부 주장·수식·인용 수정 | [revise-wiki-article](.agents/skills/revise-wiki-article/SKILL.md) | 수정한 본문과 검토 범위 |
 | 문서 첫머리 요약 도식 | [illustrate-wiki-summary](.agents/skills/illustrate-wiki-summary/SKILL.md) | 본문의 핵심 관계를 담은 개념도와 근거 |
+| 본문에서 개념·연산을 그림으로 설명 | [figure-maker](.agents/skills/figure-maker/SKILL.md) | 설명하는 문단 곁에 정적 도식·그래프·GIF 배치 |
 | 문헌 그림 추가·교체 | [acquire-scientific-images](.agents/skills/acquire-scientific-images/SKILL.md) | 재사용이 허용된 그림과 출처 |
 | 사실·인용 대조 / 게시 기록·검사 | [audit-wiki-references](.agents/skills/audit-wiki-references/SKILL.md) / [evaluate-wiki-quality](.agents/skills/evaluate-wiki-quality/SKILL.md) | 원문 대조 결과 / 검증 기록과 빌드 |
 

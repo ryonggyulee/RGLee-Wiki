@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="284" viewBox="0 0 600 284" role="img" aria-labelledby="title desc">
+<title id="title">전체 사슬과 겹치는 두 조각</title><desc id="desc">같은 열은 같은 탄소 원자이다. 2번과 3번 사이의 결합은 왼쪽과 오른쪽 조각에 모두 남는다. 탄소 골격만 표시했다.</desc>
+<rect width="600" height="284" fill="#fcfdfc"/>
+<g font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">
+<rect x="268" y="32" width="192" height="221" rx="16" fill="#e6f4ef"/>
+<text x="364" y="25" fill="#006858" text-anchor="middle" font-size="20" font-weight="700">공유하는 2–3 결합</text>
+<path d="M202 68 V226" fill="none" stroke="#c4cfd3" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 5"/>
+<path d="M310 68 V226" fill="none" stroke="#c4cfd3" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 5"/>
+<path d="M418 68 V226" fill="none" stroke="#c4cfd3" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 5"/>
+<path d="M526 68 V226" fill="none" stroke="#c4cfd3" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 5"/>
+<text x="23" y="83" fill="#172f3f" text-anchor="start" font-size="21" font-weight="700">전체 사슬</text>
+<path d="M202 76 H310" fill="none" stroke="#465968" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M310 76 H418" fill="none" stroke="#006858" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M418 76 H526" fill="none" stroke="#465968" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="202" cy="76" r="20" fill="#ffffff" stroke="#465968" stroke-width="2"/>
+<text x="202" y="83" fill="#172f3f" text-anchor="middle" font-size="20" font-weight="700">1</text>
+<circle cx="310" cy="76" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="310" y="83" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">2</text>
+<circle cx="418" cy="76" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="418" y="83" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">3</text>
+<circle cx="526" cy="76" r="20" fill="#ffffff" stroke="#465968" stroke-width="2"/>
+<text x="526" y="83" fill="#172f3f" text-anchor="middle" font-size="20" font-weight="700">4</text>
+<text x="23" y="157" fill="#172f3f" text-anchor="start" font-size="21" font-weight="700">왼쪽 조각 L</text>
+<path d="M202 150 H310" fill="none" stroke="#465968" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M310 150 H418" fill="none" stroke="#006858" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="202" cy="150" r="20" fill="#ffffff" stroke="#465968" stroke-width="2"/>
+<text x="202" y="157" fill="#172f3f" text-anchor="middle" font-size="20" font-weight="700">1</text>
+<circle cx="310" cy="150" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="310" y="157" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">2</text>
+<circle cx="418" cy="150" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="418" y="157" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">3</text>
+<text x="23" y="231" fill="#172f3f" text-anchor="start" font-size="21" font-weight="700">오른쪽 조각 R</text>
+<path d="M310 224 H418" fill="none" stroke="#006858" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M418 224 H526" fill="none" stroke="#465968" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="310" cy="224" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="310" y="231" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">2</text>
+<circle cx="418" cy="224" r="20" fill="#006858" stroke="#006858" stroke-width="2"/>
+<text x="418" y="231" fill="#ffffff" text-anchor="middle" font-size="20" font-weight="700">3</text>
+<circle cx="526" cy="224" r="20" fill="#ffffff" stroke="#465968" stroke-width="2"/>
+<text x="526" y="231" fill="#172f3f" text-anchor="middle" font-size="20" font-weight="700">4</text>
+</g></svg>

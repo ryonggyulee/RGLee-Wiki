@@ -1,0 +1,4 @@
+interface:
+  display_name: "본문 설명 그림"
+  short_description: "본문에서 그림이 필요한 대목을 골라 도식·그래프·연산 GIF를 만듭니다"
+  default_prompt: "$figure-maker로 이 절에서 이해하기 어려운 관계를 설명하는 본문 그림을 만들어 줘."

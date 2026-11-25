@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="303" viewBox="0 0 600 303" role="img" aria-labelledby="title desc">
+<title id="title">오른쪽 조각 궤도로 만드는 두 행렬의 둘째 열</title><desc id="desc">S는 오른쪽 궤도를 그대로 쓰고 H는 전체 Hamiltonian을 적용한다. 두 경우 모두 L과 내적한 결과는 첫째 행, R과 내적한 결과는 둘째 행이다.</desc>
+<rect width="600" height="303" fill="#fcfdfc"/>
+<g font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">
+<text x="148" y="36" fill="#172f3f" text-anchor="middle" font-size="22" font-weight="700">오른쪽 궤도 그대로</text>
+<text x="148" y="70" fill="#006858" text-anchor="middle" font-size="27" font-weight="600">φ<tspan baseline-shift="sub" font-size="17">R</tspan></text>
+<text x="113" y="111" fill="#465968" text-anchor="middle" font-size="19" font-weight="500">열 L</text>
+<text x="203" y="111" fill="#006858" text-anchor="middle" font-size="19" font-weight="700">열 R</text>
+<rect x="69" y="123" width="178" height="110" rx="8" fill="#f0f2f2"/>
+<rect x="158" y="123" width="89" height="110" rx="8" fill="#e6f4ef"/>
+<path d="M158 124 V232 M71 178 H245" fill="none" stroke="#c4cfd3" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="60" y="160" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 L</text>
+<text x="113" y="160" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">LL</tspan></text>
+<text x="202" y="160" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">LR</tspan></text>
+<text x="60" y="215" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 R</text>
+<text x="113" y="215" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">RL</tspan></text>
+<text x="202" y="215" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">RR</tspan></text>
+<text x="437" y="36" fill="#172f3f" text-anchor="middle" font-size="22" font-weight="700">전체 연산자 적용 후</text>
+<text x="437" y="70" fill="#006858" text-anchor="middle" font-size="27" font-weight="600">Ĥ φ<tspan baseline-shift="sub" font-size="17">R</tspan></text>
+<text x="402" y="111" fill="#465968" text-anchor="middle" font-size="19" font-weight="500">열 L</text>
+<text x="492" y="111" fill="#006858" text-anchor="middle" font-size="19" font-weight="700">열 R</text>
+<rect x="358" y="123" width="178" height="110" rx="8" fill="#f0f2f2"/>
+<rect x="447" y="123" width="89" height="110" rx="8" fill="#e6f4ef"/>
+<path d="M447 124 V232 M360 178 H534" fill="none" stroke="#c4cfd3" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="349" y="160" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 L</text>
+<text x="402" y="160" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">LL</tspan></text>
+<text x="491" y="160" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">LR</tspan></text>
+<text x="349" y="215" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 R</text>
+<text x="402" y="215" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">RL</tspan></text>
+<text x="491" y="215" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">RR</tspan></text>
+<text x="300" y="276" fill="#172f3f" text-anchor="middle" font-size="21" font-weight="500">행 L은 왼쪽 궤도와, 행 R은 오른쪽 궤도와 내적</text>
+</g></svg>

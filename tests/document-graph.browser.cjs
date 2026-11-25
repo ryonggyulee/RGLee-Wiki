@@ -34,7 +34,27 @@ const http = require('node:http');
     const graph = page.locator('.document-graph');
     await graph.scrollIntoViewIfNeeded();
     await page.waitForTimeout(400);
-    assert.equal(await graph.locator('button').count(), 1);
+    const zoomIn = graph.getByRole('button', {name: '그래프 확대', exact: true});
+    const zoomOut = graph.getByRole('button', {name: '그래프 축소', exact: true});
+    const reset = graph.getByRole('button', {name: '그래프 선택과 확대 초기화'});
+    const readScale = () => graph.locator('svg').evaluate(svg => window.d3.zoomTransform(svg).k);
+    async function checkZoomTransition(start, direction) {
+      const scales = await graph.locator('svg').evaluate(svg => new Promise(resolve => {
+        const values = [], begin = performance.now();
+        function sample() {
+          values.push(window.d3.zoomTransform(svg).k);
+          if (performance.now() - begin < 800) requestAnimationFrame(sample);
+          else resolve(values);
+        }
+        sample();
+      }));
+      const end = scales.at(-1);
+      assert(scales.some(k => (k - start) * direction > 1e-6 && (end - k) * direction > 1e-6),
+        'zoom passes through intermediate scales');
+      scales.forEach((k, i) => assert((k - (i ? scales[i - 1] : start)) * direction >= -1e-8,
+        'zoom proceeds in the requested direction'));
+      return end;
+    }
     const colors = await graph.locator('.node').evaluateAll(nodes => {
       const branches = new Map();
       for (const node of nodes) {
@@ -125,14 +145,10 @@ const http = require('node:http');
     const id = await graph.locator('.node[data-depth="0"]').first().getAttribute('data-id');
     const target = graph.locator(`[data-id="${id}"]`);
     const oldRadius = await target.locator('.main-circle').getAttribute('r');
-    const oldTransform = await graph.locator('svg > g').getAttribute('transform');
+    const overviewScale = await readScale();
+    await target.locator('.main-circle').hover();
     await target.locator('text').click();
-    await page.waitForTimeout(160);
-    const midTransform = await graph.locator('svg > g').getAttribute('transform');
-    assert.notEqual(midTransform, oldTransform, 'camera moves during animation');
-    await page.waitForTimeout(800);
-    const endTransform = await graph.locator('svg > g').getAttribute('transform');
-    assert.notEqual(midTransform, endTransform, 'camera does not jump immediately');
+    const domainScale = await checkZoomTransition(overviewScale, 1);
     assert.equal(await graph.getAttribute('data-center'), id);
     assert.equal(Number(await target.locator('.main-circle').getAttribute('r')), Number(oldRadius) * 1.5);
     assert.equal(await graph.locator('.node').count(), count, 'focus preserves the surrounding graph');
@@ -145,23 +161,29 @@ const http = require('node:http');
           if (edge.target === center) neighbors.add(edge.source);
         }
         const parents = new Map(data.edges.filter(e => e.kind === 'tree').map(e => [e.target, e.source]));
-        const ancestorChildren = new Set();
-        let child = center;
-        while (parents.has(child)) {
-          ancestorChildren.add(child);
-          child = parents.get(child);
-          neighbors.add(child);
+        const treeTargets = new Set();
+        for (const node of data.nodes) {
+          const path = [node.id];
+          while (parents.has(path.at(-1))) path.push(parents.get(path.at(-1)));
+          if (path.includes(center)) {
+            neighbors.add(node.id);
+            if (node.id !== center) treeTargets.add(node.id);
+          }
+          if (node.id === center) {
+            path.forEach(id => neighbors.add(id));
+            path.slice(0, -1).forEach(id => treeTargets.add(id));
+          }
         }
         return [...root.querySelectorAll('.node')].every(node =>
           node.classList.contains('muted') === !neighbors.has(node.dataset.id)) &&
           [...root.querySelectorAll('.link')].every(line => {
             const edge = line.__data__;
             const active = edge.source.id === center || edge.target.id === center ||
-              (edge.kind === 'tree' && ancestorChildren.has(edge.target.id));
+              (edge.kind === 'tree' && treeTargets.has(edge.target.id));
             return line.classList.contains('connected') === active && line.classList.contains('muted') === !active;
           });
       }, center);
-      assert(state, 'the center, direct neighbors, ancestors and the path to the root stay active');
+      assert(state, 'the full subtree, ancestor path and direct links of the selection stay active');
       assert(await graph.locator('.node.muted').count() > 0);
       assert(await graph.locator('.link.muted').count() > 0);
     }
@@ -173,6 +195,14 @@ const http = require('node:http');
     });
     assert(await isCentered());
     await screenshot('focused');
+    await zoomIn.click();
+    const biggerScale = await checkZoomTransition(domainScale, 1);
+    await zoomOut.focus();
+    await page.keyboard.press('Enter');
+    const smallerScale = await checkZoomTransition(biggerScale, -1);
+    assert(Math.abs(domainScale - smallerScale) < 1e-8);
+    assert(await isCentered(), 'the zoom buttons keep the same view center');
+    assert.equal(await graph.getAttribute('data-center'), id);
     const box = await graph.boundingBox();
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.mouse.wheel(0, -350);
@@ -191,21 +221,41 @@ const http = require('node:http');
     await page.mouse.down(); await page.mouse.move(circle.x + 90, circle.y + 70, {steps: 12}); await page.mouse.up();
     assert.notEqual(await target.getAttribute('transform'), beforeDrag);
     assert.equal(await graph.getAttribute('data-center'), id, 'drag does not trigger another selection');
-    // Keyboard can reach any document even if outside the current viewport.
-    const articleId = await graph.locator('.node[data-depth="2"]').first().getAttribute('data-id');
+    // Follow an actual domain → topic → article path, including offscreen nodes.
+    const [topicId, articleId] = await graph.evaluate((root, id) => {
+      const tree = JSON.parse(root.querySelector('.document-graph__data').textContent).edges.filter(e => e.kind === 'tree');
+      const topic = tree.find(e => e.source === id && tree.some(child => child.source === e.target)).target;
+      return [topic, tree.find(e => e.source === topic).target];
+    }, id);
+    const topic = graph.locator(`[data-id="${topicId}"]`);
+    await topic.focus(); await page.keyboard.press('Space');
+    const topicScale = await checkZoomTransition(domainScale, 1);
+    await checkNeighborhood(topicId);
     const article = graph.locator(`[data-id="${articleId}"]`);
-    await article.focus(); await page.keyboard.press('Space'); await page.waitForTimeout(850);
+    await article.focus(); await page.keyboard.press('Space');
+    const articleScale = await checkZoomTransition(topicScale, 1);
     assert.equal(await graph.getAttribute('data-center'), await article.getAttribute('data-id'));
     await checkNeighborhood(articleId);
-    await graph.locator('.document-graph__reset').click();
+    await reset.click();
+    await checkZoomTransition(articleScale, -1);
     assert.equal(await graph.getAttribute('data-center'), null);
     assert.equal(await graph.locator('.muted, .current, .connected').count(), 0);
     assert.equal(await graph.locator('[aria-pressed="true"]').count(), 0);
     assert.deepEqual(await layoutState(), initialLayout,
       'reset restores initial node positions, camera and labels after dragging and zooming');
-    await graph.locator('.document-graph__reset').click();
+    await reset.click();
     await page.waitForTimeout(150);
     assert.deepEqual(await layoutState(), initialLayout, 'repeated reset stays at the initial layout');
+    // Reverse an in-progress double zoom before it can reach the requested scale.
+    await zoomIn.evaluate(button => { button.click(); button.click(); });
+    await page.waitForFunction(start => window.d3.zoomTransform(document.querySelector('.document-graph svg')).k > start * 1.05, overviewScale);
+    const reversalScale = await zoomOut.evaluate(button => {
+      const before = window.d3.zoomTransform(button.closest('.document-graph').querySelector('svg')).k;
+      button.click();
+      return before;
+    });
+    const reversed = await checkZoomTransition(reversalScale, -1);
+    assert(Math.abs(reversed - reversalScale / Math.SQRT2) < 1e-8);
     await article.focus(); await page.keyboard.press('Space'); await page.waitForTimeout(850);
     const articleBox = await article.locator('.main-circle').boundingBox();
     const startX = articleBox.x + articleBox.width / 2, startY = articleBox.y + articleBox.height / 2;
@@ -245,6 +295,14 @@ const http = require('node:http');
     await mobileTarget.locator('.main-circle').tap();
     await mobile.waitForTimeout(100);
     assert.equal(await mobile.locator('.document-graph').getAttribute('data-center'), await mobileTarget.getAttribute('data-id'));
+    const mobileScale = () => mobile.locator('.document-graph svg').evaluate(svg => window.d3.zoomTransform(svg).k);
+    const mobileDomainScale = await mobileScale();
+    await mobile.getByRole('button', {name: '그래프 확대', exact: true}).tap();
+    const mobileZoomedScale = await mobileScale();
+    assert(Math.abs(mobileZoomedScale / mobileDomainScale - Math.SQRT2) < 1e-8,
+      'reduced motion applies the full zoom step immediately');
+    await mobile.getByRole('button', {name: '그래프 축소', exact: true}).tap();
+    assert(Math.abs(await mobileScale() - mobileDomainScale) < 1e-8);
     await mobile.setViewportSize({width: 430, height: 900});
     await mobile.waitForTimeout(200);
     assert(await mobileTarget.evaluate(el => {
@@ -281,7 +339,7 @@ const http = require('node:http');
     await mobileArticle.locator('.main-circle').tap();
     await mobile.waitForURL(url => url.pathname !== '/');
     assert.deepEqual(errors, []);
-    console.log('PASS: clusters, ancestors, animated focus, zoom/pan, mouse/touch drag, hold/jitter, double-click/double-tap navigation, keyboard, mobile resize; no browser errors.');
+    console.log('PASS: subtree and ancestor selection, progressive focus/reset, zoom buttons, reduced motion, clusters, zoom/pan, mouse/touch drag, navigation, keyboard and mobile resize.');
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

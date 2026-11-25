@@ -37,10 +37,12 @@ SOFTWARE.
   const g = svg.append('g');
   const width = () => root.clientWidth;
   const height = () => svg.node().clientHeight;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const nodesData = graph.nodes.map(n => ({...n}));
   const nodesById = new Map(nodesData.map(n => [n.id, n]));
-  const parents = new Map(graph.edges.filter(e => e.kind === 'tree').map(e => [e.target, e.source]));
+  const treeEdges = graph.edges.filter(e => e.kind === 'tree');
+  const parents = new Map(treeEdges.map(e => [e.target, e.source]));
+  const children = d3.group(treeEdges, e => e.source);
   // Seed navigation branches in separate regions; retain that grouping while
   // document links pull related pages toward one another.
   const branches = [...new Set(nodesData.map(n => n.branch))];
@@ -89,7 +91,9 @@ SOFTWARE.
   const dragThreshold = 8; // Screen pixels: tolerate mouse/finger jitter.
   let lastTap = null;
   const radius = d => (d.depth === 0 ? 14 : d.depth === 1 ? 9 : 4.5) * (d === currentNode ? 1.5 : 1);
-  const zoom = d3.zoom().scaleExtent([.15, 4]).clickDistance(5)
+  let cameraTargetScale = null;
+  // Interpolate the view center and width directly so a pan never adds a zoom-out detour.
+  const zoom = d3.zoom().scaleExtent([.15, 4]).interpolate(d3.interpolateArray).clickDistance(5)
     .on('start', event => { if (event.sourceEvent) svg.interrupt(); })
     .on('zoom', event => {
       scale = event.transform.k;
@@ -154,9 +158,9 @@ SOFTWARE.
     // choose non-overlapping labels, revealing more as the user zooms/pans.
     // Resolve geometry independently of label priority so hover never moves labels.
     const transform = d3.zoomTransform(svg.node());
+    const viewWidth = width(), viewHeight = height();
     // Shrink invisible tap padding in the overview so it cannot cover a neighbor.
-    node.select('.hit-area').attr('r', d => Math.max(radius(d), Math.min(22,
-      ...nodesData.filter(n => n !== d).map(n => Math.hypot(n.x - d.x, n.y - d.y) * scale / 2))));
+    node.select('.hit-area').attr('r', d => Math.max(radius(d), Math.min(22, d.nearestDistance * scale / 2)));
     const priority = d => d === hoveredNode ? -3 : d === currentNode ? -2 : d.depth < 2 ? d.depth : activeNodes.has(d) ? 2 : 3;
     const ordered = [...nodesData].sort((a, b) => priority(a) - priority(b) || a.depth - b.depth);
     const nodeBoxes = nodesData.map(d => {
@@ -176,13 +180,13 @@ SOFTWARE.
       let placement = null;
       for (const [dx, dy] of candidates) {
         const rect = {x: x + dx, y: y + dy, w: box.width, h: box.height};
-        if (rect.x < 4 || rect.y < 4 || rect.x + rect.w > width() - 4 || rect.y + rect.h > height() - 4) continue;
+        if (rect.x < 4 || rect.y < 4 || rect.x + rect.w > viewWidth - 4 || rect.y + rect.h > viewHeight - 4) continue;
         if (!nodeBoxes.some(other => intersects(rect, other))) { placement = {dx, dy, rect}; break; }
       }
-      if (!placement && x >= 0 && x <= width() && y >= 0 && y <= height() &&
+      if (!placement && x >= 0 && x <= viewWidth && y >= 0 && y <= viewHeight &&
           (d === currentNode || d === hoveredNode || d.depth === 0)) {
-        const left = Math.max(4, Math.min(x + gap, width() - box.width - 4));
-        const top = Math.max(4, Math.min(y - box.height / 2, height() - box.height - 4));
+        const left = Math.max(4, Math.min(x + gap, viewWidth - box.width - 4));
+        const top = Math.max(4, Math.min(y - box.height / 2, viewHeight - box.height - 4));
         placement = {dx: left - x, dy: top - y, rect: {x: left, y: top, w: box.width, h: box.height}};
       }
       // A higher-priority label hides an intersecting label at its normal
@@ -209,6 +213,9 @@ SOFTWARE.
   const initialLayout = nodesData.map(({x, y, vx, vy}) => ({x, y, vx, vy}));
   const initialAlpha = simulation.alpha();
   function tick() {
+    for (const d of nodesData) {
+      d.nearestDistance = d3.min(nodesData, n => n === d ? Infinity : Math.hypot(n.x - d.x, n.y - d.y));
+    }
     link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
       .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
     node.attr('transform', d => `translate(${d.x},${d.y})`);
@@ -218,42 +225,84 @@ SOFTWARE.
   tick();
   // Use stable overview bounds: zoom-scaled labels must not change the fit.
   const initialBounds = g.node().getBBox();
+  function centeredView(x, y, k) {
+    return d3.zoomIdentity.translate(width() / 2, height() / 2).scale(k).translate(-x, -y);
+  }
+  function moveCamera(target, duration) {
+    svg.interrupt();
+    const current = d3.zoomTransform(svg.node());
+    if (current.x === target.x && current.y === target.y && current.k === target.k) return;
+    if (reducedMotion.matches || !duration) {
+      svg.call(zoom.transform, target);
+      return;
+    }
+    cameraTargetScale = target.k;
+    svg.transition().duration(duration).ease(d3.easeCubicInOut).call(zoom.transform, target)
+      .on('end.camera interrupt.camera cancel.camera', () => { cameraTargetScale = null; });
+  }
+  function updateRadii() {
+    const circles = node.select('.main-circle').interrupt();
+    (reducedMotion.matches ? circles : circles.transition().duration(250)).attr('r', radius);
+  }
   function focusNode(d) {
+    g.interrupt();
     currentNode = d;
     node.filter(n => n === d).raise();
     root.dataset.center = d.id;
     node.classed('current', n => n === d).attr('aria-pressed', n => String(n === d));
-    node.select('.main-circle').interrupt().transition().duration(reducedMotion ? 0 : 300).attr('r', radius);
+    updateRadii();
     activeNodes = new Set([d]);
+    const treeTargets = new Set();
+    const pending = [d.id];
+    while (pending.length) {
+      for (const edge of children.get(pending.pop()) || []) {
+        treeTargets.add(edge.target);
+        activeNodes.add(nodesById.get(edge.target));
+        pending.push(edge.target);
+      }
+    }
     processedLinks.forEach(e => {
       if (e.source === d) activeNodes.add(e.target);
       if (e.target === d) activeNodes.add(e.source);
     });
-    const ancestorChildren = new Set();
     let child = d.id;
-    while (parents.has(child) && !ancestorChildren.has(child)) {
-      ancestorChildren.add(child);
+    while (parents.has(child)) {
+      treeTargets.add(child);
       child = parents.get(child);
       activeNodes.add(nodesById.get(child));
     }
     const isActiveLink = e => e.source === d || e.target === d ||
-      (e.kind === 'tree' && ancestorChildren.has(e.target.id));
+      (e.kind === 'tree' && treeTargets.has(e.target.id));
     node.classed('muted', n => !activeNodes.has(n));
     link.classed('connected', isActiveLink).classed('muted', e => !isActiveLink(e));
     placeLabels();
     // Move the camera through the existing graph: no redraw, random layout or
     // disappearing neighbors. Interrupting a flight starts at its current frame.
     simulation.stop();
-    const target = d3.zoomIdentity.translate(width() / 2, height() / 2).scale(1)
-      .translate(-d.x, -d.y);
-    svg.interrupt().transition().duration(reducedMotion ? 0 : 750)
-      .ease(d3.easeCubicInOut).call(zoom.transform, target);
+    const k = Math.min(zoom.scaleExtent()[1], 1.1 * Math.pow(Math.SQRT2, d.depth));
+    moveCamera(centeredView(d.x, d.y, k), 750);
   }
+  root.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+    const current = d3.zoomTransform(svg.node());
+    const [min, max] = zoom.scaleExtent();
+    // Repeated clicks accumulate. A reversal starts from the scale currently on screen.
+    const pending = cameraTargetScale ?? current.k;
+    const k = button.dataset.zoom === 'in'
+      ? Math.min(max, Math.max(current.k, pending) * Math.SQRT2)
+      : Math.max(min, Math.min(current.k, pending) / Math.SQRT2);
+    const [x, y] = current.invert([width() / 2, height() / 2]);
+    moveCamera(centeredView(x, y, k), 400);
+  }));
   root.querySelector('.document-graph__reset').addEventListener('click', () => {
-    svg.interrupt();
+    g.interrupt();
     simulation.stop().alpha(initialAlpha).alphaTarget(0);
+    const restore = [];
     nodesData.forEach((d, i) => {
-      Object.assign(d, initialLayout[i], {fx: null, fy: null});
+      const initial = initialLayout[i];
+      if (d.x !== initial.x || d.y !== initial.y) {
+        restore.push({d, x: d3.interpolateNumber(d.x, initial.x), y: d3.interpolateNumber(d.y, initial.y)});
+      }
+      Object.assign(d, {vx: initial.vx, vy: initial.vy, fx: null, fy: null});
       delete d.gesture;
     });
     currentNode = null;
@@ -262,18 +311,30 @@ SOFTWARE.
     hoveredNode = null;
     delete root.dataset.center;
     node.classed('current', false).classed('muted', false).attr('aria-pressed', 'false');
-    node.select('.main-circle').interrupt().attr('r', radius);
+    updateRadii();
     node.sort((a, b) => b.depth - a.depth);
     link.classed('connected', false).classed('muted', false);
-    tick();
-    fit();
+    const restorePositions = t => {
+      for (const {d, x, y} of restore) { d.x = x(t); d.y = y(t); }
+      tick();
+    };
+    if (restore.length && !reducedMotion.matches) {
+      g.transition().duration(600).tween('layout', () => restorePositions);
+    } else if (restore.length) {
+      restorePositions(1);
+    } else {
+      placeLabels();
+    }
+    fit(750);
   });
   function dragstarted(event, d) {
     svg.interrupt();
+    g.interrupt();
     simulation.stop();
     d.gesture = {x: event.x, y: event.y, moved: false};
   }
   function dragged(event, d) {
+    if (!d.gesture) return;
     if (!d.gesture.moved) {
       if (Math.hypot(event.x - d.gesture.x, event.y - d.gesture.y) * scale <= dragThreshold) return;
       d.gesture.moved = true;
@@ -283,6 +344,7 @@ SOFTWARE.
     d.fx = event.x; d.fy = event.y;
   }
   function dragended(event, d) {
+    if (!d.gesture) return;
     if (!event.active) simulation.alphaTarget(0);
     const moved = d.gesture.moved;
     delete d.gesture;
@@ -307,24 +369,27 @@ SOFTWARE.
     if ((event.ctrlKey || event.metaKey) && d.url) window.open(d.url, '_blank', 'noopener');
     else focusNode(d);
   }
-  function fit() {
+  function fit(duration) {
     if (currentNode) {
-      const t = d3.zoomTransform(svg.node());
-      svg.interrupt().call(zoom.transform, d3.zoomIdentity.translate(width() / 2, height() / 2)
-        .scale(t.k).translate(-currentNode.x, -currentNode.y));
+      moveCamera(centeredView(currentNode.x, currentNode.y, cameraTargetScale ?? scale), duration);
       return;
     }
     const bounds = initialBounds;
     const k = Math.max(.15, Math.min(1, (width() - 100) / bounds.width, (height() - 100) / bounds.height));
-    svg.call(zoom.transform, d3.zoomIdentity.translate(width() / 2, height() / 2).scale(k)
-      .translate(-(bounds.x + bounds.width / 2), -(bounds.y + bounds.height / 2)));
+    moveCamera(centeredView(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, k), duration);
   }
-  fit();
-  const observer = new ResizeObserver(fit);
-  observer.observe(root);
+  fit(0);
+  let lastWidth = width(), lastHeight = height();
+  const observer = new ResizeObserver(() => {
+    if (lastWidth === width() && lastHeight === height()) return;
+    lastWidth = width();
+    lastHeight = height();
+    fit(400);
+  });
+  observer.observe(svg.node());
   // Home uses Material's normal navigation; disconnect if replaced dynamically.
   const removal = new MutationObserver(() => {
-    if (!root.isConnected) { simulation.stop(); observer.disconnect(); removal.disconnect(); }
+    if (!root.isConnected) { svg.interrupt(); g.interrupt(); simulation.stop(); observer.disconnect(); removal.disconnect(); }
   });
   removal.observe(document.body, {childList: true, subtree: true});
 })();

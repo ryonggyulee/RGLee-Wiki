@@ -91,12 +91,14 @@ The Home graph is generated on every MkDocs build by `hooks/document_graph.py`.
 It includes navigation sections, articles, and all resolved internal document
 links. Index pages are represented by their sections. Reciprocal links share one
 visible edge. Node colors and initial layout clusters follow their top-level navigation domain.
-Navigation tree links hold topics together, with weaker document links between them. A small,
-translucent Reset button in the upper left clears selection and fits the full graph.
+Navigation tree links hold topics together, with weaker document links between them.
+The + and − buttons zoom around the center of the view. Reset clears the selection
+and returns the nodes and camera to their original positions.
 
-Click any node or its label to smoothly move it to the center and enlarge it by
-1.5×; the selected node, its direct neighbors, all ancestors, incident links and the path to the root remain
-emphasized. Other nodes are dimmed but can still be selected. Drag nodes to rearrange them, drag the
+Click any node or its label to center the view on it. Topics and articles open at
+successively closer zoom levels. Selection highlights the entire navigation subtree,
+the path back to the root, and documents directly linked to the selected node.
+Other nodes are dimmed but can still be selected. Drag nodes to rearrange them, drag the
 background to pan, and use the wheel or a touch pinch to zoom. Node dragging starts
 only after movement exceeds 8 screen pixels; pressing or slight finger jitter
 keeps the layout still and is treated as a click/tap on release. Labels remain 14
@@ -105,8 +107,9 @@ zooming reveals more titles. Hovered or keyboard-focused labels take priority,
 temporarily hiding intersecting labels without relocating them. Topic labels
 that do not fit are omitted. The selected node and its neighbors also take priority. Double-click or double-tap an article node to open its page;
 Ctrl/Cmd-click opens a new tab. Keyboard Enter/Space centers a node, and Enter on
-the centered article opens it. Reduced-motion preferences disable the camera
-animation. The ordinary Home contents remain available without JavaScript.
+the centered article opens it. Camera movements, selection changes and layout
+resets animate unless the user prefers reduced motion. The ordinary Home contents
+remain available without JavaScript.
 
 ### Code provenance
 

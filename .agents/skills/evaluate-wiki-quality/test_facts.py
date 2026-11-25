@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from argparse import Namespace
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from copy import deepcopy
 from io import StringIO
 import hashlib
@@ -78,7 +78,11 @@ class FactReviewTests(unittest.TestCase):
         self.assertEqual(record["review"]["status"], "pass")
         self.assertNotIn("points", record["review"])
         self.assertNotIn("quantitative", record["review"])
-        quality.check_documents([self.page])
+        output = StringIO()
+        with redirect_stdout(output):
+            quality.check_documents([self.page])
+        self.assertIn("[x] 문서 형식·메뉴·링크", output.getvalue())
+        self.assertIn("[x] 사실·출처 검토 기록", output.getvalue())
 
     def test_wrong_numeric_or_quote_finding_blocks_publication(self):
         for category in ("scientific", "quotation"):
@@ -86,16 +90,33 @@ class FactReviewTests(unittest.TestCase):
             data["findings"][0]["category"] = category
             record = self.register(data)
             self.assertEqual(record["review"]["status"], "revise")
-            with self.assertRaises(SystemExit):
+            output = StringIO()
+            with redirect_stdout(output), redirect_stderr(output), self.assertRaises(SystemExit):
                 quality.check_documents([self.page])
+            self.assertIn("[x] 문서 형식·메뉴·링크", output.getvalue())
+            self.assertIn("[ ] 사실·출처 검토 기록", output.getvalue())
+            self.assertIn("원문과 불일치", output.getvalue())
 
     def test_unknown_is_not_an_error_but_cannot_publish(self):
         for status in ("insufficient", "inaccessible"):
             data = self.assessment(status)
             data["findings"][0]["sources"] = []
             self.assertEqual(self.register(data)["review"]["status"], "unverified")
-            with self.assertRaises(SystemExit):
+            output = StringIO()
+            with redirect_stderr(output), self.assertRaises(SystemExit):
                 quality.check_documents([self.page])
+            self.assertIn("확인하지 못한 항목", output.getvalue())
+
+    def test_format_error_on_index_has_no_factual_review_target(self):
+        index = self.page.with_name("index.md")
+        index.write_text("# Index\n\n[링크](missing.md)\n")
+        quality.sync_registry(verbose=False, paths=[str(index)])
+        output = StringIO()
+        with redirect_stdout(output), redirect_stderr(output), self.assertRaises(SystemExit):
+            quality.check_documents([index])
+        self.assertIn("[ ] 문서 형식·메뉴·링크", output.getvalue())
+        self.assertIn("missing.md", output.getvalue())
+        self.assertIn("[-] 사실·출처 검토 기록 (대상 없음)", output.getvalue())
 
     def test_two_mirrors_do_not_satisfy_independence(self):
         data = self.assessment()
@@ -291,6 +312,7 @@ class FactReviewTests(unittest.TestCase):
             quality.benchmark_document(str(self.page))
             quality.show_baseline(str(self.page))
         self.assertIn("legacy", output.getvalue())
+        self.assertIn("이전 제도의 통과 기록 1개 포함", output.getvalue())
         self.assertNotIn("100", output.getvalue().splitlines()[1])
         self.assertEqual(before, quality.REGISTRY_PATH.read_bytes())
 

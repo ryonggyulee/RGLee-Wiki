@@ -391,14 +391,19 @@ def navigation_issues() -> list[str]:
     return issues
 
 
+def print_check(label: str, errors: list[str]) -> None:
+    stream = sys.stderr if errors else sys.stdout
+    mark = " " if errors else "x"
+    print(f"[{mark}] {label}", file=stream, flush=True)
+    for error in sorted(set(errors)):
+        print(f"    {error}", file=stream)
+
+
 def check_navigation() -> None:
     errors = navigation_issues()
+    print_check("메뉴와 문서 경로", errors)
     if errors:
-        print("navigation 검사 실패:", file=sys.stderr)
-        for error in sorted(set(errors)):
-            print(f"  - {error}", file=sys.stderr)
         raise SystemExit(1)
-    print("navigation 검사 통과")
 
 
 def default_registry() -> dict[str, Any]:
@@ -821,7 +826,7 @@ def review_document(args: argparse.Namespace) -> None:
     registry["updated_at"] = date.today().isoformat()
     registry["rubric_version"] = RUBRIC_VERSION
     save_yaml(REGISTRY_PATH, registry)
-    print(f"사실 검증 기록: {record['path']} -> {status} ({review['coverage']}, 점수 없음)")
+    print(f"사실 검증 기록: {record['path']} -> {status} ({review['coverage']})")
 
 
 def fact_evidence_issues(review: dict[str, Any], visited: set[str] | None = None) -> list[str]:
@@ -897,56 +902,64 @@ def changed_docs() -> list[Path]:
 
 def check_documents(paths: list[Path]) -> None:
     registry = load_yaml(REGISTRY_PATH, default_registry())
-    errors = navigation_issues()
+    format_errors = navigation_issues()
+    review_errors = []
     if registry.get("schema_version") != SCHEMA_VERSION:
-        errors.append("registry schema가 현재 quality script와 다르다")
+        review_errors.append("검증 기록의 형식이 현재 검사 도구와 다르다")
     records = {record.get("path"): record for record in registry.get("documents", [])}
     current = {relative_path(path): path for path in all_docs()}
     for missing in sorted(set(current) - set(records)):
-        errors.append(f"{missing}: 품질 기록이 없다")
+        review_errors.append(f"{missing}: 검증 기록이 없다")
     for removed in sorted(set(records) - set(current)):
-        errors.append(f"{removed}: 삭제된 문서 기록이 남아 있다")
+        review_errors.append(f"{removed}: 삭제된 문서의 기록이 남아 있다")
 
-    excluded = 0
+    articles = sum(page_kind(path) == "article" for path in paths)
+    legacy_reviews = 0
     for path in paths:
         measured = measure(path)
+        format_errors.extend(f"{measured['path']}: {issue}" for issue in measured["issues"])
         record = records.get(measured["path"])
         if not record:
             continue
         if record.get("hashes") != measured["hashes"]:
-            errors.append(f"{measured['path']}: ./quality.sh sync가 필요하다")
-        if measured["automatic_check"] != "pass":
-            errors.extend(f"{measured['path']}: {issue}" for issue in measured["issues"])
+            review_errors.append(f"{measured['path']}: ./quality.sh sync가 필요하다")
         review = record.get("review") or {}
         if measured["kind"] in ("home", "index"):
             if review.get("status") != "excluded":
-                errors.append(f"{measured['path']}: index review 상태가 excluded가 아니다")
-            else:
-                excluded += 1
+                review_errors.append(f"{measured['path']}: 색인의 검토 상태는 excluded여야 한다")
             continue
         if review.get("status") != "pass":
-            errors.append(f"{measured['path']}: review 상태가 {review.get('status', 'missing')!r}이다")
+            status = review.get("status", "missing")
+            reason = {"revise": "원문과 불일치", "unverified": "확인하지 못한 항목이 있음",
+                      "pending": "사실 검토 대기", "missing": "사실 검토 기록 없음"}.get(status, status)
+            review_errors.append(f"{measured['path']}: {reason} ({status})")
             continue
+        if review.get("rubric_version") in LEGACY_RUBRIC_VERSIONS:
+            legacy_reviews += 1
         if review.get("content_hash") != measured["hashes"]["content"]:
-            errors.append(f"{measured['path']}: scientific content review가 현재 본문과 다르다")
+            review_errors.append(f"{measured['path']}: 검토한 본문이 현재 본문과 다르다")
         if review.get("outline_hash") != measured["hashes"]["outline"]:
-            errors.append(f"{measured['path']}: outline review가 현재 목차와 다르다")
+            review_errors.append(f"{measured['path']}: 사실 검토 당시의 목차가 현재 목차와 다르다")
         if review.get("rubric_version") not in (RUBRIC_VERSION, *LEGACY_RUBRIC_VERSIONS):
-            errors.append(f"{measured['path']}: review rubric version이 오래되었다")
+            review_errors.append(f"{measured['path']}: 지원하지 않는 검토 기록 버전이다")
         if review.get("rubric_version") == RUBRIC_VERSION:
             if review.get("source_hash") != measured["hashes"]["source"]:
-                errors.append(f"{measured['path']}: 검토 source hash가 현재 문서와 다르다")
+                review_errors.append(f"{measured['path']}: 검토한 문서의 해시가 현재 문서와 다르다")
             if review.get("assets", {}) != measured["assets"]:
-                errors.append(f"{measured['path']}: 검토한 그림 파일이 변경됐다")
-            errors.extend(f"{measured['path']}: {issue}" for issue in fact_evidence_issues(review))
+                review_errors.append(f"{measured['path']}: 검토한 그림 파일이 변경됐다")
+            review_errors.extend(f"{measured['path']}: {issue}" for issue in fact_evidence_issues(review))
         elif "assets" in record and record["assets"] != measured["assets"]:
-            errors.append(f"{measured['path']}: 동기화 후 그림 파일이 변경됐다")
-    if errors:
-        print("품질 검사 실패:", file=sys.stderr)
-        for error in sorted(set(errors)):
-            print(f"  - {error}", file=sys.stderr)
+            review_errors.append(f"{measured['path']}: 동기화 후 그림 파일이 변경됐다")
+    print_check(f"문서 형식·메뉴·링크 (문서 {len(paths)}개)", format_errors)
+    if articles or review_errors:
+        scope = f"과학 문서 {articles}개"
+        if legacy_reviews:
+            scope += f", 이전 제도의 통과 기록 {legacy_reviews}개 포함"
+        print_check(f"사실·출처 검토 기록 ({scope})", review_errors)
+    else:
+        print("[-] 사실·출처 검토 기록 (대상 없음)")
+    if format_errors or review_errors:
         raise SystemExit(1)
-    print(f"품질 검사 통과: article {len(paths) - excluded}개, index/home {excluded}개")
 
 
 def report(paths: list[Path] | None = None) -> None:
@@ -971,7 +984,7 @@ def parse_args() -> argparse.Namespace:
     sync_parser = subparsers.add_parser("sync", help="지정 문서 또는 전체 derived metadata를 갱신한다")
     sync_parser.add_argument("paths", nargs="*", help="이동은 이전·새 경로를 함께 지정한다")
     sync_parser.add_argument("--polish", "--non-scientific", dest="polish", action="store_true", help="의미 보존을 확인한 변경의 기존 review를 승계한다")
-    review_parser = subparsers.add_parser("review", help="점수 없는 사실 검증 결과를 기록한다")
+    review_parser = subparsers.add_parser("review", help="주장별 사실·출처 검토 결과를 기록한다")
     review_parser.add_argument("path")
     review_parser.add_argument("--assessment", required=True)
     benchmark_parser = subparsers.add_parser(

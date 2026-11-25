@@ -40,16 +40,21 @@ run_mkdocs() {
 
 build_site() {
     local quality_mode="$1"
+    local check_status=0
     case "$quality_mode" in
-        nav) ./quality.sh check-nav ;;
-        changed) ./quality.sh check --changed ;;
-        all) ./quality.sh check --all ;;
+        nav) ./quality.sh check-nav || check_status=$? ;;
+        changed) ./quality.sh check --changed || check_status=$? ;;
+        all) ./quality.sh check --all || check_status=$? ;;
         *) printf '오류: 알 수 없는 quality mode: %s\n' "$quality_mode" >&2; return 1 ;;
     esac
+    if (( check_status != 0 )); then
+        printf '[-] MkDocs 엄격 모드 빌드 (앞선 검사에서 중단)\n' >&2
+        return "$check_status"
+    fi
     if run_mkdocs build --strict --clean; then
-        printf '빌드 완료: site/\n'
+        printf '[x] MkDocs 엄격 모드 빌드 (site/)\n'
     else
-        printf '빌드 실패\n' >&2
+        printf '[ ] MkDocs 엄격 모드 빌드 실패\n' >&2
         return 1
     fi
 }

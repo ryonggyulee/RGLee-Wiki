@@ -1,0 +1,136 @@
+page: docs/computational-science/model-reduction/overlapping-fragments-method.md
+hashes:
+  source: 863ecc981d6f72116eddcf1cbf90aeb3251116263689894a042ae0ff58c9e9dc
+  content: b9a955997c0735c668dd211aa97544f94e9bdf85832179d058f5dfd3f47fd5e5
+  outline: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
+  presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
+assets: {}
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 863ecc981d6f72116eddcf1cbf90aeb3251116263689894a042ae0ff58c9e9dc
+  assets: {}
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
+    checked:
+    - 도입과 §§1–2에서 가전자대 끝의 관심 상태 선택, 전체 퍼텐셜 준비, 결합이 겹치는 조각과 조각별 퍼텐셜·궤도 계산 및 실제 병렬화 설명.
+    - §§2–4에서 같은 위치의 함수값, 전체 연산자의 행렬 원소, 각 행과 열의 정의, 전체 연산자와 조각 연산자의 차이, 정규화와 수치 잔차.
+    - §5의 HOMO 선택 및 큰 기저와의 오차 비교, §§6–8에서 계수로 복원한 분포·다른 기저 투영·요약에 미치는 영향.
+    dependencies:
+    - 전체 구조의 KS 퍼텐셜 및 기저를 고정한다. 조각은 단독 계산 상자에서 수소 종결하고, 겹친 원자는 전체 구조의 동일 좌표에 대응한다.
+    - 합·차 예제는 정규화된 두 함수, 같은 대각 에너지, 실수 대칭인 결합과 중첩, 양의 정부호인 S를 전제한다. 원문의 재료별 수치와 예시 입력을 구분한다.
+    reused_evidence:
+    - path: refs/quality/evidence/ada0a15cfcec569d7ace2140ae98a3faf2ba8af7ba0ed453a2008d47034c440b.yaml
+      sha256: cc38bbd7ee8fed4ef78993e6d24ce3f5b86ebcc5157fa1c633af00e7335e712c
+      scope: §§5–6의 조각 수, 실측된 계산비용·고유에너지 오차, P3HT 표본, 참여 자리 수와 LDOS·점유밀도 비교는 수치와 조건이 보존되어 implementation-and-benchmark, chemical-and-basis-counts,
+        participation-and-attribution, three-p3ht-tests, ldos-and-density를 승계한다. §7의 기존 AO·Bloch·창 함수·LS3DF와 모드 공간의 관계는 접힌
+        글에서 소제목으로 옮긴 동일 본문이다. ao-and-crystal-extension과 그때 승계된 related-methods 근거가 그대로 적용된다. §9의 문헌 항목은 동일하다.
+  findings:
+  - id: target-and-input
+    claim: 점유 대역의 위쪽 상태에 관심을 둘 때 조각 HOMO 근방을 기저 후보로 삼고, 좌표와 CPM 퍼텐셜로 마련한 전체 KS 연산자를 고정해 해를 구한다.
+    locations:
+    - 도입
+    - §1
+    - §5(1)
+    - §8
+    category: scientific
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134 (2011), 094119
+      locator: §§I–II, Eq. (1), §III.A–B, Figs. 3–6
+      supports: KS 연산자의 항, 원자 환경별 motif 합, OFM 입력과 고정 H의 기저별 비교, 상단에서 높은 점유 궤도 선택의 시험을 확인했다.
+    - id: 10.1063/1.2901965
+      provenance: Vukmirović and Wang, JCP 128 (2008), 121102
+      locator: 저자 원문 pp. 2–4, motif 정의 및 작은 분자 시험 절차
+      supports: 환경이 같은 작은 기준계의 DFT 밀도에서 원자별 기여를 취해 큰 계의 밀도를 조합하는 CPM의 원래 방법.
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović and Wang, JPCB 115 (2011), 1792–1797
+      locator: Theory, pp. 1793–1794, Fig. 1
+      supports: P3HT 응용에서 혼합 밀도에 대한 Poisson/Hartree·LDA 연산자 구성 및 대역 가장자리 정공 상태를 위한 조각 기저와 기준 대각화의 비교.
+    check: Eq. (1)에서 원자단위계의 운동항은 −∇²/2이고 Hartree와 교환·상관 항은 밀도에 의존한다. 전체 계에서 이 밀도로 만든 H와 처음부터 같은 H를 사용해야 기저 선택의 오차를 분리할 수 있다.
+      Fig. 3의 비교 해는 60 Ry 평면파이다. 제거 에너지를 KS HOMO 고유값으로 정량화하는 주장은 본문에 없다.
+    assumptions: 원문의 비자기일관 CPM/LDA 유사퍼텐셜 구현이다. 동일 저자들의 원 연구와 후속 응용을 절차와 적용 사례로 대조했다. 연구 간 독립 재현이나 임의의 고분자에 대한 정확도를 주장하지 않는다.
+  - id: separate-fragment-orbitals
+    claim: 공유 결합을 포함하는 조각에 대해 각각 독립된 분자 궤도를 계산하고 이 함수를 전체 구조 좌표에서 합성한다.
+    locations:
+    - §2(1–2)
+    - §3
+    - §8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134 (2011), 094119
+      locator: §II, Fig. 1, §III.A, Fig. 2
+      supports: 유한 분자를 상자에 넣어 조각 CPM, 주기 Poisson, LDA, 평면파 ESCAN 순서로 궤도를 계산한다. 그룹 내 CPU와 그룹 사이의 조각 병렬화를 명시한다. 알케인의 끊긴 결합을
+        종결하고 결합을 포함하도록 조각을 겹친다.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61 Physical Chemistry, Lecture 28 (2007)
+      locator: pp. 3–6, 9–10의 두 중심 분자 궤도
+      supports: 다른 중심에 놓인 두 함수를 동일한 공간에서 합성한 후 진폭을 제곱해 공간 분포를 얻는 독립적인 분자 예제.
+    check: 123과 234의 내부 결합은 각각 {12,23}과 {23,34}이다. 절단한 끝의 수소는 조각 고유함수에만 영향을 준다. 국소 연산자의 정규화된 고유함수에 대해 H_LL−ε_L=〈φ_L|(H−h_L)|φ_L〉이므로
+      전체 환경의 대각 원소는 고립 조각의 에너지와 일반적으로 다르다. 같은 r에서 합성한 진폭의 절댓값 제곱에는 2 Re[(a_Lφ_L)*a_Rφ_R]가 남는다.
+    assumptions: 네 탄소 예제는 교육용이다. 조각별 단독 분자 계산도 퍼텐셜 해법에는 논문이 명시한 주기 상자 경계를 사용한다.
+  - id: assemble-and-project
+    claim: H와 S는 전체 공간에서 조각 함수에 연산자를 적용해 얻은 내적으로 채우며, 부분공간으로 투영하면 계수 벡터의 일반화 고유값 방정식과 S 정규화를 얻는다.
+    locations:
+    - §3
+    - §4(1)
+    - §6(1)
+    - §7(1)
+    - §8
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134 (2011), 094119
+      locator: §II의 Hφ 계산, 조각 쌍 내적, Eq. (2) 및 환경 설명
+      supports: 전체 계에서 Hφ를 만들고 조각 궤도 및 변환된 궤도의 내적으로 행렬 원소를 구성해 일반화 문제를 푼다.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61 Physical Chemistry, Lecture 28 (2007)
+      locator: pp. 6–9, Eqs. (1)–(2) 및 Hermitian 원소의 적분 표현
+      supports: 복소켤레가 붙는 인자의 위치, 정규화된 기저의 단위 대각 중첩과 두 함수의 비대각 원소, 일반화 문제를 독립적으로 유도한다.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: Positive Definite, Eq. (90) 전후의 양의 정부호 행렬 유도 노름
+      supports: S 노름과 양의 정부호 행렬의 제곱근을 이용한 정규화.
+    check: Φ의 열을 φ_j로 두고 Φ†(ĤΦa−EΦa)=0을 곱셈 순서대로 전개하면 H_ij=〈φ_i|Ĥφ_j〉, S_ij=〈φ_i|φ_j〉이다. 열 j는 Ĥ를 한 번 적용해 모든 i에서 재사용하며 Ĥ의
+      비국소 이온 항도 이 표현에 포함된다. Φ를 고정하고 국소 퍼텐셜을 바꿔 얻는 δH_LR=〈φ_L|δv|φ_R〉와 ||Φa||²=a†Sa를 다시 유도했다. 이 노름은 §6의 직교화·복원과 §7의 S=U†S₀U에
+      일치한다.
+    assumptions: 기저 함수들은 같은 좌표에 둔다. 복소수 위상의 밀도 간섭은 실수 부호 간섭을 포함한다. 정규화는 실제 파동함수에 부과한다.
+  - id: solve-and-check
+    claim: 실수 대칭인 두 궤도의 합·차 해, 예제의 에너지와 정규화 계수, 잔차 검사는 제시한 행렬과 일치한다.
+    locations:
+    - §4(1–2)
+    - §5(1)
+    - §8
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61 Physical Chemistry, Lecture 28 (2007)
+      locator: pp. 8–10, 같은 대각 에너지에서 c₁=c₂ 및 c₁=−c₂인 해
+      supports: 일반화 두 궤도 문제에서 각각의 에너지 분모가 1±S가 되는 유도.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node179.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: Positive Definite 및 이어지는 Residual Vector 첫 식
+      supports: 부분공간 행렬 문제의 계산 잔차 Av−λBv, 양의 정부호 B로 유도한 노름.
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134 (2011), 094119
+      locator: §III.A–B, Figs. 3–6
+      supports: 축소된 행렬의 잔차와 별도로 같은 H의 평면파 해를 기준 삼아 조각 기저 선택 오차를 평가한 근거.
+    check: v±=(1,±1)에 대해 Hv±=(ε±t)v±, Sv±=(1±s)v±이고 v±†Sv±=2(1±s)이다. ε=0, t=−0.24 eV, s=0.20을 대입해 E+=−0.20 eV, E−=0.30 eV를
+      얻었다. Python 배정밀도 산술로 검산한 양의 조합 계수는 (0.6454972244,0.6454972244), 음의 조합은 (0.7905694150,−0.7905694150)이다. 표시 전 정밀도에서 두
+      해의 잔차 최대성분은 약 2.8×10⁻¹⁷ eV이고 S 노름의 제곱은 각각 1, 0.9999999999999998이다. 작은 행렬의 해가 정확해도 선택 공간 바깥의 성분은 이 검사로 평가할 수 없다.
+    assumptions: 두 정규화된 기저의 중첩 고유값이 1±s로 양수가 되도록 |s|<1이다. 두 모형의 H 대각값은 같으며 전역 위상이나 고유벡터의 출력 순서는 자유롭다.
+  summary: 현재 본문의 바뀐 과학적 설명 네 묶음을 원문과 검산으로 확인했다. 이전 검토의 재사용 범위와 근거 파일 hash가 일치한다. 미확인 또는 불일치 항목은 없다.

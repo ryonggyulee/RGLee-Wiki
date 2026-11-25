@@ -68,7 +68,7 @@ $$
 
 로 나타낼 수 있다. $M_\mathrm{sense}>0$이면 이 정적 오차 모형에서 최악 방향의 offset·noise 합보다 신호가 크지만, 실제 동적 판독의 충분조건은 아니다. 반대로 $M_\mathrm{sense}\le0$은 최악 조건의 여유가 없다는 뜻이며 모든 판독이 반드시 실패한다는 뜻은 아니다. 실제 판정은 sense-enable 시점, transistor mismatch, 공급 전압, 온도와 시간에 따른 신호 발달에도 의존한다. 이 식은 제품의 고정 합격 기준이 아니라, cell 신호가 줄거나 offset·noise가 커질 때 오판 가능성이 증가하는 방향을 보이는 근사이다.[1,6]
 
-## 2. 동작 과정
+## 2. 읽기·쓰기·리프레시의 내부 동작
 
 DRAM 접근은 명령과 내부 회로 동작을 다음처럼 대응시키면 가장 명확하다.[1,2]
 
@@ -177,7 +177,7 @@ Refresh는 새로운 data를 입출력하지 않고 기존 row를 **Select → A
 
 `Auto-refresh`에서는 memory controller가 refresh 명령을 보내고 DRAM 내부 counter가 대상 row를 정한다. `Self-refresh`에서는 저전력 상태에서 DRAM 내부 timing 회로가 refresh를 계속한다. 구체적인 command encoding과 한 번에 처리하는 bank·row 범위는 DRAM 세대와 제품 규격에 따라 달라진다.[2,3,5]
 
-## 3. Retention과 refresh
+## 3. 데이터 보존 시간과 리프레시 조건 {#3-retention-refresh}
 
 ### (1) Retention time
 

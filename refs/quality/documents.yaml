@@ -1,7 +1,7 @@
 schema_version: 2
 rubric_version: 4
 hash_version: 2
-updated_at: '2026-11-25'
+updated_at: '2026-11-26'
 documents:
 - path: docs/computational-materials-science/electronic-structure/density-functional-theory.md
   topic: Density functional theory
@@ -3374,17 +3374,17 @@ documents:
   kind: article
   group: computational-science / model-reduction
   hashes:
-    source: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
-    content: 08469ad1b61ce5e71e690439d7fc8cd7b24aac1a84a5ef41906891d2bc20104c
-    outline: 12aa8ad3cd1cfa49dd5e84805934c2a73a5ead8c01587a27b9df7084a914a45e
+    source: 863ecc981d6f72116eddcf1cbf90aeb3251116263689894a042ae0ff58c9e9dc
+    content: b9a955997c0735c668dd211aa97544f94e9bdf85832179d058f5dfd3f47fd5e5
+    outline: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
     presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
   metrics:
-    characters: 7535
+    characters: 8394
     explanatory_elements:
-      total: 9
+      total: 8
       figures: 0
-      tables: 5
-      equations: 4
+      tables: 2
+      equations: 6
       code_blocks: 0
   automatic_check: pass
   issues: []
@@ -3394,23 +3394,22 @@ documents:
     scope: facts
     coverage: changes
     rubric_version: 4
-    reviewed_at: '2026-11-25'
+    reviewed_at: '2026-11-26'
     model:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
-    content_hash: 08469ad1b61ce5e71e690439d7fc8cd7b24aac1a84a5ef41906891d2bc20104c
-    outline_hash: 12aa8ad3cd1cfa49dd5e84805934c2a73a5ead8c01587a27b9df7084a914a45e
+    source_hash: 863ecc981d6f72116eddcf1cbf90aeb3251116263689894a042ae0ff58c9e9dc
+    content_hash: b9a955997c0735c668dd211aa97544f94e9bdf85832179d058f5dfd3f47fd5e5
+    outline_hash: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
     assets: {}
-    evidence_path: refs/quality/evidence/ada0a15cfcec569d7ace2140ae98a3faf2ba8af7ba0ed453a2008d47034c440b.yaml
+    evidence_path: refs/quality/evidence/abbd0b72af1eff954657bf1b19eb8707804d72a83d7eaa4b4d07937235b294c7.yaml
     finding_counts:
-      supported: 10
+      supported: 4
       mismatch: 0
       insufficient: 0
       inaccessible: 0
-    summary: 기준본과 달라진 주장과 의존 결론을 최종 SHA에서 확인했다. 모형 수치와 차원은 직접 검산했고 논문의 오차·표본 수·그림의 측정량은 원문에 대조했다. 모든 항목이 해당 조건에서 supported이다.
-      원 논문의 고분자 전자구조 계산을 재실행한 검증은 아니다.
+    summary: 현재 본문의 바뀐 과학적 설명 네 묶음을 원문과 검산으로 확인했다. 이전 검토의 재사용 범위와 근거 파일 hash가 일치한다. 미확인 또는 불일치 항목은 없다.
 - path: docs/computational-science/model-reduction/projection-methods.md
   topic: Projection methods
   scope: 전자구조 고유값 문제의 Galerkin·Rayleigh–Ritz 투영에서 출발하여 비직교 overlap, Ritz 오차, 기저 보강, resolvent와 일반 Petrov–Galerkin 모형을 설명한다.
@@ -5023,12 +5022,12 @@ documents:
   kind: article
   group: device-physics / memory-device
   hashes:
-    source: 8387c3de996c0ca7f2d951f43dfd98aeac4049ac5d6ff20aad2852296fc1f4d3
+    source: 3990f138918110d7b7b7f8234e5d4ba8270f31afcd31a754f494fe12fa6a8496
     content: 762ab09dd3e2e8f93b9a49e5a6395938e6375f13134af9be83d947fc93cabc9c
-    outline: e1e5fecd39e31d956b4096118711bafdb15e85695166837d6f0bd4642ff4a39d
+    outline: 3357a4471f50c01266785bb0cccb9e005aba8b576c0fa8489dbe0dd16ff65962
     presentation: 73910a2eff6983834a2705140fbc2f520a2385c0f3bdc5bc5c4fafc7147f10f4
   metrics:
-    characters: 12220
+    characters: 12248
     explanatory_elements:
       total: 19
       figures: 1
@@ -5037,6 +5036,8 @@ documents:
       code_blocks: 0
   automatic_check: pass
   issues: []
+  assets:
+    docs/device-physics/memory-device/images/memory-cell-array.svg: 3646e159772dfdbb5f46b9889255a66c159964566955d4c8a17b719653c48936
   review:
     status: pass
     scope: full
@@ -5047,7 +5048,7 @@ documents:
     reviewed_at: '2026-09-20'
     rubric_version: 3
     content_hash: 762ab09dd3e2e8f93b9a49e5a6395938e6375f13134af9be83d947fc93cabc9c
-    outline_hash: e1e5fecd39e31d956b4096118711bafdb15e85695166837d6f0bd4642ff4a39d
+    outline_hash: 3357a4471f50c01266785bb0cccb9e005aba8b576c0fa8489dbe0dd16ff65962
     points: 100.0
     area_percent:
       A: 100.0
@@ -5124,9 +5125,10 @@ documents:
           minimum: 16.4
       evidence_path: refs/quality/evidence/1037ce20d39b409243e70b4f7c68f13fd001a64f77b775c2f72948e2fbb62dc4.yaml
     polish:
-      updated_at: '2026-10-17'
-      from_source_hash: 9c9069b1974a60a80bbfd4fb6d1c5235c448994532eadbd47d12b0f1aa63c2c0
-      to_source_hash: 8387c3de996c0ca7f2d951f43dfd98aeac4049ac5d6ff20aad2852296fc1f4d3
+      updated_at: '2026-11-26'
+      from_source_hash: 8387c3de996c0ca7f2d951f43dfd98aeac4049ac5d6ff20aad2852296fc1f4d3
+      to_source_hash: 3990f138918110d7b7b7f8234e5d4ba8270f31afcd31a754f494fe12fa6a8496
+    source_hash: 3990f138918110d7b7b7f8234e5d4ba8270f31afcd31a754f494fe12fa6a8496
 - path: docs/device-physics/memory-device/index.md
   topic: Memory device
   scope: Memory device의 공통 기초와 SRAM, DRAM, NAND 문서를 연결하는 주제 인덱스

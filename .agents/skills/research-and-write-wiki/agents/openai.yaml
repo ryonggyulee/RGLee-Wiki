@@ -1,4 +1,4 @@
 interface:
-  display_name: "근거 검증형 위키 작성"
-  short_description: "다중 출처로 과학 주장을 검증해 위키 문서를 작성합니다"
-  default_prompt: "Use $research-and-write-wiki to research an advanced topic and add a verified Korean article to this wiki."
+  display_name: "과학 위키 집필"
+  short_description: "근거를 확인해 과학 문서를 쓰고 기존 글의 문장과 용어를 다듬습니다"
+  default_prompt: "$research-and-write-wiki로 이 과학 문서의 문장을 다듬어 주세요."

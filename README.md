@@ -91,9 +91,8 @@ The Home graph is generated on every MkDocs build by `hooks/document_graph.py`.
 It includes navigation sections, articles, and all resolved internal document
 links. Index pages are represented by their sections. Reciprocal links share one
 visible edge. Node colors and initial layout clusters follow their top-level navigation domain.
-Navigation tree links hold topics together, with weaker document links between them. Tinted regions outline each domain. Solid edges show navigation hierarchy and dotted
-edges show document links. The legend centers a domain, the selected title links to
-its page, and the header controls zoom or restore the overview (전체 보기).
+Navigation tree links hold topics together, with weaker document links between them. A small,
+translucent Reset button in the upper left clears selection and fits the full graph.
 
 Click any node or its label to smoothly move it to the center and enlarge it by
 1.5×; the selected node, its direct neighbors, all ancestors, incident links and the path to the root remain

@@ -33,9 +33,9 @@ SOFTWARE.
   root.dataset.ready = 'true';
   const graph = JSON.parse(root.querySelector('.document-graph__data').textContent);
   const d3 = window.d3;
-  const svg = d3.select(root.querySelector('.document-graph__canvas'));
+  const svg = d3.select(root.querySelector('svg'));
   const g = svg.append('g');
-  const width = () => svg.node().clientWidth;
+  const width = () => root.clientWidth;
   const height = () => svg.node().clientHeight;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const nodesData = graph.nodes.map(n => ({...n}));
@@ -44,7 +44,7 @@ SOFTWARE.
   // Seed navigation branches in separate regions; retain that grouping while
   // document links pull related pages toward one another.
   const branches = [...new Set(nodesData.map(n => n.branch))];
-  const branchRadius = branches.length > 1 ? Math.sqrt(nodesData.length) * 28 : 0;
+  const branchRadius = branches.length > 1 ? Math.sqrt(nodesData.length) * 22 : 0;
   for (const [index, branch] of branches.entries()) {
     const angle = 2 * Math.PI * index / branches.length - Math.PI / 2;
     const members = nodesData.filter(n => n.branch === branch);
@@ -73,35 +73,9 @@ SOFTWARE.
       });
     });
   }
-  // Theme palettes are shared by the map and its navigable legend.
-  const branchColor = d3.scaleOrdinal().domain(branches)
-    .range(['var(--graph-blue)', 'var(--graph-amber)', 'var(--graph-violet)', 'var(--graph-jade)']);
-  const domains = nodesData.filter(n => n.depth === 0);
-  const legend = d3.select(root.querySelector('.document-graph__legend')).selectAll('button')
-    .data(domains).join('button').attr('type', 'button')
-    .style('--graph-branch-color', d => branchColor(d.branch))
-    .attr('aria-label', d => d.label + ' 중심으로 보기')
-    .text(d => d.label).on('click', (event, d) => focusNode(d));
-  const summary = root.querySelector('.document-graph__summary');
-  const openLink = root.querySelector('.document-graph__open');
-  const articleCount = nodesData.filter(n => !n.id.startsWith('section:')).length;
-  const topicCount = nodesData.filter(n => n.depth === 1 && n.id.startsWith('section:')).length;
-  function showContext(d) {
-    summary.textContent = d ? (nodesById.get(parents.get(d.id))?.label || '분류') :
-      `문서 ${articleCount}개 · 주제 그룹 ${topicCount}개`;
-    openLink.hidden = !d?.url;
-    if (d?.url) {
-      openLink.href = d.url;
-      openLink.textContent = d.label;
-      openLink.setAttribute('aria-label', d.label + ' 열기');
-    } else {
-      openLink.removeAttribute('href');
-      if (d) summary.textContent = d.label;
-    }
-    legend.classed('is-active', n => n.branch === d?.branch)
-      .attr('aria-pressed', n => String(n.branch === d?.branch));
-  }
-  showContext(null);
+  const branchColor = d3.scaleOrdinal()
+    .domain([...new Set(nodesData.map(n => n.branch))])
+    .range(['#478dcc', '#d28b36', '#9b7ad4', '#42a58f', '#cb7394']);
   const processedLinksMap = new Map();
   for (const link of graph.edges) {
     const key = JSON.stringify([link.source, link.target].sort());
@@ -125,21 +99,8 @@ SOFTWARE.
       placeLabels();
     });
   svg.call(zoom).on('dblclick.zoom', null);
-  root.querySelectorAll('[data-zoom]').forEach(button => {
-    button.addEventListener('click', () => {
-      const factor = button.dataset.zoom === 'in' ? 1.4 : 1 / 1.4;
-      svg.interrupt().transition().duration(reducedMotion ? 0 : 180).call(zoom.scaleBy, factor);
-    });
-  });
-  const regions = g.append('g').attr('class', 'graph-regions').attr('aria-hidden', 'true')
-    .selectAll('path').data(domains.map(d => ({
-      branch: d.branch, members: nodesData.filter(n => n.branch === d.branch)
-    }))).join('path').style('--graph-branch-color', d => branchColor(d.branch));
-  const outline = d3.line().curve(d3.curveBasisClosed);
-  const padding = d3.range(8).map(i => [48 * Math.cos(i * Math.PI / 4), 48 * Math.sin(i * Math.PI / 4)]);
-
   const link = g.append('g').attr('class', 'links').selectAll('line')
-    .data(processedLinks).enter().append('line').attr('class', e => 'link link--' + e.kind);
+    .data(processedLinks).enter().append('line').attr('class', 'link');
   const node = g.append('g').attr('class', 'nodes').selectAll('g')
     .data(nodesData).enter().append('g')
     .attr('class', 'node').attr('data-id', d => d.id).attr('data-depth', d => d.depth)
@@ -172,7 +133,6 @@ SOFTWARE.
   node.sort((a, b) => b.depth - a.depth);
   const glyph = node.append('g').attr('class', 'glyph');
   glyph.append('circle').attr('class', 'hit-area').attr('r', 22);
-  glyph.filter(d => d.depth === 0).append('circle').attr('class', 'domain-ring').attr('r', 17);
   glyph.append('circle').attr('class', 'main-circle').attr('r', radius);
   glyph.append('title').text(d => d.url ? `${d.label} — 더블클릭 또는 더블탭하여 문서 열기` : d.label);
   const label = glyph.append('text').attr('x', 0);
@@ -212,8 +172,7 @@ SOFTWARE.
       const [x, y] = transform.apply([d.x, d.y]);
       const gap = radius(d) + 9;
       const candidates = [[gap, -box.height / 2], [-gap - box.width, -box.height / 2],
-        [-box.width / 2, gap], [-box.width / 2, -gap - box.height],
-        [gap, gap], [-gap - box.width, gap], [gap, -gap - box.height], [-gap - box.width, -gap - box.height]];
+        [-box.width / 2, gap], [-box.width / 2, -gap - box.height]];
       let placement = null;
       for (const [dx, dy] of candidates) {
         const rect = {x: x + dx, y: y + dy, w: box.width, h: box.height};
@@ -250,9 +209,6 @@ SOFTWARE.
   const initialLayout = nodesData.map(({x, y, vx, vy}) => ({x, y, vx, vy}));
   const initialAlpha = simulation.alpha();
   function tick() {
-    regions.attr('d', region => outline(d3.polygonHull(region.members.flatMap(n =>
-      padding.map(([dx, dy]) => [n.x + dx, n.y + dy])))));
-
     link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
       .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
     node.attr('transform', d => `translate(${d.x},${d.y})`);
@@ -264,8 +220,6 @@ SOFTWARE.
   const initialBounds = g.node().getBBox();
   function focusNode(d) {
     currentNode = d;
-    showContext(d);
-    regions.classed('outside', region => region.branch !== d.branch);
     node.filter(n => n === d).raise();
     root.dataset.center = d.id;
     node.classed('current', n => n === d).attr('aria-pressed', n => String(n === d));
@@ -290,13 +244,7 @@ SOFTWARE.
     // Move the camera through the existing graph: no redraw, random layout or
     // disappearing neighbors. Interrupting a flight starts at its current frame.
     simulation.stop();
-    // Frame nearby nodes around the selection. A distant cross-link should not
-    // force the camera all the way back out to the overview.
-    const neighbors = [...activeNodes].filter(n => n !== d);
-    const dx = d3.quantile(neighbors, .75, n => Math.abs(n.x - d.x)) || 1;
-    const dy = d3.quantile(neighbors, .75, n => Math.abs(n.y - d.y)) || 1;
-    const focusScale = Math.max(overviewScale(), Math.min(1, (width() / 2 - 40) / dx, (height() / 2 - 40) / dy));
-    const target = d3.zoomIdentity.translate(width() / 2, height() / 2).scale(focusScale)
+    const target = d3.zoomIdentity.translate(width() / 2, height() / 2).scale(1)
       .translate(-d.x, -d.y);
     svg.interrupt().transition().duration(reducedMotion ? 0 : 750)
       .ease(d3.easeCubicInOut).call(zoom.transform, target);
@@ -309,8 +257,6 @@ SOFTWARE.
       delete d.gesture;
     });
     currentNode = null;
-    showContext(null);
-    regions.classed('outside', false);
     activeNodes.clear();
     lastTap = null;
     hoveredNode = null;
@@ -361,9 +307,6 @@ SOFTWARE.
     if ((event.ctrlKey || event.metaKey) && d.url) window.open(d.url, '_blank', 'noopener');
     else focusNode(d);
   }
-  function overviewScale() {
-    return Math.max(.15, Math.min(1, (width() - 64) / initialBounds.width, (height() - 64) / initialBounds.height));
-  }
   function fit() {
     if (currentNode) {
       const t = d3.zoomTransform(svg.node());
@@ -372,13 +315,13 @@ SOFTWARE.
       return;
     }
     const bounds = initialBounds;
-    const k = overviewScale();
+    const k = Math.max(.15, Math.min(1, (width() - 100) / bounds.width, (height() - 100) / bounds.height));
     svg.call(zoom.transform, d3.zoomIdentity.translate(width() / 2, height() / 2).scale(k)
       .translate(-(bounds.x + bounds.width / 2), -(bounds.y + bounds.height / 2)));
   }
   fit();
   const observer = new ResizeObserver(fit);
-  observer.observe(svg.node());
+  observer.observe(root);
   // Home uses Material's normal navigation; disconnect if replaced dynamically.
   const removal = new MutationObserver(() => {
     if (!root.isConnected) { simulation.stop(); observer.disconnect(); removal.disconnect(); }

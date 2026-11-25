@@ -3370,16 +3370,16 @@ documents:
       or rank is asserted by the examples.
 - path: docs/computational-science/model-reduction/overlapping-fragments-method.md
   topic: Overlapping fragments method (OFM)
-  scope: 겹치는 두 분자 조각의 파동함수로 사슬 전체의 전자상태를 구하는 과정을 따라가며 OFM의 원리와 고분자 계산의 정확도를 설명한다.
+  scope: 겹치는 분자 조각의 파동함수로 사슬 전체의 전자상태를 구하는 과정을 따라가며 OFM의 원리와 고분자 계산의 정확도를 설명한다.
   kind: article
   group: computational-science / model-reduction
   hashes:
-    source: ae398c141699c6acead5399b2166b523340a94b8ea7b4609c169b107fe5fb1bc
-    content: bd6f057c0eac7212ddb7464d462378d9409f4b4d3af0aa98b02bcd5bc88f879c
-    outline: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
-    presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
+    source: 5c3600fd609701666073ff9b58c0f21c3efc9a7ada83549f1300d7f690b5678e
+    content: f6a0633e1ffac2b0926fdf679c968e478e5bdcd06c47bccc01246500c68cc260
+    outline: a4f2d9ac9ac15d380db1c26e7d4b79d9aca7be2c1b072ec2f851505f1455e6a1
+    presentation: 70d30c9beb743f5bfb9fa97732727f77c50e47c1f49eb746444aa1fd2f51bcb6
   metrics:
-    characters: 8903
+    characters: 8930
     explanatory_elements:
       total: 11
       figures: 3
@@ -3389,8 +3389,8 @@ documents:
   automatic_check: pass
   issues: []
   assets:
-    docs/computational-science/model-reduction/images/ofm-fragments.svg: c8b146d2952b053624032500d198f8279d562f7ab834f4621604ca5c123c0375
-    docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 176c9ca22864e161ccb5b319a13a793da7be3cbeae48f95a1804e99e11656b63
+    docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+    docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 1ad6c7a52c89e1be45b30cbde4e867f7132bb0a11ce48945b494e786a1485bd5
     docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
   review:
     status: pass
@@ -3402,21 +3402,21 @@ documents:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: ae398c141699c6acead5399b2166b523340a94b8ea7b4609c169b107fe5fb1bc
-    content_hash: bd6f057c0eac7212ddb7464d462378d9409f4b4d3af0aa98b02bcd5bc88f879c
-    outline_hash: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
+    source_hash: 5c3600fd609701666073ff9b58c0f21c3efc9a7ada83549f1300d7f690b5678e
+    content_hash: f6a0633e1ffac2b0926fdf679c968e478e5bdcd06c47bccc01246500c68cc260
+    outline_hash: a4f2d9ac9ac15d380db1c26e7d4b79d9aca7be2c1b072ec2f851505f1455e6a1
     assets:
-      docs/computational-science/model-reduction/images/ofm-fragments.svg: c8b146d2952b053624032500d198f8279d562f7ab834f4621604ca5c123c0375
-      docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 176c9ca22864e161ccb5b319a13a793da7be3cbeae48f95a1804e99e11656b63
+      docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+      docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 1ad6c7a52c89e1be45b30cbde4e867f7132bb0a11ce48945b494e786a1485bd5
       docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
-    evidence_path: refs/quality/evidence/de31c91273f8ee66fcb6c14f8af13b25a24d36065a21e15ef8cbd0806c21a5aa.yaml
+    evidence_path: refs/quality/evidence/c4823ca1839dc229bd65424be801f10ab9a1b4382728ab758c3481c54d36eeaa.yaml
     finding_counts:
-      supported: 3
+      supported: 4
       mismatch: 0
       insufficient: 0
       inaccessible: 0
-    summary: 기준본 이후 추가·변경한 세 그림, 캡션과 설명이 원문 근거와 독립 계산에 부합한다. 탄소의 소속과 결합, 투영 행렬의 인덱스 및 오른쪽 열, 중점 진폭과 밀도, 전공간 정규화를 확인했다. 새 그림
-      세 개는 각각 현재 SVG 해시로 식별했다. 확인 범위에 미해결 항목이 없다.
+    summary: 여섯 탄소에서 네 궤도 추출, 두 4×4 행렬, 셋째 행 투영 및 파동함수 복원을 검산했다. 별도 두 궤도 예제의 조건·수치·확률밀도와 그림을 함께 확인했다. 누적 변경과 해당 전제·종속 결론에서
+      미해결 항목이 없다.
 - path: docs/computational-science/model-reduction/projection-methods.md
   topic: Projection methods
   scope: 전자구조 고유값 문제의 Galerkin·Rayleigh–Ritz 투영에서 출발하여 비직교 overlap, Ritz 오차, 기저 보강, resolvent와 일반 Petrov–Galerkin 모형을 설명한다.

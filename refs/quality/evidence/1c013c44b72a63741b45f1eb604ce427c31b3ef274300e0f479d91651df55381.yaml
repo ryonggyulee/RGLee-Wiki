@@ -1,0 +1,88 @@
+page: docs/computational-science/model-reduction/overlapping-fragments-method.md
+hashes:
+  source: 82f9bf28b07b4338b3f831f1e23e33f06ec792f9af48c6132796273bc8016a4b
+  content: 7c40de48f0e66c986128c01c3f9e27d0f16786618af3fbeca03ebe5670059f97
+  outline: 10277c094f426956a722903cdb7eb33437930ceace5fd50a4cd168cdd2c6e62f
+  presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
+assets:
+  docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+  docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 176c9ca22864e161ccb5b319a13a793da7be3cbeae48f95a1804e99e11656b63
+  docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 82f9bf28b07b4338b3f831f1e23e33f06ec792f9af48c6132796273bc8016a4b
+  assets:
+    docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+    docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 176c9ca22864e161ccb5b319a13a793da7be3cbeae48f95a1804e99e11656b63
+    docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: ae398c141699c6acead5399b2166b523340a94b8ea7b4609c169b107fe5fb1bc
+    checked:
+    - 도입의 두 예제 안내, §2(1) 여섯 탄소의 분할·이동 규칙, 그림 1의 원자·결합·강조와 캡션·대체 텍스트.
+    - §2(2) 첫 문단의 네 탄소 예제와 §2–4의 두 함수 전개 사이의 대응, 그림 2와 그림 3 캡션의 첫 문구.
+    dependencies:
+    - §1 마지막 문단의 조각당 한 궤도 가정, §2(1)의 수소 종결, §2(2)의 함수 전개, §3–4의 행렬 차원과 간섭.
+    - §5 원 논문이 비교한 조각 크기와 기준 고유에너지.
+    reused_evidence:
+    - path: refs/quality/evidence/de31c91273f8ee66fcb6c14f8af13b25a24d36065a21e15ef8cbd0806c21a5aa.yaml
+      sha256: 82a33de6fa6d5bfa7086d540f127e945166146181ab5f17d12d59c44d7daff22
+      scope: 누적 diff에서 그림 2·3의 SVG는 바이트 단위로 동일하다. projected-columns의 전체 행렬 원소 대조와 gaussian-interference-and-normalization의
+        수치·곡선 검산은 그대로 적용된다. 두 캡션의 새 첫 문구는 별도로 확인했다. §1 및 §3–9의 기존 이론·성능 수치·응용 사례에는 이 두 캡션 외에 변경이 없어 기존 기록의 해당 승계 범위가 유지된다.
+        그림 1과 조각 구성은 현 버전에서 새로 검산했다.
+  findings:
+  - id: six-carbon-chain
+    claim: 여섯 탄소의 사슬을 분리된 삼량체 둘로 나누면 3–4 결합이 빠진다. 시작점을 하나씩 옮긴 네 삼량체는 다섯 결합을 모두 포함하며 둘째와 셋째에 3–4가 공통이다.
+    locations:
+    - 도입 둘째 문단
+    - §2(1) 두 분할 예
+    - 그림 1과 캡션·대체 텍스트
+    - §5 조각 크기의 비교
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://doi.org/10.1063/1.3560956
+      provenance: Vukmirović–Wang, J. Chem. Phys. 134, 094119 (2011)
+      locator: Sec. III.A, Figs. 2(a) and 3, 저자 원고 pp. 3–4
+      supports: 원 논문은 n개 단위의 사슬에서 n−1개의 겹친 이량체로 모든 결합을 적어도 한 번 덮는 원리를 제시하며, 단량체·이량체·삼량체 기저의 고유에너지를 평면파와 비교한다.
+    - id: https://doi.org/10.1021/ct300985h
+      provenance: Richard–Herbert, J. Chem. Theory Comput. 9, 1408–1416 (2013)
+      locator: p. 1408, Sec. 1, Eq. (1.5) 아래
+      supports: 두 조각의 공통 부분을 구성 원자 집합의 교집합으로 취급한다. 여기서는 분할의 집합 정의만 사용한다.
+    check: 양 끝 원자를 모두 포함하는 조각을 세었다. 123과 456 가운데 34의 양 끝을 가진 조각은 없다. 123, 234, 345, 456에서는 12·23·34·45·56이 각각 1·2·2·2·1번 등장한다.
+      SVG의 원과 수평선을 XML로 읽어 전체 행과 네 조각 행의 원자 번호, 각 선분의 양 끝을 이 목록과 대조했다. 탄소 3·4의 열은 x=313,396이고 이 두 열을 잇는 굵기 7의 선은 전체 행(y=65)과
+      둘째·셋째 행(y=199,260)에만 있다. 점선은 각 탄소 번호와 같은 가로 위치에 있다.
+    assumptions: 유한 비분지 알케인의 C–C 연결성만 나타낸다. 좌표 정렬은 원자의 동일성을 나타낸다. 위키의 여섯 탄소 예는 교육용이며 논문 Fig. 2(a)는 C20H42의 이량체 예다.
+  - id: reduction-to-two-coefficients
+    claim: 네 탄소에서는 같은 규칙으로 두 삼량체가 생기며, 조각당 궤도를 하나씩 고르면 전개 계수는 두 개다. R열의 정의와 상대 부호에 따른 확률밀도 설명은 두 함수 전개에 부합한다.
+    locations:
+    - 도입 둘째 문단
+    - §1 마지막 문단
+    - §2(2) 첫 문단과 전개식
+    - §3 그림 2 캡션
+    - §4 그림 3 캡션
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://doi.org/10.1063/1.3560956
+      provenance: Vukmirović–Wang, J. Chem. Phys. 134, 094119 (2011)
+      locator: Sec. II, H·S의 정의와 Eq. (2), Sec. III.B
+      supports: 조각에서 고른 각 함수에 계수가 하나씩 대응하고 전체 연산자와 중첩 행렬로 일반화 고유값 문제를 세운다.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61 Physical Chemistry, Lecture 28 (2007)
+      locator: pp. 3, 6–10, 두 궤도의 변분 전개와 중첩 행렬
+      supports: 두 함수 선형결합에서 각 계수가 진폭을 곱한다. 비직교 기저에서 대칭·반대칭 조합의 정규화와 분포가 달라진다.
+    check: 네 자리에서 세 자리를 고르는 시작점은 1과 2뿐이다. 공통 원자는 2·3이며 3–4가 여전히 공통이라는 진술은 없다. 각 조각에서 한 함수이면 a=(a_L,a_R)이다. 기저 함수의 위상 규약을 정하고
+      a_L이 0이 아닐 때, 계수비 a_R/a_L의 절댓값과 편각이 두 항의 상대 크기와 위상을 준다. 기저를 (L,R)로 정렬하면 S의 R열은 (〈L|R〉,〈R|R〉), H의 R열은 (〈L|H|R〉,〈R|H|R〉)이다.
+      이는 그림 2의 새 첫 문구와 일치한다. 그림 3의 같은 폭·대칭 배치에서는 중점의 두 가우스 진폭이 같다. 정규화한 차는 중점에서 0, 합은 유한하다. 첫 문구에 명시된 확률밀도 차이가 실제 두 곡선의 의미를
+      보존한다.
+    assumptions: 두 계수는 선택한 부분공간에서의 진폭이다. 예제는 모든 궤도를 재현하거나 계수의 절댓값 제곱을 비직교 조각별 확률로 해석하지 않는다.
+  summary: 여섯 탄소의 다섯 결합에 대한 조각별 포함 횟수와 그림 1의 모든 행을 대조했다. 네 탄소 예제에서 두 계수가 나오는 조건과 기존 그림 2·3 캡션의 의미도 확인했다. 검토한 변경에서 불일치나 미확인
+    항목이 없다.

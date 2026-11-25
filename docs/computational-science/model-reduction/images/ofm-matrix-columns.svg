@@ -1,32 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="303" viewBox="0 0 600 303" role="img" aria-labelledby="title desc">
-<title id="title">오른쪽 조각 궤도로 만드는 두 행렬의 둘째 열</title><desc id="desc">S는 오른쪽 궤도를 그대로 쓰고 H는 전체 Hamiltonian을 적용한다. 두 경우 모두 L과 내적한 결과는 첫째 행, R과 내적한 결과는 둘째 행이다.</desc>
-<rect width="600" height="303" fill="#fcfdfc"/>
-<g font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">
-<text x="148" y="36" fill="#172f3f" text-anchor="middle" font-size="22" font-weight="700">오른쪽 궤도 그대로</text>
-<text x="148" y="70" fill="#006858" text-anchor="middle" font-size="27" font-weight="600">φ<tspan baseline-shift="sub" font-size="17">R</tspan></text>
-<text x="113" y="111" fill="#465968" text-anchor="middle" font-size="19" font-weight="500">열 L</text>
-<text x="203" y="111" fill="#006858" text-anchor="middle" font-size="19" font-weight="700">열 R</text>
-<rect x="69" y="123" width="178" height="110" rx="8" fill="#f0f2f2"/>
-<rect x="158" y="123" width="89" height="110" rx="8" fill="#e6f4ef"/>
-<path d="M158 124 V232 M71 178 H245" fill="none" stroke="#c4cfd3" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="60" y="160" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 L</text>
-<text x="113" y="160" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">LL</tspan></text>
-<text x="202" y="160" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">LR</tspan></text>
-<text x="60" y="215" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 R</text>
-<text x="113" y="215" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">RL</tspan></text>
-<text x="202" y="215" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">S<tspan font-size="16" baseline-shift="sub">RR</tspan></text>
-<text x="437" y="36" fill="#172f3f" text-anchor="middle" font-size="22" font-weight="700">전체 연산자 적용 후</text>
-<text x="437" y="70" fill="#006858" text-anchor="middle" font-size="27" font-weight="600">Ĥ φ<tspan baseline-shift="sub" font-size="17">R</tspan></text>
-<text x="402" y="111" fill="#465968" text-anchor="middle" font-size="19" font-weight="500">열 L</text>
-<text x="492" y="111" fill="#006858" text-anchor="middle" font-size="19" font-weight="700">열 R</text>
-<rect x="358" y="123" width="178" height="110" rx="8" fill="#f0f2f2"/>
-<rect x="447" y="123" width="89" height="110" rx="8" fill="#e6f4ef"/>
-<path d="M447 124 V232 M360 178 H534" fill="none" stroke="#c4cfd3" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="349" y="160" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 L</text>
-<text x="402" y="160" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">LL</tspan></text>
-<text x="491" y="160" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">LR</tspan></text>
-<text x="349" y="215" fill="#465968" text-anchor="end" font-size="17" font-weight="500">행 R</text>
-<text x="402" y="215" fill="#465968" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">RL</tspan></text>
-<text x="491" y="215" fill="#006858" text-anchor="middle" font-size="26" font-weight="500">H<tspan font-size="16" baseline-shift="sub">RR</tspan></text>
-<text x="300" y="276" fill="#172f3f" text-anchor="middle" font-size="21" font-weight="500">행 L은 왼쪽 궤도와, 행 R은 오른쪽 궤도와 내적</text>
-</g></svg>
+<svg aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg" width="600" height="368" viewBox="0 0 600 368" role="img">
+  <title id="title">같은 네 궤도로 표현한 두 행렬</title>
+  <desc id="desc">두 행렬 모두 행과 열은 조각 번호 1부터 4까지이다. 연두색은 둘째 열, 진한 테두리는 3행 2열이다.</desc>
+  <rect width="600" height="368" fill="#fcfdfc" />
+  <g font-family="Noto Sans CJK KR, Malgun Gothic, sans-serif">
+    <text x="164" y="32" text-anchor="middle" font-size="22" fill="#193446" font-weight="700">중첩 행렬</text>
+    <text x="164" y="66" text-anchor="middle" font-size="18" fill="#006858" font-weight="600">궤도 φ₂</text>
+    <text x="83" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">1</text>
+    <text x="137" y="98" text-anchor="middle" font-size="18" fill="#006858" font-weight="500">2</text>
+    <text x="191" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">3</text>
+    <text x="245" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">4</text>
+    <text x="36" y="140" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">1</text>
+    <rect x="57" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="83" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₁₁</text>
+    <rect x="111" y="110" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="137" y="140" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">S₁₂</text>
+    <rect x="165" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="191" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₁₃</text>
+    <rect x="219" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="245" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₁₄</text>
+    <text x="36" y="187" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">2</text>
+    <rect x="57" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="83" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₂₁</text>
+    <rect x="111" y="157" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="137" y="187" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">S₂₂</text>
+    <rect x="165" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="191" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₂₃</text>
+    <rect x="219" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="245" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₂₄</text>
+    <text x="36" y="234" text-anchor="middle" font-size="18" fill="#006858" font-weight="500">3</text>
+    <rect x="57" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="83" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₃₁</text>
+    <rect x="111" y="204" width="52" height="45" rx="3" fill="#e0f2eb" stroke="#006858" stroke-width="2.5" />
+    <text x="137" y="234" text-anchor="middle" font-size="22" fill="#006858" font-weight="700">S₃₂</text>
+    <rect x="165" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="191" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₃₃</text>
+    <rect x="219" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="245" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₃₄</text>
+    <text x="36" y="281" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">4</text>
+    <rect x="57" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="83" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₄₁</text>
+    <rect x="111" y="251" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="137" y="281" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">S₄₂</text>
+    <rect x="165" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="191" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₄₃</text>
+    <rect x="219" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="245" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">S₄₄</text>
+    <text x="164" y="339" text-anchor="middle" font-size="20" fill="#006858" font-weight="700">S₃₂  두 궤도의 중첩</text>
+    <text x="454" y="32" text-anchor="middle" font-size="22" fill="#193446" font-weight="700">Hamiltonian 행렬</text>
+    <text x="454" y="66" text-anchor="middle" font-size="18" fill="#006858" font-weight="600">전체 연산자를 적용한 Ĥφ₂</text>
+    <text x="373" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">1</text>
+    <text x="427" y="98" text-anchor="middle" font-size="18" fill="#006858" font-weight="500">2</text>
+    <text x="481" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">3</text>
+    <text x="535" y="98" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">4</text>
+    <text x="326" y="140" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">1</text>
+    <rect x="347" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="373" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₁₁</text>
+    <rect x="401" y="110" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="427" y="140" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">H₁₂</text>
+    <rect x="455" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="481" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₁₃</text>
+    <rect x="509" y="110" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="535" y="140" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₁₄</text>
+    <text x="326" y="187" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">2</text>
+    <rect x="347" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="373" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₂₁</text>
+    <rect x="401" y="157" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="427" y="187" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">H₂₂</text>
+    <rect x="455" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="481" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₂₃</text>
+    <rect x="509" y="157" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="535" y="187" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₂₄</text>
+    <text x="326" y="234" text-anchor="middle" font-size="18" fill="#006858" font-weight="500">3</text>
+    <rect x="347" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="373" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₃₁</text>
+    <rect x="401" y="204" width="52" height="45" rx="3" fill="#e0f2eb" stroke="#006858" stroke-width="2.5" />
+    <text x="427" y="234" text-anchor="middle" font-size="22" fill="#006858" font-weight="700">H₃₂</text>
+    <rect x="455" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="481" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₃₃</text>
+    <rect x="509" y="204" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="535" y="234" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₃₄</text>
+    <text x="326" y="281" text-anchor="middle" font-size="18" fill="#193446" font-weight="500">4</text>
+    <rect x="347" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="373" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₄₁</text>
+    <rect x="401" y="251" width="52" height="45" rx="3" fill="#e0f2eb" stroke="none" stroke-width="2.5" />
+    <text x="427" y="281" text-anchor="middle" font-size="22" fill="#006858" font-weight="500">H₄₂</text>
+    <rect x="455" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="481" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₄₃</text>
+    <rect x="509" y="251" width="52" height="45" rx="3" fill="#edf0f0" stroke="none" stroke-width="2.5" />
+    <text x="535" y="281" text-anchor="middle" font-size="22" fill="#193446" font-weight="500">H₄₄</text>
+    <text x="454" y="339" text-anchor="middle" font-size="20" fill="#006858" font-weight="700">H₃₂  두 궤도의 결합</text>
+  </g>
+</svg>

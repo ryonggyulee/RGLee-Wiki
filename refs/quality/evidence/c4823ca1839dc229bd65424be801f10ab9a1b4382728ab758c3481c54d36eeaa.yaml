@@ -1,0 +1,133 @@
+page: docs/computational-science/model-reduction/overlapping-fragments-method.md
+hashes:
+  source: 5c3600fd609701666073ff9b58c0f21c3efc9a7ada83549f1300d7f690b5678e
+  content: f6a0633e1ffac2b0926fdf679c968e478e5bdcd06c47bccc01246500c68cc260
+  outline: a4f2d9ac9ac15d380db1c26e7d4b79d9aca7be2c1b072ec2f851505f1455e6a1
+  presentation: 70d30c9beb743f5bfb9fa97732727f77c50e47c1f49eb746444aa1fd2f51bcb6
+assets:
+  docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+  docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 1ad6c7a52c89e1be45b30cbde4e867f7132bb0a11ce48945b494e786a1485bd5
+  docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 5c3600fd609701666073ff9b58c0f21c3efc9a7ada83549f1300d7f690b5678e
+  assets:
+    docs/computational-science/model-reduction/images/ofm-fragments.svg: 6e02466f4da4cd07ef1c80a84baa5f6379ae0deac26ef3cb7c2fa88b1663567b
+    docs/computational-science/model-reduction/images/ofm-matrix-columns.svg: 1ad6c7a52c89e1be45b30cbde4e867f7132bb0a11ce48945b494e786a1485bd5
+    docs/computational-science/model-reduction/images/ofm-interference.svg: e59a3d31c80054c8949ce3a26cfff9e2d047fed9b94126454e8d4c5ebe6312b4
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: ae398c141699c6acead5399b2166b523340a94b8ea7b4609c169b107fe5fb1bc
+    checked:
+    - description, 도입, §1의 기저 선택과 기준 해, §2의 탄소 사슬·네 기저 함수, 그림 1 및 캡션·대체 텍스트.
+    - §3의 두 행렬과 전체 계의 연산자, 그림 2의 모든 칸·강조·캡션·대체 텍스트, §4(1)의 셋째 행·네 계수·복원 및 정규화.
+    - §4(2)의 별도 네 탄소 사슬, 두 함수 대칭 모형의 조건·해·잔차, 그림 3 캡션과 간섭·정규화.
+    dependencies:
+    - §1의 CPM 퍼텐셜과 관심 에너지 선택, §2의 수소 종결·평면파 계산, §5의 같은 연산자에서의 기준 해 비교와 §6의 확률밀도 정의, §7(1)의 투영식 및 §8의 결론.
+    reused_evidence:
+    - path: refs/quality/evidence/de31c91273f8ee66fcb6c14f8af13b25a24d36065a21e15ef8cbd0806c21a5aa.yaml
+      sha256: 82a33de6fa6d5bfa7086d540f127e945166146181ab5f17d12d59c44d7daff22
+      scope: 기준본과 현재 파일의 누적 diff에서 §5–9에는 변경이 없다. 그 기록이 승계한 원 연구의 시험·규모·P3HT·LDOS·경계 조건과 문헌 근거가 그대로 적용된다. 그림 3 파일과 가우스 모형의
+        식·숫자가 같으므로 기존 곡선 전체의 좌표 오차 검사는 유효하다. 새 캡션과 상대 부호·중점값·정규화는 다시 계산했다. 기준본의 그림 1·2와 두 궤도 행렬에 대한 SVG 검토는 새 그림에 승계하지 않았다.
+    - path: refs/quality/evidence/1c013c44b72a63741b45f1eb604ce427c31b3ef274300e0f479d91651df55381.yaml
+      sha256: 61936a1591e557f83e420b8eac75409dd5824cdbd9ed9c9ee5c3d1c5283bcb39
+      scope: 중간 검증본 82f9bf28b07b4338b3f831f1e23e33f06ec792f9af48c6132796273bc8016a4b의 그림 1은 바이트까지 같고, six-carbon-chain의 네
+        삼량체와 다섯 결합의 대응이 현재 그림에서도 성립한다. 본 검토에서 행별 결합을 직접 읽었다. 이 중간본은 §2(2)에서 두 궤도로 바뀌므로 그 이후의 기저 차원·인덱스·투영이나 그림 2를 확인하는 근거로
+        승계하지 않았다.
+  findings:
+  - id: six-carbons-four-fragments
+    claim: 세 탄소씩 한 위치 간격으로 고르면 네 조각이 여섯 탄소 사슬의 모든 결합을 덮고 가운데 3–4 결합이 조각 2·3에 들어간다.
+    locations:
+    - 도입
+    - §2(1)과 그림 1
+    - §2(2)·§3의 번호
+    - §8 요약
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://doi.org/10.1063/1.3560956
+      provenance: Vukmirović and Wang, J. Chem. Phys. 134 (2011), 094119
+      locator: Sec. III.A, Fig. 2(a) 전후
+      supports: 알케인 절단 결합의 수소 종결, 겹치는 조각에 각 결합을 포함하는 이유, 이량체·삼량체 선택과 비교를 명시한다.
+    - id: https://doi.org/10.1021/ct300985h
+      provenance: Richard and Herbert, J. Chem. Theory Comput. 9 (2013), 1408–1416
+      locator: Sec. I, p. 1408, Eq. (1.5)
+      supports: 공통 핵의 유무로 조각 겹침을 정의한다. 탄소 집합의 겹침 확인에 사용했다.
+    check: 떨어진 두 집합 123,456에는 34가 없다. SVG의 수평 변을 행별로 추출하면 전체 행은 12·23·34·45·56, 네 조각은 차례로 {12,23},{23,34},{34,45},{45,56}이다.
+      x=313,396의 두 점 사이 선은 전체·둘째·셋째 행에서만 굵다. 탄소 번호가 같은 점들의 x좌표도 일치한다. 원 논문 Fig. 2(a)는 20탄소 이량체 분할이며 본문의 6탄소는 별도의 예이다.
+    assumptions: 선형 사슬의 탄소 골격에서 이웃한 원자만 연결한다. 조각 절단면에 추가한 수소는 전체 구조를 바꾸지 않는다.
+  - id: orbitals-and-full-operator
+    claim: 조각마다 고른 정규화 함수 한 개씩으로 네 항의 상태를 만들고 원래 전체 사슬의 연산자를 같은 기저에 투영한다.
+    locations:
+    - description·도입·§1
+    - §2(2)의 궤도 계산과 전개
+    - §3의 적분식·대각 에너지·국소 퍼텐셜 변화
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://doi.org/10.1063/1.3560956
+      provenance: Vukmirović and Wang, J. Chem. Phys. 134 (2011), 094119
+      locator: Sec. II, Fig. 1과 Eq. (2) 전후, Sec. III.A–B
+      supports: 조각의 CPM 밀도, 주기 푸아송·LDA·평면파 ESCAN, 독립적인 조각 계산과 전체 KS 연산자를 사용한 내적, 선택한 조각 기저와 평면파 결과의 비교가 제시된다.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: Massachusetts Institute of Technology, 5.61 Physical Chemistry, Lecture 28 (Fall 2007)
+      locator: pp. 6–8, 에너지 기댓값·행렬 원소 및 Eq. (2)
+      supports: 같은 위치에서 합성한 궤도와 기저 내적 및 전체 분자 연산자의 행렬 원소가 두 함수 예에 명시된다.
+    check: 네 함수 열을 Φ로 놓으면 한 위치에서 밀도는 |Σa_jφ_j|²이며 i≠j의 켤레곱 항에 상대 위상이 남는다. 같은 두 조각에 핵이 공통이어도 φ₃*φ₂의 위상이 위치에 따라 달라지면 적분은 상쇄될
+      수 있다. 정규화로 S₂₂=1이고 H₂₂−ε₂=〈φ₂|(Ĥ−ĥ₂)|φ₂〉이다. Ĥ가 원래 전체 구조를 사용하므로 조각에서 추가한 종결 수소는 입력 핵에 포함하지 않는다. 기저를 고정해 Ĥ에 국소 곱셈 연산자
+      Δv를 더하면 선형성으로 δH₃₂=∫φ₃*Δvφ₂를 얻는다.
+    assumptions: 네 궤도는 모형의 선정 조건이다. 실제 관심 상태의 정확도는 같은 Ĥ를 더 큰 기저에서 푼 결과로 판단한다. 대각값의 차이나 비대각 결합이 반드시 0이 아니라고 가정할 필요가 없다.
+  - id: matrix-indices-and-four-coefficients
+    claim: 고정한 조각 2는 두 4×4 행렬의 둘째 열이며, 조각 3에 대한 투영은 셋째 행을 주고 복원된 상태의 노름 제곱은 a†Sa이다.
+    locations:
+    - §3 적분식과 그림 2의 인덱스·대체 텍스트·캡션
+    - §4(1) 일반화 고유값 문제
+    - §7(1)의 기저 투영
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://doi.org/10.1063/1.3560956
+      provenance: Vukmirović and Wang, J. Chem. Phys. 134 (2011), 094119
+      locator: Sec. II, 조각 쌍별 H와 S 정의, Eq. (2)
+      supports: 기저의 두 첨자를 정하고 전체 Ĥ를 사용한 투영 방정식을 푼다.
+    - id: https://www.netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai, Demmel, Dongarra, Ruhe and van der Vorst (eds.), SIAM, 2000
+      locator: §5.7.1 Positive Definite B, Eqs. (90)–(91) 사이
+      supports: 양의 정부호 행렬이 정하는 계수 내적과 노름을 제시한다.
+    check: H=Φ†ĤΦ, S=Φ†Φ에서 He₂=Φ†Ĥφ₂, Se₂=Φ†φ₂이다. SVG의 두 패널에 대해 x=x₀+54(j−1), y=140+47(i−1) (x₀=83,373)에 있는 32개 기호와 배경·외곽선을
+      각각 대조했다. 열 2만 채색되고 행 3·열 2만 진한 테두리이다. 〈φ₃|(Ĥ−E)Φa〉=Σ(H₃ⱼ−ES₃ⱼ)aⱼ이고 네 행을 모두 쌓으면 Ha=ESa이다. ||Φa||²=a†Sa이며 양의 준정부호 Gram
+      행렬에서 영 고유값은 정확한 선형종속, 작은 고유값은 작은 노름의 조합을 뜻한다. 한 조각에 여러 궤도를 두면 m은 전체 기저 함수 수이다.
+    assumptions: 행 i는 켤레 기저, 열 j는 작용 대상이다. 정규화된 선형독립 함수에서 S는 양의 정부호이다.
+  - id: separate-two-orbital-example
+    claim: 별도 네 탄소 사슬에서는 두 삼량체가 남고 대칭 모형의 같은·반대 부호 해는 서로 다른 에너지와 확률밀도를 갖는 본문의 수치 예를 재현한다.
+    locations:
+    - §4(2)의 두 함수 모형과 수치 대입
+    - 그림 3 캡션과 그림의 중점
+    - §6(1)의 확률밀도
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: Massachusetts Institute of Technology, 5.61 Physical Chemistry, Lecture 28 (Fall 2007)
+      locator: pp. 7–10, Eq. (2)와 두 대칭 상태의 해
+      supports: 정규화된 두 함수의 같은 대각 에너지·실수 중첩에서 합·차 상태와 에너지 분모를 제시한다.
+    - id: https://www.netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai, Demmel, Dongarra, Ruhe and van der Vorst (eds.), SIAM, 2000
+      locator: §5.7.1, Eq. (90) 아래 M 노름
+      supports: 비직교 기저 계수의 정규화를 독립 확인하는 노름 정의이다.
+    check: '{123,234}는 네 탄소에 허용된 삼량체 전부다. 두 기저를 정규화하고 |s|<1이면 S의 고유값 1±s가 양수이다. v=(1,±1)에 대해 Hv=(ε±t)v, Sv=(1±s)v, v†Sv=2(1±s).
+      ε=0, t=−0.24 eV, s=0.20에서 E₊=−0.20, E₋=0.30 eV, 정규화 인자는 각각 0.6454972244, 0.7905694150이다. 직접 대입한 두 행의 잔차는 반올림 수준이고 노름
+      제곱은 1이다. 그림 3의 무차원 g_L,R=π^(−1/4) exp[−(x±a)²/2], a=√ln5에서 ∫g_Lg_R=exp(−a²)=0.2, ∫g_L²=∫g_R²=1이다. x=0의 진폭 0.3359135554로부터
+      두 밀도 0.1880631945, 0을 얻어 점선·표식과 일치한다. 각 정규화된 밀도의 실수축 적분은 1이다.'
+    assumptions: 대각 에너지가 같고 t와 s가 실수인 대칭 2×2 문제이다. 가우스 곡선은 1차원 모형이며 두 에너지는 원 논문의 알케인 수치와 독립인 예제값이다.
+  summary: 여섯 탄소에서 네 궤도 추출, 두 4×4 행렬, 셋째 행 투영 및 파동함수 복원을 검산했다. 별도 두 궤도 예제의 조건·수치·확률밀도와 그림을 함께 확인했다. 누적 변경과 해당 전제·종속 결론에서 미해결
+    항목이 없다.

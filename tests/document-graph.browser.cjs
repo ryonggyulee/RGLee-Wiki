@@ -37,9 +37,31 @@ const http = require('node:http');
     const zoomIn = graph.getByRole('button', {name: '그래프 확대', exact: true});
     const zoomOut = graph.getByRole('button', {name: '그래프 축소', exact: true});
     const reset = graph.getByRole('button', {name: '그래프 선택과 확대 초기화'});
-    const readScale = () => graph.locator('svg').evaluate(svg => window.d3.zoomTransform(svg).k);
+    async function checkControls(root) {
+      const toolbar = root.getByRole('group', {name: '그래프 보기 조절'});
+      assert.equal(await toolbar.locator('input, label').count(), 0);
+      const buttons = toolbar.getByRole('button');
+      assert.equal(await buttons.count(), 3);
+      for (const button of await buttons.all()) {
+        assert.equal((await button.textContent()).trim(), '');
+        const box = await button.boundingBox();
+        assert.deepEqual([box.width, box.height], [28, 28]);
+        const icon = await button.locator('svg').boundingBox();
+        assert.deepEqual([icon.width, icon.height], [16, 16]);
+      }
+      const controls = await toolbar.boundingBox(), bounds = await root.boundingBox();
+      const viewport = root.page().viewportSize();
+      const expectedHeight = viewport.width > 600
+        ? Math.max(420, Math.min(720, viewport.height * .72)) : Math.max(400, viewport.height * .66);
+      assert(Math.abs(bounds.height - expectedHeight) < 2, 'the graph retains its responsive canvas height');
+      const right = bounds.x + bounds.width - controls.x - controls.width;
+      assert(right >= 0 && right < 16 && controls.y >= bounds.y && controls.y - bounds.y < 16,
+        'icon controls are in the top right corner of the graph');
+    }
+    await checkControls(graph);
+    const readScale = () => graph.locator('.document-graph__canvas').evaluate(svg => window.d3.zoomTransform(svg).k);
     async function checkZoomTransition(start, direction, root = graph) {
-      const scales = await root.locator('svg').evaluate(svg => new Promise(resolve => {
+      const scales = await root.locator('.document-graph__canvas').evaluate(svg => new Promise(resolve => {
         const values = [], begin = performance.now();
         function sample() {
           values.push(svg.querySelector('g').getScreenCTM().a / svg.getScreenCTM().a);
@@ -89,7 +111,7 @@ const http = require('node:http');
     const count = await graph.locator('.node').count();
     assert(count > 60);
     const layoutState = () => graph.evaluate(root => ({
-      camera: root.querySelector('svg > g').getAttribute('transform'),
+      camera: root.querySelector('.document-graph__canvas > g').getAttribute('transform'),
       nodes: [...root.querySelectorAll('.node')].map(el => ({
         id: el.dataset.id, position: el.getAttribute('transform'),
         label: el.querySelector('text').style.visibility === 'visible'
@@ -210,7 +232,7 @@ const http = require('node:http');
     const box = await graph.boundingBox();
     const pointer = [Math.round(box.x + box.width * .65), Math.round(box.y + box.height * .4)];
     await page.mouse.move(...pointer);
-    const anchoredPoint = () => graph.locator('svg > g').evaluate((g, [x, y]) => {
+    const anchoredPoint = () => graph.locator('.document-graph__canvas > g').evaluate((g, [x, y]) => {
       const p = new DOMPoint(x, y).matrixTransform(g.getScreenCTM().inverse());
       return [p.x, p.y];
     }, pointer);
@@ -234,10 +256,10 @@ const http = require('node:http');
     assert(Math.abs(await checkZoomTransition(afterScroll, -1) - smallerScale) < 1e-6);
     const screenFont = await target.locator('text').evaluate(el => parseFloat(getComputedStyle(el).fontSize) * el.getScreenCTM().a);
     assert(Math.abs(screenFont - 20) < .1, 'zoom preserves readable label size');
-    const beforePan = await graph.locator('svg > g').getAttribute('transform');
+    const beforePan = await graph.locator('.document-graph__canvas > g').getAttribute('transform');
     await page.mouse.move(box.x + 10, box.y + 80);
     await page.mouse.down(); await page.mouse.move(box.x + 70, box.y + 120, {steps: 10}); await page.mouse.up();
-    assert.notEqual(await graph.locator('svg > g').getAttribute('transform'), beforePan);
+    assert.notEqual(await graph.locator('.document-graph__canvas > g').getAttribute('transform'), beforePan);
     await target.locator('.main-circle').click();
     const refocusedScale = await checkZoomTransition(smallerScale, 1);
     assert(await isCentered());
@@ -274,9 +296,9 @@ const http = require('node:http');
     assert.deepEqual(await layoutState(), initialLayout, 'repeated reset stays at the initial layout');
     // Reverse an in-progress double zoom before it can reach the requested scale.
     await zoomIn.evaluate(button => { button.click(); button.click(); });
-    await page.waitForFunction(start => window.d3.zoomTransform(document.querySelector('.document-graph svg')).k > start * 1.05, overviewScale);
+    await page.waitForFunction(start => window.d3.zoomTransform(document.querySelector('.document-graph__canvas')).k > start * 1.05, overviewScale);
     const reversalScale = await zoomOut.evaluate(button => {
-      const before = window.d3.zoomTransform(button.closest('.document-graph').querySelector('svg')).k;
+      const before = window.d3.zoomTransform(button.closest('.document-graph').querySelector('.document-graph__canvas')).k;
       button.click();
       return before;
     });
@@ -314,30 +336,23 @@ const http = require('node:http');
     await mobile.route('**/*', route => route.request().url().startsWith(origin) ? route.continue() : route.abort());
     mobile.on('pageerror', error => errors.push(error.message));
     await mobile.goto(origin);
-    await mobile.locator('.document-graph').scrollIntoViewIfNeeded();
-    await assertLabels(mobile.locator('.document-graph'));
+    const mobileGraph = mobile.locator('.document-graph');
+    await mobileGraph.scrollIntoViewIfNeeded();
+    await checkControls(mobileGraph);
+    await assertLabels(mobileGraph);
+    const mobileOverviewScale = await mobileGraph.locator('.document-graph__canvas').evaluate(svg => window.d3.zoomTransform(svg).k);
     const mobileId = await mobile.locator('.document-graph .node[data-depth="0"]').first().getAttribute('data-id');
     const mobileTarget = mobile.locator(`.document-graph [data-id="${mobileId}"]`);
     await mobileTarget.locator('.main-circle').tap();
-    await mobile.waitForTimeout(100);
-    assert.equal(await mobile.locator('.document-graph').getAttribute('data-center'), await mobileTarget.getAttribute('data-id'));
-    const mobileScale = () => mobile.locator('.document-graph svg').evaluate(svg => window.d3.zoomTransform(svg).k);
-    const mobileDomainScale = await mobileScale();
-    await mobile.getByRole('button', {name: '그래프 확대', exact: true}).tap();
-    const mobileZoomedScale = await mobileScale();
-    assert(Math.abs(mobileZoomedScale / mobileDomainScale - Math.SQRT2) < 1e-8,
-      'reduced motion applies the full zoom step immediately');
-    await mobile.getByRole('button', {name: '그래프 축소', exact: true}).tap();
-    assert(Math.abs(await mobileScale() - mobileDomainScale) < 1e-8);
-    const mobileGraph = mobile.locator('.document-graph');
-    const animateZoom = mobileGraph.getByRole('checkbox', {name: '확대 애니메이션'});
-    await animateZoom.check();
+    const mobileDomainScale = await checkZoomTransition(mobileOverviewScale, 1, mobileGraph);
+    assert.equal(await mobileGraph.getAttribute('data-center'), mobileId);
     await mobileGraph.getByRole('button', {name: '그래프 확대', exact: true}).tap();
-    await checkZoomTransition(mobileDomainScale, 1, mobileGraph);
-    await animateZoom.uncheck();
+    const mobileZoomedScale = await checkZoomTransition(mobileDomainScale, 1, mobileGraph);
+    assert(Math.abs(mobileZoomedScale / mobileDomainScale - Math.SQRT2) < 1e-6);
     await mobileGraph.getByRole('button', {name: '그래프 축소', exact: true}).tap();
+    assert(Math.abs(await checkZoomTransition(mobileZoomedScale, -1, mobileGraph) - mobileDomainScale) < 1e-6);
     await mobile.setViewportSize({width: 430, height: 900});
-    await mobile.waitForTimeout(200);
+    await mobile.waitForTimeout(500);
     assert(await mobileTarget.evaluate(el => {
       const circle = el.querySelector('.main-circle').getBoundingClientRect();
       const svg = el.closest('svg').getBoundingClientRect();
@@ -346,10 +361,12 @@ const http = require('node:http');
     await mobile.evaluate(() => document.body.setAttribute('data-md-color-scheme', 'slate'));
     if (process.env.GRAPH_SCREENSHOTS) await mobile.locator('.document-graph').screenshot({path: `${process.env.GRAPH_SCREENSHOTS}/mobile-dark.png`});
     await mobile.locator('.document-graph__reset').tap();
+    const mobileResetScale = await checkZoomTransition(mobileDomainScale, -1, mobileGraph);
     assert.equal(await mobile.locator('.document-graph').getAttribute('data-center'), null);
     assert.equal(await mobile.locator('.document-graph .muted').count(), 0);
     const mobileArticle = mobile.locator(`.document-graph [data-id="${articleId}"]`);
-    await mobileArticle.focus(); await mobile.keyboard.press('Space'); await mobile.waitForTimeout(100);
+    await mobileArticle.focus(); await mobile.keyboard.press('Space');
+    await checkZoomTransition(mobileResetScale, 1, mobileGraph);
     const touch = await mobile.context().newCDPSession(mobile);
     const mb = await mobileArticle.locator('.main-circle').boundingBox();
     const mx = mb.x + mb.width / 2, my = mb.y + mb.height / 2;
@@ -367,12 +384,13 @@ const http = require('node:http');
     assert.notEqual(await mobileArticle.getAttribute('transform'), beforeTouch, 'touch dragging still moves nodes');
     await touch.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
     assert.equal(new URL(mobile.url()).pathname, '/', 'touch drag does not open a document');
-    await mobileArticle.focus(); await mobile.keyboard.press('Space'); await mobile.waitForTimeout(100);
-    await mobileArticle.locator('.main-circle').tap();
-    await mobileArticle.locator('.main-circle').tap();
+    await mobileArticle.focus(); await mobile.keyboard.press('Space'); await mobile.waitForTimeout(850);
+    const centered = await mobileArticle.locator('.main-circle').boundingBox();
+    await mobile.touchscreen.tap(centered.x + centered.width / 2, centered.y + centered.height / 2);
+    await mobile.touchscreen.tap(centered.x + centered.width / 2, centered.y + centered.height / 2);
     await mobile.waitForURL(url => url.pathname !== '/');
     assert.deepEqual(errors, []);
-    console.log('PASS: subtree and ancestor selection, progressive focus/reset, zoom buttons, reduced motion, clusters, zoom/pan, mouse/touch drag, navigation, keyboard and mobile resize.');
+    console.log('PASS: compact icon controls, animated zoom/focus/reset with either motion preference, subtree and ancestor selection, clusters, zoom/pan, mouse/touch drag, navigation, keyboard and mobile resize.');
   } finally {
     if (browser) await browser.close();
     await new Promise(resolve => server.close(resolve));

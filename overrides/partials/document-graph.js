@@ -33,13 +33,10 @@ SOFTWARE.
   root.dataset.ready = 'true';
   const graph = JSON.parse(root.querySelector('.document-graph__data').textContent);
   const d3 = window.d3;
-  const svg = d3.select(root.querySelector('svg'));
+  const svg = d3.select(root.querySelector('.document-graph__canvas'));
   const g = svg.append('g');
   const width = () => root.clientWidth;
   const height = () => svg.node().clientHeight;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const motionCheckbox = root.querySelector('.document-graph__motion input');
-  const skipCameraMotion = () => reducedMotion.matches && !motionCheckbox.checked;
   const nodesData = graph.nodes.map(n => ({...n}));
   const nodesById = new Map(nodesData.map(n => [n.id, n]));
   const treeEdges = graph.edges.filter(e => e.kind === 'tree');
@@ -248,7 +245,7 @@ SOFTWARE.
   function drawCamera(now) {
     const {from, target, start, duration, ease} = camera;
     const progress = Math.min(1, Math.max(0, (now - start) / duration));
-    if (progress === 1 || skipCameraMotion()) {
+    if (progress === 1) {
       camera = null;
       svg.call(zoom.transform, target);
       return;
@@ -262,7 +259,7 @@ SOFTWARE.
   }
   function moveCamera(target, duration, ease = d3.easeCubicInOut) {
     const from = d3.zoomTransform(svg.node());
-    if (skipCameraMotion() || !duration || (from.x === target.x && from.y === target.y && from.k === target.k)) {
+    if (!duration || (from.x === target.x && from.y === target.y && from.k === target.k)) {
       stopCamera();
       svg.call(zoom.transform, target);
       return;
@@ -273,8 +270,7 @@ SOFTWARE.
     camera = {from, target, duration, ease, start, lastFrame: start, frame};
   }
   function updateRadii() {
-    const circles = node.select('.main-circle').interrupt();
-    (reducedMotion.matches ? circles : circles.transition().duration(250)).attr('r', radius);
+    node.select('.main-circle').interrupt().transition().duration(250).attr('r', radius);
   }
   function focusNode(d) {
     g.interrupt();
@@ -355,10 +351,8 @@ SOFTWARE.
       for (const {d, x, y} of restore) { d.x = x(t); d.y = y(t); }
       tick();
     };
-    if (restore.length && !reducedMotion.matches) {
+    if (restore.length) {
       g.transition().duration(600).tween('layout', () => restorePositions);
-    } else if (restore.length) {
-      restorePositions(1);
     } else {
       placeLabels();
     }

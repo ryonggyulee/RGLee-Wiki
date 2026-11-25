@@ -6,42 +6,32 @@
 .document-graph__controls {
   position: absolute;
   top: .5rem;
-  left: .5rem;
+  right: .5rem;
   z-index: 1;
   display: flex;
   gap: .2rem;
 }
 .document-graph__controls button {
-  min-width: 1.6rem;
-  padding: .3rem .5rem;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: 1px solid var(--md-default-fg-color--lighter);
   border-radius: .2rem;
   background: var(--md-default-bg-color);
   color: var(--md-default-fg-color);
-  font: inherit;
-  font-size: .65rem;
   opacity: .65;
   cursor: pointer;
 }
+.document-graph__controls svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
 .document-graph__controls button:hover,
 .document-graph__controls button:focus-visible { opacity: 1; }
-.document-graph__motion { display: none; }
-@media (prefers-reduced-motion: reduce) {
-  .document-graph__motion {
-    display: flex;
-    align-items: center;
-    gap: .25rem;
-    padding: 0 .4rem;
-    background: var(--md-default-bg-color);
-    font-size: .65rem;
-    cursor: pointer;
-  }
-  .document-graph__motion input { appearance: auto; }
-}
-@media (pointer: coarse) {
-  .document-graph__controls button { min-height: 44px; min-width: 44px; }
-}
-.document-graph svg {
+.document-graph > .document-graph__canvas {
   display: block;
   width: 100%;
   height: min(72vh, 720px);
@@ -49,7 +39,7 @@
   touch-action: none;
   cursor: grab;
 }
-.document-graph svg:active { cursor: grabbing; }
+.document-graph__canvas:active { cursor: grabbing; }
 .document-graph .link {
   stroke: var(--md-default-fg-color--lighter);
   stroke-width: 1;
@@ -65,10 +55,8 @@
 .document-graph .node { cursor: pointer; outline: none; }
 .document-graph .node.muted { opacity: .15; }
 .document-graph .link.muted { stroke-opacity: .06; }
-@media (prefers-reduced-motion: no-preference) {
-  .document-graph .node { transition: opacity 240ms ease; }
-  .document-graph .link { transition: stroke 240ms ease, stroke-opacity 240ms ease; }
-}
+.document-graph .node { transition: opacity 240ms ease; }
+.document-graph .link { transition: stroke 240ms ease, stroke-opacity 240ms ease; }
 .document-graph .main-circle {
   fill: var(--graph-branch-color);
   stroke: var(--md-default-bg-color);
@@ -91,7 +79,7 @@
 .document-graph .node[data-depth="1"] text { font-size: 16px; font-weight: 600; }
 .document-graph .node.current text { font-weight: 700; }
 @media (max-width: 600px) {
-  .document-graph svg { height: 66vh; min-height: 400px; }
+  .document-graph > .document-graph__canvas { height: 66vh; min-height: 400px; }
   .document-graph .node text { font-size: 12px; }
   .document-graph .node[data-depth="0"] text { font-size: 18px; }
   .document-graph .node[data-depth="1"] text { font-size: 14px; }

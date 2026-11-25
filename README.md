@@ -92,8 +92,8 @@ It includes navigation sections, articles, and all resolved internal document
 links. Index pages are represented by their sections. Reciprocal links share one
 visible edge. Node colors and initial layout clusters follow their top-level navigation domain.
 Navigation tree links hold topics together, with weaker document links between them.
-The + and − buttons zoom around the center of the view. Reset clears the selection
-and returns the nodes and camera to their original positions.
+Three icon buttons sit in the upper right. Reset clears the selection and restores
+the original layout. Zoom in and zoom out change the scale around the center of the view.
 
 Click any node or its label to zoom toward it. Selecting a node at the same depth
 or going deeper zooms in further, up to the maximum scale. Selection highlights
@@ -108,10 +108,8 @@ Zooming reveals titles that overlap in the overview. Hovered or keyboard-focused
 temporarily hiding intersecting labels without relocating them. Topic labels
 that do not fit are omitted. The selected node and its neighbors also take priority. Double-click or double-tap an article node to open its page;
 Ctrl/Cmd-click opens a new tab. Keyboard Enter/Space centers a node, and Enter on
-the centered article opens it. Camera movements, selection changes and layout
-resets animate unless the user prefers reduced motion. In that case the graph
-offers a checkbox to enable zoom animations. The ordinary Home contents
-remain available without JavaScript.
+the centered article opens it. Node selection, zoom and reset always animate.
+The ordinary Home contents remain available without JavaScript.
 
 ### Code provenance
 

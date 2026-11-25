@@ -25,6 +25,19 @@
 }
 .document-graph__controls button:hover,
 .document-graph__controls button:focus-visible { opacity: 1; }
+.document-graph__motion { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .document-graph__motion {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    padding: 0 .4rem;
+    background: var(--md-default-bg-color);
+    font-size: .65rem;
+    cursor: pointer;
+  }
+  .document-graph__motion input { appearance: auto; }
+}
 @media (pointer: coarse) {
   .document-graph__controls button { min-height: 44px; min-width: 44px; }
 }

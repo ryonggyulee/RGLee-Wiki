@@ -38,6 +38,8 @@ SOFTWARE.
   const width = () => root.clientWidth;
   const height = () => svg.node().clientHeight;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motionCheckbox = root.querySelector('.document-graph__motion input');
+  const skipCameraMotion = () => reducedMotion.matches && !motionCheckbox.checked;
   const nodesData = graph.nodes.map(n => ({...n}));
   const nodesById = new Map(nodesData.map(n => [n.id, n]));
   const treeEdges = graph.edges.filter(e => e.kind === 'tree');
@@ -88,21 +90,31 @@ SOFTWARE.
   let activeNodes = new Set();
   let hoveredNode = null;
   let scale = 1;
+  let overviewScale = 1;
+  let markerScale = 1;
   const dragThreshold = 8; // Screen pixels: tolerate mouse/finger jitter.
   let lastTap = null;
   const radius = d => (d.depth === 0 ? 14 : d.depth === 1 ? 9 : 4.5) * (d === currentNode ? 1.5 : 1);
-  let cameraTargetScale = null;
-  // Interpolate the view center and width directly so a pan never adds a zoom-out detour.
-  const zoom = d3.zoom().scaleExtent([.15, 4]).interpolate(d3.interpolateArray).clickDistance(5)
-    .on('start', event => { if (event.sourceEvent) svg.interrupt(); })
+  const screenRadius = d => markerScale * radius(d);
+  let camera = null;
+  const zoom = d3.zoom().scaleExtent([.15, 4]).clickDistance(5)
+    .on('start', event => { if (event.sourceEvent) stopCamera(); })
     .on('zoom', event => {
       scale = event.transform.k;
+      markerScale = Math.cbrt(scale / overviewScale);
       g.attr('transform', event.transform);
-      // Labels and hit targets retain their screen size even when zoomed out.
+      // Keep type legible while marker size follows the zoom.
       node.select('.glyph').attr('transform', `scale(${1 / scale})`);
+      node.select('.main-circle').attr('transform', `scale(${markerScale})`);
       placeLabels();
     });
-  svg.call(zoom).on('dblclick.zoom', null);
+  svg.call(zoom).on('dblclick.zoom', null).on('wheel.zoom', event => {
+    const delta = zoom.wheelDelta()(event);
+    const [min, max] = zoom.scaleExtent();
+    if (!delta || (!camera && ((delta > 0 && scale >= max) || (delta < 0 && scale <= min)))) return;
+    event.preventDefault();
+    zoomBy(2 ** delta, d3.pointer(event, svg.node()), 320);
+  }, {passive: false});
   const link = g.append('g').attr('class', 'links').selectAll('line')
     .data(processedLinks).enter().append('line').attr('class', 'link');
   const node = g.append('g').attr('class', 'nodes').selectAll('g')
@@ -160,12 +172,13 @@ SOFTWARE.
     const transform = d3.zoomTransform(svg.node());
     const viewWidth = width(), viewHeight = height();
     // Shrink invisible tap padding in the overview so it cannot cover a neighbor.
-    node.select('.hit-area').attr('r', d => Math.max(radius(d), Math.min(22, d.nearestDistance * scale / 2)));
+    node.select('.hit-area').attr('r', d => Math.max(screenRadius(d), Math.min(22, d.nearestDistance * scale / 2)));
     const priority = d => d === hoveredNode ? -3 : d === currentNode ? -2 : d.depth < 2 ? d.depth : activeNodes.has(d) ? 2 : 3;
     const ordered = [...nodesData].sort((a, b) => priority(a) - priority(b) || a.depth - b.depth);
     const nodeBoxes = nodesData.map(d => {
       const [x, y] = transform.apply([d.x, d.y]);
-      return {x: x - radius(d) - 3, y: y - radius(d) - 3, w: 2 * radius(d) + 6, h: 2 * radius(d) + 6};
+      const r = screenRadius(d);
+      return {x: x - r - 3, y: y - r - 3, w: 2 * r + 6, h: 2 * r + 6};
     });
     const occupied = [];
     const intersects = (a, b) => a.x < b.x + b.w + 3 && a.x + a.w + 3 > b.x && a.y < b.y + b.h + 3 && a.y + a.h + 3 > b.y;
@@ -174,7 +187,7 @@ SOFTWARE.
     for (const d of ordered) {
       const el = elements.get(d.id), box = d.labelBox;
       const [x, y] = transform.apply([d.x, d.y]);
-      const gap = radius(d) + 9;
+      const gap = screenRadius(d) + 9;
       const candidates = [[gap, -box.height / 2], [-gap - box.width, -box.height / 2],
         [-box.width / 2, gap], [-box.width / 2, -gap - box.height]];
       let placement = null;
@@ -228,17 +241,36 @@ SOFTWARE.
   function centeredView(x, y, k) {
     return d3.zoomIdentity.translate(width() / 2, height() / 2).scale(k).translate(-x, -y);
   }
-  function moveCamera(target, duration) {
-    svg.interrupt();
-    const current = d3.zoomTransform(svg.node());
-    if (current.x === target.x && current.y === target.y && current.k === target.k) return;
-    if (reducedMotion.matches || !duration) {
+  function stopCamera() {
+    if (camera) cancelAnimationFrame(camera.frame);
+    camera = null;
+  }
+  function drawCamera(now) {
+    const {from, target, start, duration, ease} = camera;
+    const progress = Math.min(1, Math.max(0, (now - start) / duration));
+    if (progress === 1 || skipCameraMotion()) {
+      camera = null;
       svg.call(zoom.transform, target);
       return;
     }
-    cameraTargetScale = target.k;
-    svg.transition().duration(duration).ease(d3.easeCubicInOut).call(zoom.transform, target)
-      .on('end.camera interrupt.camera cancel.camera', () => { cameraTargetScale = null; });
+    const t = ease(progress);
+    const view = d3.zoomIdentity.translate(from.x + t * (target.x - from.x), from.y + t * (target.y - from.y))
+      .scale(from.k + t * (target.k - from.k));
+    camera.lastFrame = now;
+    camera.frame = requestAnimationFrame(drawCamera);
+    svg.call(zoom.transform, view);
+  }
+  function moveCamera(target, duration, ease = d3.easeCubicInOut) {
+    const from = d3.zoomTransform(svg.node());
+    if (skipCameraMotion() || !duration || (from.x === target.x && from.y === target.y && from.k === target.k)) {
+      stopCamera();
+      svg.call(zoom.transform, target);
+      return;
+    }
+    // Retarget the scheduled frame so a stream of wheel events cannot postpone drawing.
+    const start = camera?.lastFrame ?? performance.now();
+    const frame = camera?.frame ?? requestAnimationFrame(drawCamera);
+    camera = {from, target, duration, ease, start, lastFrame: start, frame};
   }
   function updateRadii() {
     const circles = node.select('.main-circle').interrupt();
@@ -246,6 +278,9 @@ SOFTWARE.
   }
   function focusNode(d) {
     g.interrupt();
+    const depthScale = 1.1 * Math.pow(Math.SQRT2, d.depth);
+    const nextScale = currentNode && d.depth >= currentNode.depth
+      ? Math.max(depthScale, scale * 1.25) : depthScale;
     currentNode = d;
     node.filter(n => n === d).raise();
     root.dataset.center = d.id;
@@ -279,19 +314,21 @@ SOFTWARE.
     // Move the camera through the existing graph: no redraw, random layout or
     // disappearing neighbors. Interrupting a flight starts at its current frame.
     simulation.stop();
-    const k = Math.min(zoom.scaleExtent()[1], 1.1 * Math.pow(Math.SQRT2, d.depth));
+    const k = Math.min(zoom.scaleExtent()[1], nextScale);
     moveCamera(centeredView(d.x, d.y, k), 750);
   }
-  root.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+  function zoomBy(factor, point, duration) {
     const current = d3.zoomTransform(svg.node());
     const [min, max] = zoom.scaleExtent();
-    // Repeated clicks accumulate. A reversal starts from the scale currently on screen.
-    const pending = cameraTargetScale ?? current.k;
-    const k = button.dataset.zoom === 'in'
-      ? Math.min(max, Math.max(current.k, pending) * Math.SQRT2)
-      : Math.max(min, Math.min(current.k, pending) / Math.SQRT2);
-    const [x, y] = current.invert([width() / 2, height() / 2]);
-    moveCamera(centeredView(x, y, k), 400);
+    const pending = camera?.target.k ?? current.k;
+    const base = factor > 1 ? Math.max(current.k, pending) : Math.min(current.k, pending);
+    const k = Math.max(min, Math.min(max, base * factor));
+    const [x, y] = current.invert(point);
+    const target = d3.zoomIdentity.translate(...point).scale(k).translate(-x, -y);
+    moveCamera(target, duration, d3.easeCubicOut);
+  }
+  root.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+    zoomBy(button.dataset.zoom === 'in' ? Math.SQRT2 : 1 / Math.SQRT2, [width() / 2, height() / 2], 480);
   }));
   root.querySelector('.document-graph__reset').addEventListener('click', () => {
     g.interrupt();
@@ -328,7 +365,7 @@ SOFTWARE.
     fit(750);
   });
   function dragstarted(event, d) {
-    svg.interrupt();
+    stopCamera();
     g.interrupt();
     simulation.stop();
     d.gesture = {x: event.x, y: event.y, moved: false};
@@ -371,11 +408,12 @@ SOFTWARE.
   }
   function fit(duration) {
     if (currentNode) {
-      moveCamera(centeredView(currentNode.x, currentNode.y, cameraTargetScale ?? scale), duration);
+      moveCamera(centeredView(currentNode.x, currentNode.y, camera?.target.k ?? scale), duration);
       return;
     }
     const bounds = initialBounds;
     const k = Math.max(.15, Math.min(1, (width() - 100) / bounds.width, (height() - 100) / bounds.height));
+    overviewScale = k;
     moveCamera(centeredView(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, k), duration);
   }
   fit(0);
@@ -389,7 +427,7 @@ SOFTWARE.
   observer.observe(svg.node());
   // Home uses Material's normal navigation; disconnect if replaced dynamically.
   const removal = new MutationObserver(() => {
-    if (!root.isConnected) { svg.interrupt(); g.interrupt(); simulation.stop(); observer.disconnect(); removal.disconnect(); }
+    if (!root.isConnected) { stopCamera(); g.interrupt(); simulation.stop(); observer.disconnect(); removal.disconnect(); }
   });
   removal.observe(document.body, {childList: true, subtree: true});
 })();

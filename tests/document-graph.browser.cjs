@@ -38,20 +38,20 @@ const http = require('node:http');
     const zoomOut = graph.getByRole('button', {name: '그래프 축소', exact: true});
     const reset = graph.getByRole('button', {name: '그래프 선택과 확대 초기화'});
     const readScale = () => graph.locator('svg').evaluate(svg => window.d3.zoomTransform(svg).k);
-    async function checkZoomTransition(start, direction) {
-      const scales = await graph.locator('svg').evaluate(svg => new Promise(resolve => {
+    async function checkZoomTransition(start, direction, root = graph) {
+      const scales = await root.locator('svg').evaluate(svg => new Promise(resolve => {
         const values = [], begin = performance.now();
         function sample() {
-          values.push(window.d3.zoomTransform(svg).k);
+          values.push(svg.querySelector('g').getScreenCTM().a / svg.getScreenCTM().a);
           if (performance.now() - begin < 800) requestAnimationFrame(sample);
           else resolve(values);
         }
         sample();
       }));
       const end = scales.at(-1);
-      assert(scales.some(k => (k - start) * direction > 1e-6 && (end - k) * direction > 1e-6),
-        'zoom passes through intermediate scales');
-      scales.forEach((k, i) => assert((k - (i ? scales[i - 1] : start)) * direction >= -1e-8,
+      const intermediate = scales.filter(k => (k - start) * direction > 1e-5 && (end - k) * direction > 1e-5);
+      assert(new Set(intermediate).size >= 4, 'the rendered graph passes through several intermediate zoom frames');
+      scales.forEach((k, i) => assert((k - (i ? scales[i - 1] : start)) * direction >= -1e-6,
         'zoom proceeds in the requested direction'));
       return end;
     }
@@ -195,25 +195,51 @@ const http = require('node:http');
     });
     assert(await isCentered());
     await screenshot('focused');
+    const markerWidth = () => target.locator('.main-circle').evaluate(circle => circle.getBoundingClientRect().width);
+    const domainMarkerWidth = await markerWidth();
     await zoomIn.click();
     const biggerScale = await checkZoomTransition(domainScale, 1);
+    assert(await markerWidth() > domainMarkerWidth + 1, 'nodes visibly grow as the graph zooms in');
     await zoomOut.focus();
     await page.keyboard.press('Enter');
     const smallerScale = await checkZoomTransition(biggerScale, -1);
-    assert(Math.abs(domainScale - smallerScale) < 1e-8);
+    assert(Math.abs(domainScale - smallerScale) < 1e-6);
+    assert(Math.abs(await markerWidth() - domainMarkerWidth) < .01);
     assert(await isCentered(), 'the zoom buttons keep the same view center');
     assert.equal(await graph.getAttribute('data-center'), id);
     const box = await graph.boundingBox();
-    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    const pointer = [Math.round(box.x + box.width * .65), Math.round(box.y + box.height * .4)];
+    await page.mouse.move(...pointer);
+    const anchoredPoint = () => graph.locator('svg > g').evaluate((g, [x, y]) => {
+      const p = new DOMPoint(x, y).matrixTransform(g.getScreenCTM().inverse());
+      return [p.x, p.y];
+    }, pointer);
+    const beforeWheel = await anchoredPoint();
     await page.mouse.wheel(0, -350);
+    const wheelScale = await checkZoomTransition(smallerScale, 1);
+    const afterWheel = await anchoredPoint();
+    assert(Math.hypot(afterWheel[0] - beforeWheel[0], afterWheel[1] - beforeWheel[1]) < .01,
+      'wheel zoom stays anchored at the pointer');
+    await page.mouse.wheel(0, 350);
+    assert(Math.abs(await checkZoomTransition(wheelScale, -1) - smallerScale) < 1e-6);
+    const duringScroll = [];
+    for (let i = 0; i < 8; i++) {
+      await page.mouse.wheel(0, -15);
+      duringScroll.push(await readScale());
+    }
+    assert(new Set(duringScroll).size >= 4, 'continuous wheel input advances the view before scrolling stops');
     await page.waitForTimeout(400);
+    const afterScroll = await readScale();
+    await page.mouse.wheel(0, 120);
+    assert(Math.abs(await checkZoomTransition(afterScroll, -1) - smallerScale) < 1e-6);
     const screenFont = await target.locator('text').evaluate(el => parseFloat(getComputedStyle(el).fontSize) * el.getScreenCTM().a);
     assert(Math.abs(screenFont - 20) < .1, 'zoom preserves readable label size');
     const beforePan = await graph.locator('svg > g').getAttribute('transform');
     await page.mouse.move(box.x + 10, box.y + 80);
     await page.mouse.down(); await page.mouse.move(box.x + 70, box.y + 120, {steps: 10}); await page.mouse.up();
     assert.notEqual(await graph.locator('svg > g').getAttribute('transform'), beforePan);
-    await target.focus(); await page.keyboard.press('Space'); await page.waitForTimeout(850);
+    await target.locator('.main-circle').click();
+    const refocusedScale = await checkZoomTransition(smallerScale, 1);
     assert(await isCentered());
     const beforeDrag = await target.getAttribute('transform');
     const circle = await target.locator('.main-circle').boundingBox();
@@ -229,7 +255,7 @@ const http = require('node:http');
     }, id);
     const topic = graph.locator(`[data-id="${topicId}"]`);
     await topic.focus(); await page.keyboard.press('Space');
-    const topicScale = await checkZoomTransition(domainScale, 1);
+    const topicScale = await checkZoomTransition(refocusedScale, 1);
     await checkNeighborhood(topicId);
     const article = graph.locator(`[data-id="${articleId}"]`);
     await article.focus(); await page.keyboard.press('Space');
@@ -255,7 +281,7 @@ const http = require('node:http');
       return before;
     });
     const reversed = await checkZoomTransition(reversalScale, -1);
-    assert(Math.abs(reversed - reversalScale / Math.SQRT2) < 1e-8);
+    assert(Math.abs(reversed - reversalScale / Math.SQRT2) < 1e-6);
     await article.focus(); await page.keyboard.press('Space'); await page.waitForTimeout(850);
     const articleBox = await article.locator('.main-circle').boundingBox();
     const startX = articleBox.x + articleBox.width / 2, startY = articleBox.y + articleBox.height / 2;
@@ -303,6 +329,13 @@ const http = require('node:http');
       'reduced motion applies the full zoom step immediately');
     await mobile.getByRole('button', {name: '그래프 축소', exact: true}).tap();
     assert(Math.abs(await mobileScale() - mobileDomainScale) < 1e-8);
+    const mobileGraph = mobile.locator('.document-graph');
+    const animateZoom = mobileGraph.getByRole('checkbox', {name: '확대 애니메이션'});
+    await animateZoom.check();
+    await mobileGraph.getByRole('button', {name: '그래프 확대', exact: true}).tap();
+    await checkZoomTransition(mobileDomainScale, 1, mobileGraph);
+    await animateZoom.uncheck();
+    await mobileGraph.getByRole('button', {name: '그래프 축소', exact: true}).tap();
     await mobile.setViewportSize({width: 430, height: 900});
     await mobile.waitForTimeout(200);
     assert(await mobileTarget.evaluate(el => {

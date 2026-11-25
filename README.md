@@ -95,20 +95,22 @@ Navigation tree links hold topics together, with weaker document links between t
 The + and − buttons zoom around the center of the view. Reset clears the selection
 and returns the nodes and camera to their original positions.
 
-Click any node or its label to center the view on it. Topics and articles open at
-successively closer zoom levels. Selection highlights the entire navigation subtree,
-the path back to the root, and documents directly linked to the selected node.
+Click any node or its label to zoom toward it. Selecting a node at the same depth
+or going deeper zooms in further, up to the maximum scale. Selection highlights
+the entire navigation subtree, the path back to the root, and documents directly
+linked to the selected node.
 Other nodes are dimmed but can still be selected. Drag nodes to rearrange them, drag the
-background to pan, and use the wheel or a touch pinch to zoom. Node dragging starts
-only after movement exceeds 8 screen pixels; pressing or slight finger jitter
-keeps the layout still and is treated as a click/tap on release. Labels remain 14
-screen pixels at every zoom level. Overlapping overview labels are suppressed;
-zooming reveals more titles. Hovered or keyboard-focused labels take priority,
+background to pan, and use the wheel or a touch pinch to zoom. Wheel input zooms
+smoothly around the pointer. Node markers grow and shrink with the view, while
+labels retain their screen size. Node dragging starts after movement exceeds 8
+screen pixels. A press with slight finger jitter counts as a tap on release.
+Zooming reveals titles that overlap in the overview. Hovered or keyboard-focused labels take priority,
 temporarily hiding intersecting labels without relocating them. Topic labels
 that do not fit are omitted. The selected node and its neighbors also take priority. Double-click or double-tap an article node to open its page;
 Ctrl/Cmd-click opens a new tab. Keyboard Enter/Space centers a node, and Enter on
 the centered article opens it. Camera movements, selection changes and layout
-resets animate unless the user prefers reduced motion. The ordinary Home contents
+resets animate unless the user prefers reduced motion. In that case the graph
+offers a checkbox to enable zoom animations. The ordinary Home contents
 remain available without JavaScript.
 
 ### Code provenance

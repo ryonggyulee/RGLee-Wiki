@@ -34,7 +34,26 @@ const http = require('node:http');
     const graph = page.locator('.document-graph');
     await graph.scrollIntoViewIfNeeded();
     await page.waitForTimeout(400);
-    assert.equal(await graph.locator('button').count(), 1);
+    const reset = graph.locator('.document-graph__reset');
+    const domains = graph.locator('.node[data-depth="0"]');
+    const legend = graph.locator('.document-graph__legend button');
+    assert.equal(await legend.count(), await domains.count());
+    assert.equal(await graph.locator('.graph-regions path').count(), await domains.count());
+    const mapScale = () => graph.locator('.document-graph__canvas').evaluate(el => el.__zoom.k);
+    const overviewScale = await mapScale();
+    await graph.getByRole('button', {name: '그래프 확대', exact: true}).click();
+    await page.waitForFunction(k => document.querySelector('.document-graph__canvas').__zoom.k >= k * 1.39, overviewScale);
+    await graph.getByRole('button', {name: '그래프 축소', exact: true}).click();
+    await page.waitForTimeout(250);
+    assert(Math.abs(await mapScale() - overviewScale) < .01);
+    const firstDomain = await domains.first().evaluate(el => el.__data__);
+    await legend.first().click();
+    assert.equal(await graph.getAttribute('data-center'), firstDomain.id);
+    const openLink = graph.locator('.document-graph__open');
+    assert(await openLink.isVisible());
+    assert.equal(await openLink.getAttribute('href'), firstDomain.url);
+    await reset.click();
+    assert(await openLink.isHidden());
     const colors = await graph.locator('.node').evaluateAll(nodes => {
       const branches = new Map();
       for (const node of nodes) {

@@ -1,7 +1,7 @@
 schema_version: 2
 rubric_version: 4
 hash_version: 2
-updated_at: '2026-11-24'
+updated_at: '2026-11-25'
 documents:
 - path: docs/computational-materials-science/electronic-structure/density-functional-theory.md
   topic: Density functional theory
@@ -3370,21 +3370,21 @@ documents:
       or rank is asserted by the examples.
 - path: docs/computational-science/model-reduction/overlapping-fragments-method.md
   topic: Overlapping fragments method (OFM)
-  scope: 중첩된 fragment의 고유함수를 기저로 사용하여 전체 Kohn–Sham Hamiltonian을 축소하고 관심 에너지 영역의 전자상태를 계산하는 OFM의 원리와 검증 범위를 설명한다.
+  scope: 겹치는 두 분자 조각의 파동함수로 사슬 전체의 전자상태를 구하는 과정을 따라가며 OFM의 원리와 고분자 계산의 정확도를 설명한다.
   kind: article
   group: computational-science / model-reduction
   hashes:
-    source: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
-    content: 53dadd0dec700043b7cee0fcf9c52b64ce4b011994e6f83243f8b6fe119f240e
-    outline: df2bea991b962ed6f94e78d1013bdebce0bd51f95a07a5558206cee820710095
-    presentation: a650d2d86d2f55295a52a5d0883a53423b98010c1dc5ec6c291d40764e279282
+    source: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
+    content: 08469ad1b61ce5e71e690439d7fc8cd7b24aac1a84a5ef41906891d2bc20104c
+    outline: 12aa8ad3cd1cfa49dd5e84805934c2a73a5ead8c01587a27b9df7084a914a45e
+    presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
   metrics:
-    characters: 11047
+    characters: 7535
     explanatory_elements:
-      total: 23
+      total: 9
       figures: 0
-      tables: 6
-      equations: 17
+      tables: 5
+      equations: 4
       code_blocks: 0
   automatic_check: pass
   issues: []
@@ -3392,28 +3392,25 @@ documents:
   review:
     status: pass
     scope: facts
-    coverage: full
+    coverage: changes
     rubric_version: 4
-    reviewed_at: '2026-11-24'
+    reviewed_at: '2026-11-25'
     model:
       name: ''
       reasoning_effort: ''
       source: ''
-    source_hash: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
-    content_hash: 53dadd0dec700043b7cee0fcf9c52b64ce4b011994e6f83243f8b6fe119f240e
-    outline_hash: df2bea991b962ed6f94e78d1013bdebce0bd51f95a07a5558206cee820710095
+    source_hash: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
+    content_hash: 08469ad1b61ce5e71e690439d7fc8cd7b24aac1a84a5ef41906891d2bc20104c
+    outline_hash: 12aa8ad3cd1cfa49dd5e84805934c2a73a5ead8c01587a27b9df7084a914a45e
     assets: {}
-    evidence_path: refs/quality/evidence/77887bfa31076747cf76b7e1ad3e2d6da3aaac872e630059128f3a0fbfede21a.yaml
+    evidence_path: refs/quality/evidence/ada0a15cfcec569d7ace2140ae98a3faf2ba8af7ba0ed453a2008d47034c440b.yaml
     finding_counts:
-      supported: 17
+      supported: 10
       mismatch: 0
       insufficient: 0
       inaccessible: 0
-    summary: Full independent inspection of the new article. All scoped scientific statements, derivations, source attributions
-      and bibliography checks are supported as qualified. The error ranges, cutoff, approximate five-monomer observation,
-      figure contents and exact 2011 software choices are verifiable as reported by the original investigators; they are not
-      a reproduction of those computations. Primary article and SI share provenance. Core mathematics is independently supported
-      and checked by the derivations above. No mismatch, insufficient or inaccessible finding. No historical evidence reused.
+    summary: 기준본과 달라진 주장과 의존 결론을 최종 SHA에서 확인했다. 모형 수치와 차원은 직접 검산했고 논문의 오차·표본 수·그림의 측정량은 원문에 대조했다. 모든 항목이 해당 조건에서 supported이다.
+      원 논문의 고분자 전자구조 계산을 재실행한 검증은 아니다.
 - path: docs/computational-science/model-reduction/projection-methods.md
   topic: Projection methods
   scope: 전자구조 고유값 문제의 Galerkin·Rayleigh–Ritz 투영에서 출발하여 비직교 overlap, Ritz 오차, 기저 보강, resolvent와 일반 Petrov–Galerkin 모형을 설명한다.

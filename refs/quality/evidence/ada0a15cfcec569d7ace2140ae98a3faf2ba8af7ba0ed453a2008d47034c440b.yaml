@@ -1,0 +1,242 @@
+page: docs/computational-science/model-reduction/overlapping-fragments-method.md
+hashes:
+  source: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
+  content: 08469ad1b61ce5e71e690439d7fc8cd7b24aac1a84a5ef41906891d2bc20104c
+  outline: 12aa8ad3cd1cfa49dd5e84805934c2a73a5ead8c01587a27b9df7084a914a45e
+  presentation: 917ab751af940f3701bf77dd2e491aea1b9408f7f9a0444fd485b4b45384844d
+assets: {}
+rubric_version: 4
+assessment:
+  scope: facts
+  source_hash: 77c8bf98e79afda16b760fba17ed2662bf5a8c89e873871eea5fe9b21d9ffbfc
+  assets: {}
+  model:
+    name: ''
+    reasoning_effort: ''
+    source: ''
+  coverage:
+    mode: changes
+    baseline_source_hash: 6aa0818e5db949bb4ad8e2c6ae37b9966b39a9b8fcd2166faea589c8f5402662
+    checked:
+    - 도입·description 및 §§1–2의 네 탄소 예, 전체 연산자와 조각 연산자의 구분, 간섭·행렬·투영과 합·차의 수치 예제.
+    - §§3–4 및 §6의 분자·기저 크기, 에너지 오차, 시간, 입자수, 참여 자리 수, 공간분포와 세 가지 P3HT 검증 조건 및 결론.
+    - §5의 원자 궤도 전개, 유한 조각·창 함수·Bloch 위상과 최근접 사슬, 다른 방법의 역할 및 §7의 추가 MIT 원문과 인용 번호 재배치.
+    dependencies:
+    - 동일한 전체 H를 사용해야 기저 근사만 비교할 수 있다. 수소 종결과 곁사슬 단축은 조각 계산의 조건이다.
+    - S의 양의 정부호성·정규화와 선택한 궤도 수가 각각 직교화, 참여 자리 수 및 축소공간의 차원을 제약한다. 고유에너지와 LDOS·점유밀도는 서로 다른 정보를 요구한다.
+    - 실수 t 및 s, 같은 대각값, 정규화된 두 함수의 모형과 최근접 주기 사슬은 별개 유도이다. 고분자 수치와 국소화 관찰은 각 논문이 다룬 시료·기저·퍼텐셜에 한정한다.
+    reused_evidence:
+    - path: refs/quality/evidence/77887bfa31076747cf76b7e1ad3e2d6da3aaac872e630059128f3a0fbfede21a.yaml
+      sha256: 82b6590cffb69960772d96fc4441289d8bc62dd8191597e19419a4ca7f14336a
+      scope: 직접 새로 대조한 예제·표·그림·MIT 강의 외에, 기준본의 cpm-ks, basis-boundary, locality-scaling, local-dos, observables-limits, related-methods,
+        bibliography에서 방법별 독립 구현·원자 기저 경계·DOS·고정 Hamiltonian 및 LS3DF/mode-space와 기존 서지 식별의 근거를 승계했다. 현 본문은 같은 가정·인용을 간략히 옮겼으며
+        새로운 소자·물질에 대한 성능 주장을 더하지 않았다. 삭제된 문장은 현재 검증 범위에 포함되지 않는다.
+  findings:
+  - id: capped-windows
+    claim: 사슬 결합을 포함하는 유한 조각을 겹치게 선택하고 수소 종결한 조각 고유함수를 전체 문제에 사용한다.
+    locations:
+    - 도입과 §1(1) 사슬 그림·표
+    - §§1(2), 2(1), 6
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134, 094119 (2011)
+      locator: §§II, III.A, Fig. 2(a) 및 Fig. 3
+      supports: 수소 종결한 메탄·에탄·프로판과 슬라이딩 이합체, 원래 구조의 H와 조각 파동함수를 명시한다.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61, Fall 2007, Lecture 28
+      locator: pp. 3–6
+      supports: 부분을 나타내는 공간 함수들의 선형결합으로 분자 전체의 시도 파동함수를 만드는 독립적 예. 탄소 분할의 화학적 자료는 OFM 논문이 제공한다.
+    check: 순서대로 연결된 1234에서는 내부 결합 집합이 123→{12,23}, 234→{23,34}이다. 합집합은 세 원래 결합 전부, 교집합은 23이다. 분리한 12와 34의 합집합에는 23이 없다. 수소
+      종결이 더하는 핵은 조각 연산자에서만 쓰이므로 원래 H의 탄소 수는 네 개다. 원 논문의 그림은 C20 사슬의 이합체 예이고, 본문의 네 탄소 삼합체는 별도 설명용이다.
+    assumptions: 열린 알케인, 탄소 연결만 표에서 센다. 조각 기저의 중첩이 독립 전자의 수 또는 원자의 수를 증가시키지 않는다.
+  - id: waves-and-environment
+    claim: 원래 사슬의 H를 조각 함수로 투영하고 계수 합성 후 제곱하면 간섭·환경 효과와 정규화가 주어진다.
+    locations:
+    - §1(2), §2(1–2), §§4(1), 5 원자 궤도, 6
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134, 094119 (2011)
+      locator: §II, Eq. (2) 및 §II 끝의 환경 퍼텐셜 논의
+      supports: 전계 H의 조각 사이 원소 H_ij와 함수 중첩 S_ij, 고유방정식, 외부 환경의 반영.
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61, Fall 2007, Lecture 28
+      locator: pp. 3, 5–8
+      supports: 시도 계수, 대각/비대각 원소, 규격화 및 일반화 고유식의 화학적 유도.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: §5.7.1, Eq. (90)–(91)
+      supports: 양의 정부호 중첩 행렬의 유도 노름·좌표 변환.
+    check: Φ의 열을 φ_j라 하면 Φ†(ĤΦa−EΦa)=0에서 Ha=ESa, ||Φa||²=a†Sa가 된다. 두 함수의 밀도에는 2Re(aL* aR φL*φR)가 남아 상대부호로 바뀐다. δH_LR=〈φL|Δv|φR〉은
+      기저 고정 시 정확한 식이다. 일정한 Δv라면 δH_LR=Δv S_LR도 성립한다. 원래 H를 한 번만 구성하고 중복 부위는 기저에만 포함한다. S의 작은 고유값은 단위 계수 조합 중 작은 노름 방향에 대응한다.
+    assumptions: 정규화한 함수, 공통 좌표, Hermitian H. 물리적 상태 결합은 H와 S로 함께 계산하며 행렬 원소 하나의 값에는 에너지 영점·기저 규약이 반영된다. 더 긴 사슬에서는 두 조각 바깥
+      원자도 있을 수 있다.
+  - id: two-state-worked-example
+    claim: 대각 원소가 같은 두 실수 궤도의 합·차 해와 −0.20 eV, +0.30 eV의 예.
+    locations:
+    - §2(3) 표·수치, §3(1) 최대 두 상태
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61, Fall 2007, Lecture 28
+      locator: pp. 7–10, 분자 궤도 대칭 해
+      supports: 같은 ε, 정규화, 실수 비대각 H와 S에 대한 동상·역상 계수와 두 에너지 분수.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: §5.7.1, 양의 정부호 B와 고유문제 등가 변환
+      supports: 정규화·독립성과 유한 Hermitian 고유값 개수의 기준.
+    check: H(1,±1)ᵀ=(ε±t)(1,±1)ᵀ, S(1,±1)ᵀ=(1±s)(1,±1)ᵀ. 계수 벡터의 물리적 노름 제곱은 2(1±s)이다. s=1/5, t=−6/25 eV, ε=0이면 −6/25÷6/5=−1/5
+      eV, 6/25÷4/5=3/10 eV. S의 두 고유값 1±s가 양수이다.
+    assumptions: 대각값이 같은 Hermitian H, 실수 대칭 H와 S 및 |s|<1. 조각 상태 수가 정하는 근사공간에서의 해이며 알케인 측정값을 맞춘 것이 아니다.
+  - id: implementation-and-benchmark
+    claim: CPM·ESCAN 단계, 고분자 기저 및 Fig. 3–10의 에너지·시간 비교와 점유 추정 설명은 저자 보고와 일치한다.
+    locations:
+    - §2(1) 전체 Hamiltonian
+    - §3(1–2) 성능 표·설명
+    - §4(2) 점유 경계와 §6
+    category: quotation
+    status: supported
+    method: source
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134, 094119 (2011)
+      locator: §I Eq. (1), §II, §§III.A–D Figs. 3–9, §IV Fig. 10
+      supports: 전체 CPM H와 조각별 CPM, 주기 Poisson/LDA/ESCAN, 60 Ry 비교, 개별 오차·시간·부분 HOMO의 DOS 틈 기준.
+    check: Fig. 3의 하단/상단을 차례로 대조하면 C1 >200 meV/~1 eV, C2 ~10/~30 meV, C3 <1/<10 meV이다. 삼합체 최저 하나 ~30 meV, 상단 2–4개에서 짝짓기 불가,
+      다섯 개에서 개선. P3HT 하나 ~30→120 meV (0.7 eV 밴드 안쪽), 세 개 10–50 meV, 네 개에서 악화. Fig. 7은 알케인 최저 구간의 단일 함수 기준 5 Å 수렴. Fig. 9는
+      테스트 크기에서 조각/쌍 계산이 마지막 대각화보다 비쌈을 보인다. 6-31G*의 두 기저 수 7,680/19,720은 비교 치수다. §III.B의 DOS 기준은 H_full에서 구한 조각 HOMO 기댓값 위
+      첫 틈이다.
+    assumptions: 각 결과는 원 연구와 그 에너지 구간과 입력 H에 귀속된다. 정확한 표 숫자의 독립적 벤치마크라는 주장은 없다. CPM 자기일관 갱신은 본 계산에서 수행되지 않았다.
+  - id: chemical-and-basis-counts
+    claim: 알케인과 티오펜 중첩 삼합체 수, 전자·원자와 대표 기저 차원.
+    locations:
+    - §§1(1), 3(1–2), 4(2)
+    category: scientific
+    status: supported
+    method: calculation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134, 094119 (2011)
+      locator: §III.A의 구조·Fig. 4 및 §IV
+      supports: 알케인 사슬 화학식과 점유 수준, P3HT 20단위 사슬, 축소 차원·곁사슬 처리.
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović and Wang, JPCB 115, 1792–1797 (2011), including its SI
+      locator: Theory, p. 1793 및 Fig. 1
+      supports: P3HT 반복 단위의 원자 수·말단 보정, 12×40단위 구조와 2,510원자 검증. 수치 스펙트럼의 독립 재현은 아니다.
+    - id: https://physics.nist.gov/PhysRefData/Handbook/Tables/carbontable1.htm
+      provenance: NIST Handbook of Basic Atomic Spectroscopic Data
+      locator: C I 및 H I ground-state electron configurations. 기준본 alkane-counts의 원자자료 재사용.
+      supports: 중성 탄소와 수소의 가전자 수 4와 1로 점유 공간 궤도 수를 독립적으로 산정한다.
+    check: 중성 C_nH_(2n+2)는 가전자 6n+2개이므로 이중 점유 공간 궤도 3n+1개, 즉 4/7/10개이다. 20(20+42)=1,240. 20단위 열린 사슬에서 시작 위치는 1…18이고 20×18×5=1,800,
+      P3HT에서 5×18×3=270. 5(20×25+2)=2,510, 12(40×25+2)=12,024, 3(10×25+2)=756. 헥실→프로필은 축소 조각에서만 일어난다.
+    assumptions: 좌우 말단의 수소, 한 단위씩 이동, 원 논문의 유사퍼텐셜 가전자 관례와 단일 공간 궤도 개수. 이론상 기저 열 개수와 독립 랭크는 별개이다.
+  - id: participation-and-attribution
+    claim: 직교 좌표의 역 4차 모멘트는 유효 자리 수이며 P3HT 국소화 관찰은 보고된 계에 한정된다.
+    locations:
+    - §4(1) 변환과 참여 자리 수 예
+    - §4(2) 세 번째 비교·§6
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović and Wang, JPCB 115, 1792–1797 (2011), including its SI
+      locator: Results and Discussion, p. 1794의 L 식, Figs. 3–4와 인접 본문
+      supports: 직교화 계수·참여수, 가장자리 약 다섯 단위, 높은 on-site 에너지와 국소화 위치, 일정한 이웃 결합의 비교.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: §5.7.1, Eq. (90) 및 양의 제곱근 G 선택
+      supports: S=GG†이면 d=G†a. 대칭 제곱근과 확률 가중치 정규화를 독립 대조했다.
+    check: Φ'=Φ S^(−1/2)이면 Φa=Φ'd, d=S^(1/2)a. d†d=a†Sa=1이므로 한 자리면 L=1, 다섯 동등 자리이면 1/[5(1/5)²]=5. 두 경우 모두 무차원이다. 50개의 12,024원자
+      모형은 Theory에 명시되고 Figs. 3,4에서 저자들은 해당 정공의 국소화와 정전기 퍼텐셜 변동을 관련지었다. Fig. 4(e)는 최근접 결합을 0.85 eV로 고정한 한 실현의 비교다.
+    assumptions: 직교화 후 국소 자리 표현이며 기저에 의존한다. 다섯 단위는 원 논문에서 해석한 근사값이다.
+  - id: three-p3ht-tests
+    claim: 2,510원자 고유에너지 비교, 756원자 CPM 입력 점검, 12,024원자 국소화 분석은 측정량이 서로 다르다.
+    locations:
+    - §4(2) P3HT 비교 표
+    category: quotation
+    status: supported
+    method: source
+    sources:
+    - id: 10.1021/jp1114527
+      provenance: Vukmirović and Wang, JPCB 115, 1792–1797 (2011), including its SI
+      locator: Theory; Fig. 1 inset 및 Figs. 2–4
+      supports: 10개 작은 실현에서 같은 연산자의 두 기저, 큰 구조에서 DOS·참여수·자리 분포.
+    - id: 10.1021/jp1114527.s001
+      provenance: Vukmirović and Wang, JPCB 115, 1792–1797 (2011), including its SI
+      locator: S2, Figs. 1–2의 축과 캡션
+      supports: 3×10반복 단위인 756원자 DFT/LDA 대 CPM. DOS 대 E, t_mm 대 m.
+    check: Fig. 1 삽도는 E_FR 대 E_PW, SI Fig. 1은 DOS 대 E, Fig. 2는 사슬 위치 m 대 t_mm이다. 본문 Fig. 4는 자리 기저에서의 국소 상태 분포를 보여 준다. 이들 중
+      OFM 대 평면파의 실공간 LDOS(r,E) 대조는 없다.
+    assumptions: SI와 원 논문은 한 연구의 근거다. 작은 셀의 적합성이 모든 크기의 모든 관측량을 검증한다고 확대하지 않았다.
+  - id: ldos-and-density
+    claim: 위치별 상태밀도의 단위와 정보는 총 DOS나 고유에너지와 구별되며, 점유 밀도에는 점유된 궤도의 기여가 필요하다.
+    locations:
+    - §4(1–2), §6
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: https://docs.quantumatk.com/manual/Types/LocalDensityOfStates/LocalDensityOfStates.html
+      provenance: QuantumATK LocalDensityOfStates reference
+      locator: Notes, local density of states 및 Gaussian 가중치
+      supports: 에너지에 맞는 상태의 공간별 제곱진폭을 합하는 LDOS 구현.
+    - id: https://west-code.org/doc/West/v6.2.1/tutorials/basic/basic_004.html
+      provenance: WEST 6.2.1 Tutorial 4, Y. Yu et al. implementation
+      locator: Intro Tutorial 4, LDOS section 및 평면 적분 예
+      supports: 축별 공간 분해 스펙트럼과 에너지별 총 상태밀도의 차이. 기준본 local-dos에서 식을 함께 대조한 독립 구현.
+    check: 3차원 정규화 ∫|ψ|² d³r=1에서 |ψ|² 단위는 Å⁻³, ∫δ(E−En)dE=1에서 eV⁻¹이다. D(r,E)를 공간 적분하면 개별 δ의 합이 남는다. 에너지 목록만 고정해도 공간 함수는 달라질
+      수 있다. 전자밀도는 각 공간 밀도를 점유수로 가중하여 합한다. 일부 점유 상태만 포함하면 다른 상태의 기여가 빠진다.
+    assumptions: 한 스핀 성분·유한 셀·정규화 상태·선택 기저. 결정의 k 가중치와 물리적 에너지 폭은 이 식에서 생략된 일반화이다.
+  - id: ao-and-crystal-extension
+    claim: 투영 행렬의 합동변환과 경계 창 미분, 한 궤도 주기 사슬의 코사인 분산.
+    locations:
+    - §5 원자 궤도 및 조각 경계·파수 보충 설명
+    category: scientific
+    status: supported
+    method: derivation
+    sources:
+    - id: 10.1063/1.3560956
+      provenance: Vukmirović and Wang, JCP 134, 094119 (2011)
+      locator: §II
+      supports: 작은 상자의 분자 고유함수를 이용하며 전체 H를 직접 작용시킴.
+    - id: 10.1103/PhysRevB.107.235135
+      provenance: Koepernik et al., FPLO original projection implementation
+      locator: §II.A Eqs. (1)–(4), App. A Eqs. (A3)–(A4)
+      supports: 국소 함수의 Bloch 합과 같은 기저의 H(k), S(k), 위상 규약.
+    - id: https://www.cond-mat.de/events/correl11/manuscripts/kunes.pdf
+      provenance: Kuneš, Wannier functions and construction of model Hamiltonians, Jülich (2011)
+      locator: §1.2 Eqs. (5)–(6)
+      supports: 격자 푸리에와 국소 hopping을 연결한다. 반대 위상 규약도 같은 분산을 준다.
+    - id: https://netlib.org/utk/people/JackDongarra/etemplates/node178.html
+      provenance: Bai et al., SIAM Templates (2000)
+      locator: §5.7.1 Eq. (90)
+      supports: 기저 변환의 고유값 보존 조건.
+    check: Φ=χU를 bra와 ket에 대입하면 두 행렬은 각각 U†H₀U와 U†S₀U. U가 정사각 가역이면 같은 공간이며 m<M이면 랭크≤m이다. 원래 χ 중심 집합에 종결 H 원자는 없어 그 AO를 정확하게
+      그대로 옮길 수 있다고 전제할 수 없다. 각 좌표 x에 대해 ∂²(wφ)=w∂²φ+2∂w∂φ+φ∂²w를 합하면 본문 식. 최근접 실수 O=H에서 H(k)=ε+t[exp(ika)+exp(−ika)]=ε+2t cos(ka),
+      S(k)=1. 원 논문은 이 예들에 대한 성능을 보고하지 않았다.
+    assumptions: 공통 AO 공간, 매끄러운 창과 함수, 기준 셀과 R 셀 사이의 원소 및 동일 위상. 코사인 예는 셀당 한 정규직교 궤도, 주기적·동일한 최근접 결합을 가정한다.
+  - id: additional-citation
+    claim: 추가된 MIT 강의의 표제와 페이지가 두 계수 방정식 및 합·차 에너지의 실제 원문을 가리킨다.
+    locations:
+    - §7 항목 4, §§1–2
+    category: bibliography
+    status: supported
+    method: source
+    sources:
+    - id: https://ocw.mit.edu/courses/5-61-physical-chemistry-fall-2007/b0101a5df1b17809fc75a0256af6aaf6_lecture28to29.pdf
+      provenance: MIT 5.61, Fall 2007, Lecture 28
+      locator: 표제 p. 1; pp. 7–10, Eqs. 1–2와 sum/difference solutions
+      supports: 강의 28의 인쇄 표제와 두 원자 궤도의 일반화 고유 문제·합과 차 에너지. 원래 고분자 논문과 다른 저작이다.
+    check: 공식 OCW 강의 PDF에서 5.61 Physical Chemistry, Lecture 28, Molecular Orbital Theory – Part I를 확인했다. pp. 7–10에서 행렬식, 같은
+      대각값·실수 겹침, 계수 ±가 확인된다. 본문 숫자는 문헌의 실험 수치로 인용하지 않는다.
+    assumptions: 새 서지 항목만 직접 추가 검증했다. 유지·재번호화된 항목의 식별은 기준본 bibliography에서도 대조되었다.
+  summary: 기준본과 달라진 주장과 의존 결론을 최종 SHA에서 확인했다. 모형 수치와 차원은 직접 검산했고 논문의 오차·표본 수·그림의 측정량은 원문에 대조했다. 모든 항목이 해당 조건에서 supported이다.
+    원 논문의 고분자 전자구조 계산을 재실행한 검증은 아니다.

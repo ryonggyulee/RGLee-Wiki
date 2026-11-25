@@ -1,18 +1,11 @@
 ---
 name: audit-wiki-references
-description: Independently verify scientific claims, equations, numerical examples, quotations, citations, and source provenance. Use for scoped factual review or an explicit citation audit; does not edit articles or register results.
+description: 주장·수식·수치·인용과 출처를 독립적으로 대조한다. 사실 검토를 요청했거나 게시용 근거가 필요할 때 쓴다.
 ---
 
-# Audit Wiki References
+# 사실·출처 검증
 
-Follow the factual scope and record schema in `refs/quality/README.md` and evidence rules in `refs/research-workflow.md`. Read each once. Do not load unrelated articles, the whole registry or old scores.
+최종 본문과 원출처에서 시작한다. [조사 원칙](../../../refs/research-workflow.md)으로 원문 위치·조건·규약을 대조하고 필요한 계산을 재현한다. 작성자의 결론을 전달받아 옮겨 적지 않는다. 직접 확인한 근거와 이전 검증본에서 그대로 쓸 수 있는 근거를 구별한다.
 
-For an existing changed article compare with its last verified version using `quality.sh baseline`, then inspect changed claims plus affected definitions, assumptions and conclusions. A new article or unrecoverable baseline needs full claim coverage. An explicit narrow audit stays narrow and does not become publication approval.
-
-Start from the final article, original sources and neutral assigned scope, not the author's verdict. Record initial findings before reconciling prior evidence. Reuse unchanged valid evidence with explicit scope and provenance; do not represent another reviewer's source inspection as your own.
-
-Inspect original passages, equations, tables or official documentation directly. Check claim support, source identity/independence, assumptions, signs, units, conventions and applicability. Check numerical examples and derived identities from supported premises; record reproducible calculation or derivation instead of searching for identical illustrative numbers in two papers. Check quotations against the original wording and context. Link resolution alone proves neither identity nor support.
-
-Group connected claims when they share premises and evidence. Record `supported`, `mismatch`, `insufficient`, or `inaccessible` with concrete locations and source passages. A source access failure is not a scientific error. Do not add editorial scores, minimum-length demands, or rewrite suggestions unrelated to factual findings.
-
-For publication verification return `assessment-template.yaml` completed with exact article SHA, full/changes coverage, explicit reused evidence, findings and limitations. Keep drafts in the assigned experiment directory. The main agent owns registration and final build. For audit-only requests return findings without modifying the article, registry, dates or build state. Follow `refs/subagent-execution.md` when delegated; do not spawn additional agents.
+- 단순 감사는 요청받은 범위의 주장, 위치, 원문 근거, 불일치 또는 미확인 사유를 반환한다. 본문·기록 수정과 빌드는 수행하지 않는다.
+- 게시용 검토에서는 [범위와 인계 규칙](../../../refs/quality/README.md)에 따라 [평가 양식](../../../refs/quality/assessment-template.yaml)에 현재 SHA, 확인 범위와 근거를 작성한다. 검토자는 지정된 실험 경로에 결과를 남긴다. 기록 등록은 `evaluate-wiki-quality`가 담당한다.

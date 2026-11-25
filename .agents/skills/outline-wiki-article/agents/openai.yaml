@@ -1,0 +1,4 @@
+interface:
+  display_name: "위키 목차 설계"
+  short_description: "선행 개념과 독자의 질문에 맞춰 과학 문서의 절과 소절을 배치합니다"
+  default_prompt: "$outline-wiki-article 스킬로 이 글의 목차를 설계하고 배열 이유를 설명해 주세요."

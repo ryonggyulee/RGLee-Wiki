@@ -1,47 +1,11 @@
 ---
 name: research-and-write-wiki
-description: Research an advanced scientific or computational topic on the internet, reconcile model knowledge with multiple independent references, enforce one consistent scientific convention, and create or substantially revise a verified Korean MkDocs article in this repository. Use for requests to investigate, document, expand, or update technical wiki content under Device physics, Material science, or Computational science.
+description: 새 과학 문서를 집필하거나 기존 글의 주제와 논증을 전면 재구성한다.
 ---
 
-# Research and Write Wiki
+# 새 글과 전면 개정
 
-Create only source-grounded wiki content. Treat internal knowledge as a consistency check, never as a reference.
-
-## Required context
-
-Follow the task-scoped context table in `AGENTS.md`. For new or substantially rewritten articles, read `refs/format.md` and `refs/research-workflow.md` once. Inspect only the relevant source tree and navigation. Load the quality skill at the validation stage; do not preload its implementation or the full registry.
-
-## Workflow
-
-1. Restate the requested topic as a bounded research question. Identify the correct fixed domain and any needed prerequisite concepts.
-2. Search broadly enough to locate primary papers, authoritative reviews or textbooks, and official documentation where relevant.
-3. Open and inspect the relevant passages. Do not treat search snippets, copied citations, or abstracts without supporting detail as evidence.
-4. Build a claim ledger before drafting. For each nontrivial claim, record its scope, assumptions, supporting passages, and source provenance.
-5. Require agreement between internal scientific knowledge and at least two independent, directly inspected sources for every nontrivial claim. Add further evidence for disputed, consequential, numerical, convention-sensitive, or central claims when two sources do not resolve uncertainty.
-6. Treat mirrors, versions of one paper, and downstream summaries of one original result as one source. If independence or agreement is unclear, investigate further.
-7. Choose one terminology, notation, unit, sign, coordinate, and normalization convention. Map differing source conventions to it before comparing claims.
-8. Omit unresolved claims. If disagreement itself is important, describe it as a disagreement with citations and scope; do not manufacture consensus.
-9. Design the H1–H3 outline before drafting prose. Read the headings alone and revise them until concise noun phrases reveal the scope, dependency order, consistent classification, and progressive logic without help from the body text.
-10. Draft in Korean following `refs/format.md`, including its heading, prose, equation, visual-selection and citation rules. Do not duplicate those rules in working notes.
-11. After scientific verification passes, add the required domain-index link and navigation. Finish every intended Markdown change before quality synchronization.
-12. Use `$evaluate-wiki-quality`: sync completed changes once, obtain one independent factual review, and register scoped findings. New articles require full claim coverage; existing articles use the last verified baseline and affected dependencies. Do not use editorial scores or minimum length/element gates.
-13. Complete the scoped validation owned by `$evaluate-wiki-quality`; do not repeat its build. Reserve the full build for explicit whole-wiki publication or CI.
-14. Briefly report the review scope and result.
-15. Append a concise entry to the proven-method log in `refs/research-workflow.md` only when the completed task demonstrates that a reusable method improved correctness, coverage, or efficiency.
-
-## Claim ledger
-
-Keep draft notes in `experiment/`. Use the factual schema in `refs/quality/assessment-template.yaml` to retain claims, scope, sources and inspected locations under `refs/quality/evidence/`. Group connected claims with shared assumptions and evidence; do not duplicate source passages for every sentence. Do not archive copyrighted source text or raw browsing output. Suggested drafting fields:
-
-| Field | Record |
-| --- | --- |
-| Claim | One testable statement |
-| Scope | Conditions, approximation, and exclusions |
-| Sources | At least two independent sources and directly inspected locations |
-| Knowledge check | Consistent, uncertain, or conflicting |
-| Convention check | Symbols, units, signs, coordinates, normalization |
-| Decision | Publish, investigate, describe disagreement, or omit |
-
-## Stop conditions
-
-Do not publish when a nontrivial claim lacks two independent directly inspected sources, conventions cannot be reconciled, or a material conflict remains unresolved. Report what is missing and keep the page out of navigation.
+1. 독자와 중심 질문을 정하고 해당 분야·주제 그룹의 선행 문서를 찾는다. `outline-wiki-article`의 방식으로 개념의 순서를 설계한다.
+2. [조사 원칙](../../../refs/research-workflow.md)에 따라 주장별 조건, 원문 위치, 독립성 및 채택 근거를 `experiment/`에 정리한다. 같은 전제의 주장은 묶고 불확실한 내용은 해결한 뒤 쓴다.
+3. [작성 형식](../../../refs/format.md)과 [용어 색인](../../../refs/terminology.md)을 사용해 한국어로 집필한다. 과학 그림이 필요할 때만 `acquire-scientific-images`를 사용한다.
+4. 새 페이지는 `maintain-wiki-structure`에 따라 메뉴·색인을 연결한다. 최종 본문과 의존 파일의 diff를 확인하고 `evaluate-wiki-quality`로 검증·빌드를 마친다.

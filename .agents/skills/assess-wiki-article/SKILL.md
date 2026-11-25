@@ -1,14 +1,10 @@
 ---
 name: assess-wiki-article
-description: Provide requested editorial feedback on a scientific wiki article's organization, dependency order, and reader comprehension. Optional advisory review; does not score, register, edit, or gate publication.
+description: 기존 글을 읽고 독자가 막히는 위치와 이유, 개선안을 제시한다. 편집 의견만 요청할 때 쓴다.
 ---
 
-# Assess Wiki Article
+# 독자 관점의 편집 검토
 
-Use only when the user asks for organization, logic of exposition or readability feedback. Factual verification belongs to `audit-wiki-references`; publication checks belong to `evaluate-wiki-quality`.
+요청 범위를 실제 읽기 순서로 따라간다. 전체 평가라면 글 전체를 읽는다. 필요한 정의가 뒤늦게 나오거나, 두 문장 사이 추론이 생략되거나, 같은 절이 되풀이되는 위치를 찾는다.
 
-Read the requested scope and necessary prerequisites. For a whole-article request read the complete article and its headings. Return concrete locations where a reader lacks a prerequisite, an argument skips a step, a section repeats material, or a conclusion is hard to follow. Explain the reader impact and a bounded suggestion. Distinguish an editorial preference from an objectively demonstrable contradiction.
-
-Do not award numerical scores, claim optimal structure, require a preferred prose style, or turn advisory findings into a publication block. If you suspect a factual error, identify the statement and evidence needed for independent verification; do not assert it is false without support.
-
-Do not edit articles or quality records, run builds, or launch extra reviewers. Delegated work owns one document and returns a concise advisory report to the main agent. No prior scores or author self-assessment are needed.
+각 의견에는 원문 위치, 독자가 답하기 어려운 질문, 가장 작은 수정 제안을 붙인다. 개인 취향과 설명상 결손을 구분한다. 의심스러운 과학적 주장은 확인할 근거를 짚는다. 결과는 의견으로 반환하며, 문서·검증 기록 수정이나 점수·게시 판정은 이 작업에 포함하지 않는다.

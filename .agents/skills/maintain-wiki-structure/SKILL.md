@@ -1,24 +1,11 @@
 ---
 name: maintain-wiki-structure
-description: Maintain MkDocs navigation, page paths, titles, topic groups, indexes, and internal links in this scientific wiki. Use for adding, moving, renaming, reordering, or removing pages and navigation entries. Do not use for substantive scientific prose changes.
+description: MkDocs 메뉴·문서 경로·H1·description·색인·내부 링크를 추가하거나 정리한다.
 ---
 
-# Maintain Wiki Structure
+# 탐색 구조와 문서 경로
 
-Keep structural metadata separate from scientific content. Use the task-scoped context table in `AGENTS.md`, inspect affected navigation and links, and classify the requested change before editing. Do not load scientific research instructions for presentation work.
-
-## Change classes
-
-- Navigation-only: change labels or order in `mkdocs.yml`; do not touch `docs/`.
-- Presentation: change H1, description, path, index link text, or internal links without changing scientific claims.
-- Scientific: stop using this skill as the primary workflow and use the relevant writing or revision skill.
-
-## Workflow
-
-1. Preserve the three fixed scientific domains and their order. `Research Note`, when present, is a non-scientific support section after them.
-2. Keep H1, index link text, and navigation labels number-free. List order is the only ordering source.
-3. For page additions, moves, renames, or removals, update the affected nav entry and topic-group `index.md` in the same change. Keep index document lists title-only, without per-page summaries. For moves or renames, also update affected internal links and page-specific assets.
-4. After confirming that title, description, order and links preserve scientific meaning, use `./quality.sh sync --non-scientific <paths>` for the completed docs changes. Pending or failed science cannot be carried forward. A changed claim in a heading or description still requires factual review.
-5. For navigation-only work, run `./build.sh nav`. When a presentation file under `docs/` changed, synchronize once and run `./build.sh changed`. Then run `git diff --check` and inspect the final diff.
-
-Do not rewrite scientific prose or refresh citations merely because a page moved or its display title changed.
+- 문서는 `docs/<분야>/<주제 그룹>/`에 두고 경로는 영문 소문자 kebab-case로 쓴다. 그룹 색인은 첫 항목 `Overview`로 등록하고, 별도 개관 논문은 주제를 식별하는 이름을 쓴다.
+- 메뉴·색인에는 H1에서 유도한 짧은 영문 sentence case 제목만 둔다. 반복되는 그룹명은 줄이고 구분에 필요한 약어·고유명은 보존한다. 표시 순서는 YAML 목록에만 둔다. 연속 글은 권수보다 각 글의 주제로 구분한다.
+- 추가·이동·삭제·개명 시 메뉴와 그룹·분야 색인을 함께 확인한다. 그룹 색인은 공개된 모든 자식 페이지를 제목 링크로 나열한다. 이동한 페이지를 가리키는 내부 링크와 전용 그림의 상대 경로도 갱신한다.
+- 과학 문구를 바꾸지 않은 경로·제목 수정은 diff에서 의미 보존을 확인한다. 제목·설명·캡션이라도 주장이 바뀌면 과학적 변경이다. 메뉴만 수정했는지 본문 파일도 수정했는지에 따라 [검증 절차](../../../refs/quality/README.md)의 명령을 선택한다.

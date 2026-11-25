@@ -85,7 +85,7 @@ Inspect metadata and embedded text:
 
 ```bash
 python3 .agents/skills/acquire-scientific-images/scripts/inspect_candidate.py \
-  /tmp/candidate.svg \
+  experiment/candidate.svg \
   --expect register \
   --expect cache \
   --expect "main memory" \
@@ -97,16 +97,16 @@ Extract PDF page 6 as SVG:
 
 ```bash
 .agents/skills/acquire-scientific-images/scripts/extract_pdf_page.sh \
-  /tmp/source.pdf 6 /tmp/source-page-6.svg
+  experiment/source.pdf 6 experiment/source-page-6.svg
 ```
 
 Render an SVG preview:
 
 ```bash
-inkscape /tmp/candidate.svg \
+inkscape experiment/candidate.svg \
   --export-type=png \
   --export-width=1600 \
-  --export-filename=/tmp/candidate-preview.png
+  --export-filename=experiment/candidate-preview.png
 ```
 
 Validate a final SVG:

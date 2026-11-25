@@ -1,17 +1,10 @@
 ---
 name: evaluate-wiki-quality
-description: Coordinate factual verification, preserve valid evidence across meaning-preserving edits, register scoped findings, and run publication checks for this MkDocs wiki. No editorial scoring or minimum-length gate.
+description: 위키 변경의 검증 범위를 정하고 사실 기록을 등록하거나 최종 게시 검사를 실행한다.
 ---
 
-# Evaluate Wiki Quality
+# 품질 기록과 게시 검사
 
-The main agent owns synchronization, registration and final validation. Read `refs/quality/README.md` once for the canonical scope, schema, legacy transition and commands. Use `AGENTS.md` for task context bounds.
+[검증 절차](../../../refs/quality/README.md)에서 작업 유형에 맞는 경로를 따른다. 변경 범위는 마지막으로 검증한 본문에서 잡고, 독립 검토가 필요하면 `audit-wiki-references`에 최종 파일과 범위를 전달한다. 기록을 등록하기 전에 SHA, 근거, 미해결 항목을 확인한다. 내용이 다시 바뀌면 영향을 받는 항목만 다시 검토한다.
 
-1. For existing articles run `./quality.sh baseline <page>` and compare against the last verified version, including already committed changes. Identify changed claims and affected assumptions/conclusions. New articles or unrecoverable baselines need full claim coverage, not a full editorial assessment.
-2. Finish the authorized docs edits and inspect the diff. Sync the completed paths once. For a verified meaning-preserving change use `--non-scientific` (alias `--polish`) to carry prior evidence; otherwise require facts. Do not sync for reports or tooling-only work.
-3. Assign one independent `wiki_references` reviewer using `audit-wiki-references`, following `refs/subagent-execution.md`. Supply final article, baseline and neutral scope; no author verdict. Default to changed claims plus dependencies and reuse applicable evidence. Do not add a second quality assessor or an editorial rubric.
-4. Resolve factual findings only within authorized edit scope. On review-only tasks report errors without editing. Distinguish mismatch from insufficient or inaccessible evidence. If the article changes, verify the changed and dependent findings against the new SHA.
-5. Register the matching facts assessment with `./quality.sh review <page> --assessment <file>`. Do not override the independent verdict or accept an unsupported pass. Registration validates structure and hashes, not scientific truth.
-6. Run the scoped final build and `git diff --check`; use `./build.sh build` for whole-wiki publication. Render failures do not require repeating source review. Report scope, verified/reused/unverified evidence and actual check results without a quality score.
-
-For tooling changes run regression tests and one read-only whole-wiki publication gate; leave article metadata and historical evidence untouched. Read-only checks and reports must never write. Editorial feedback uses `assess-wiki-article` only when requested and is not a publication gate.
+최종 빌드는 이 단계에서 한 번 실행한다. 검사 요청만 받았다면 읽기 전용 명령으로 상태를 보고한다.

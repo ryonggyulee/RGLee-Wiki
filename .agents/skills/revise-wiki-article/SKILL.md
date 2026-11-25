@@ -1,22 +1,10 @@
 ---
 name: revise-wiki-article
-description: Revise a bounded part of an existing scientific wiki article while rechecking only affected claims, equations, conventions, and citations. Use for corrections, focused expansions, or localized scientific updates. Use research-and-write-wiki for a new article or a substantial rewrite.
+description: 기존 과학 문서의 특정 주장·수식·사례·인용을 고치거나 한 절을 확장한다.
 ---
 
-# Revise Wiki Article
+# 국소 개정
 
-Preserve unaffected prose and evidence. Read the current diff and follow the task-scoped context table in `AGENTS.md`. Read affected sections, prerequisite definitions and dependent conclusions; consult only the applicable sections of `refs/format.md` and `refs/research-workflow.md`. Expand to the full page when the dependency boundary is unclear.
+`./quality.sh baseline <문서>`로 마지막 검증본을 확인한다. 요청받은 절과 그 전제·기호 정의·종속 결론을 읽고, 의존 범위가 불명확할 때만 문서 전체로 넓힌다.
 
-## Workflow
-
-1. State the exact paragraphs, claims, equations, figures, headings, or references in scope. When headings or order are in scope, read H1–H3 alone and revise the outline until concise noun phrases reveal a consistent, progressive logical structure without body text.
-2. Inspect at least two independent authoritative sources for each changed nontrivial claim. Reuse an existing citation only after directly confirming that it supports the revised wording and remains independent from the other evidence.
-3. Reconcile terminology, symbols, units, signs, coordinates, and approximation limits with the unchanged article.
-4. Edit only the affected section and necessary transitions, references, links, or captions. Within that scope, state the governing concept, relation, or equation before its derivation, cases, procedures, exceptions, and limits.
-5. Use `$evaluate-wiki-quality`. Compare against the last verified version and verify changed claims plus dependent assumptions/conclusions. Meaning-preserving heading/order changes carry evidence with `sync --non-scientific`.
-
-Do not re-research or rewrite unaffected sections merely to make the page stylistically uniform.
-
-## Independent review handoff
-
-Return the fixed final version to the main agent for one independent factual reviewer under `refs/subagent-execution.md`. The reviewer returns factual findings, not editorial scores. Correct factual findings within authorized scope; main owns registration and final validation.
+[조사 원칙](../../../refs/research-workflow.md)으로 바뀐 주장을 대조한다. 기존 인용을 다시 쓸 때도 달라진 표현과 같은 범위를 지지하는지 확인한다. 기존 기호·용어와 [작성 형식](../../../refs/format.md)을 따라 해당 문단과 필요한 연결·그림 설명·참고문헌만 수정한다. 최종 diff와 재사용할 근거 범위를 `evaluate-wiki-quality`에 넘긴다.
